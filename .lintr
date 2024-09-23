@@ -1,0 +1,10 @@
+linters: linters_with_defaults(
+  defaults           = somaverse::soma_linters(),
+  object_name_linter = NULL    # too many FPs
+  )
+exclusions: list(
+  "R/plotPCAdims.R" = list(cyclocomp_linter = Inf),
+  "R/pcaPurify.R"   = list(cyclocomp_linter = Inf),
+  "tests/testthat/helper.R",
+  "tests/testthat.R"
+  )

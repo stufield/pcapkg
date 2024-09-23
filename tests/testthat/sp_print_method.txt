@@ -1,0 +1,10 @@
+══ Supervised Peel Object ══════════════════════════════════════════════════════
+  Original PCA             TRUE
+  Weighted PCA             TRUE
+  Un-weighted PCA          TRUE
+  Peeled PCA               TRUE
+  Centered Data            TRUE
+  Scaled Data              FALSE
+  Passed Features (len)    5 | 5 | 5 | 0 | 0
+  Log-Transformed          TRUE
+════════════════════════════════════════════════════════════════════════════════

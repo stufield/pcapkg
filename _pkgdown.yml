@@ -1,0 +1,73 @@
+url: https://confluence.sladmin.com/display/BITOOLS/somaverse
+
+home:
+  strip_header: true
+  links:
+  - text: Bitbucket
+    href: http://bitbucket.sladmin.com/projects/SV/repos/somapca/browse
+  - text: Report a bug
+    href: bitools@somalogic.com
+  - text: Learn more about SomaScan
+    href: http://www.somalogic.com
+
+template:
+  bootstrap: 5
+  bslib:
+    #bg: "#202123"      # dark theme
+    #fg: "#B8BCC2"      # dark theme
+    primary: "#0054AD"
+    border-radius: 0.5rem
+    btn-border-radius: 0.25rem
+    base_font: {google: "Roboto"}
+
+authors:
+  Amanda Hiser:
+    href: https://github.com/amanda-hi
+
+development:
+  mode: auto
+
+articles:
+  - title: Getting Started
+    navbar: ~
+    contents:
+    - SomaPCA
+
+reference:
+  - title: Perform PCA
+    desc: >
+      Two principle ways to implement principal component analysis (PCA).
+    contents:
+    - pca
+    - supervised_peel
+    - prcomp2
+
+  - title: Plotting
+    desc: Numerous plotting facilities for various components.
+    contents:
+    - plotPCAdims
+    - starts_with("plotPCA")
+    - starts_with("plot[PRS]")
+    - screeplotAUC
+    - -pca
+
+  - title: Get *
+    desc: >
+      Utilities for getting varous features of the decomposition.
+    contents:
+    - starts_with("get")
+
+  - title: Experimetnal
+    desc: Experimental features for future development.
+    contents:
+    - pcaPurify
+    - pcaAUC
+
+  - title: Data
+    desc: Package data objects.
+    contents:
+    - smvs
+    - sh_list
+
+news:
+  - one_page: true

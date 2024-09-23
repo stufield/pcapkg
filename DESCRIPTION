@@ -1,0 +1,50 @@
+Type: Package
+Package: SomaPCA
+Title: Perform PCA Analysis of Data
+Version: 0.0.1
+Authors@R: c(
+    person(given = "Stu",
+           family = "Field",
+           role = c("aut", "cre", "cph"),
+           email = "stu.g.field@gmail.com",
+           comment = c(ORCID = "0000-0002-1024-5859"))
+    )
+Description: This package contains the general functions
+    necessary for the unsupervised exploratory analysis of SOMAmer data
+    using Principal Component Analysis (PCA). Primary tools related to
+    calculation of principal components and the visualization of loadings
+    and projections of these components.
+License: GPL-3 | file LICENSE
+Depends:
+    R (>= 4.4.0),
+    globalr,
+    splyr
+Imports:
+    dplyr,
+    ggplot2,
+    gridExtra,
+    lifecycle,
+    rlang,
+    SomaPlotr,
+    tibble
+Suggests:
+    caTools,
+    knitr,
+    lintr,
+    MASS,
+    rmarkdown,
+    spelling,
+    SomaDataIO,
+    testthat,
+    tidyr,
+    viridisLite,
+    withr
+VignetteBuilder:
+    knitr
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+LazyLoad: true
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1

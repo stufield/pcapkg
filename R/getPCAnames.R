@@ -1,0 +1,32 @@
+#' Get PCA Names
+#'
+#' Determine the names of the features (rotation) or samples
+#' (projection) above/below a specified cutoff (value) in the
+#' principal component dimension specified by `dim`.
+#'
+#' @param x A `pca` class object. See [pca()].
+#' @param type Matched character. Either `"rotation"` or `"projection"`.
+#' @param dim Integer. Which PCA dimension to select.
+#' @param value Numeric. The value corresponding to the
+#'   dimension to interrogate for names.
+#' @return A character string corresponding to the feature names
+#'   that exceed `value` in the dimension `dim`.
+#' @author Stu Field
+#' @seealso [pca()]
+#' @examples
+#' pca <- pca(log10(sim_test_data))
+#'
+#' getPCAnames(pca, "r", 1, 0.1)      # feature names
+#'
+#' getPCAnames(pca, "p", value = 0.1) # sample names
+#' @importFrom dplyr filter
+#' @export
+getPCAnames <- function(x, type = c("rotation", "projection"),
+                        dim = 1, value) {
+  stopifnot(inherits(x, "pca"))
+  type <- match.arg(type)
+  dim  <- paste0("PC", dim)
+  var  <- ifelse(type == "rotation", "AptName", ".id")
+  gt_lt <- ifelse(value < 0, `<`, `>`)   # greater-than; less-than
+  dplyr::filter(x[[type]], gt_lt(!!rlang::sym(dim), value))[[var]]
+}

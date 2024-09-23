@@ -1,0 +1,121 @@
+---
+title: "Introduction to SomaPCA"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to SomaPCA}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+library(SomaPCA)
+library(SomaPlotr)
+library(ggplot2)
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>"
+)
+set.seed(101)
+```
+
+
+
+The `SomaPCA` package contains the general functions 
+necessary for the unsupervised exploratory analysis of SOMAmer data 
+using Principal Component Analysis (PCA). Primary tools related to
+calculation of principal components and the visualization of
+rotation (loadings) and projection spaces of these components.
+
+
+---------------
+
+
+## Useful functions in `SomaPCA`
+
+* `pca()`
+  + perform principal component analysis (PCA) on a data matrix
+  set of RFU values.
+* `supervised_peel()`
+  + peel away various components conditionally on specific
+  features (rotation space) of the data, resulting in `weighted` and `peeled`
+  components.
+* `plotScree()`
+  + generate a "scree"-plot of the top variances for a `pca` class object.
+* `plotRotation()`, `plotProjection()`
+  + plot specific rotation and projection space objects
+* `plotSampleHandling()`
+  + plot rotation and projection with known sample 
+  handling analytes highlighted.
+
+
+
+-----------
+
+
+## The PCA
+
+Perform principal component analysis (PCA) on a SomaLogic RFU data matrix,
+i.e. an ADAT, via the decomposition of the variance-covariance matrix (`SVD`).
+Some modification of the standard \code{\link[stats]{prcomp}}) is performed.
+Data transformations (e.g. centering and/or scaling) can be performed
+via its arguments.
+
+```{r pca}
+pr <- pca(log10(splyr:::sim_test_data))
+pr
+```
+
+## Plotting
+
+There are convenient plotting methods for both the
+`rotation` and `projection` spaces.
+
+### Rotation space
+
+```{r rotation, fig.width = 6, fig.height = 5}
+plot(pr, "r", identify = TRUE)
+```
+
+### Projection space
+
+```{r projection, fig.width = 6, fig.height = 5}
+plot(pr, "p", color = SiteId)                    # unquoted string!
+plot(pr, "p", color = SiteId, id.labels = id) +  # with labels
+  theme_soma(legend.position = "top")
+```
+
+### Combine rotation and projection
+
+```{r combo, fig.width = 8, fig.height = 4}
+rot  <- plot(pr, "r", identify = TRUE)
+proj <- plot(pr, "p", color = SiteId, id.labels = id) +
+  theme_soma(legend.position = "top")
+gridExtra::grid.arrange(rot, proj, ncol = 2L)
+```
+
+### Corresponding `Scree` plots
+
+```{r scree, fig.width = 8, fig.height = 5}
+a <- plotScree(pr, n = 10L)
+b <- plotScree(pr, n = 10L, type = "l")
+gridExtra::grid.arrange(a, b, ncol = 2)
+```
+
+### Plotting sample projections by meta-data
+
+A useful first pass of correlated variance by clinical meta data is quickly
+achieved via `plotProjectionMetaData()`.
+Since `supervised_peel()` is called under the hood, you *must* pass 
+an `aptamers =` argument via the `...`. In this example, subset the `MMPs`
+analytes.
+
+```{r proj-meta, fig.width = 8, fig.height = 3.5, eval = FALSE}
+mmps <- attributes(sample.adat)$Col.Meta |>
+  dplyr::filter(grepl("^MMP", EntrezGeneSymbol)) |>
+  dplyr::pull("SeqId") |>
+  paste0("seq.", .) |
+  gsub("-|_", ".", .)
+
+mmps
+
+plotProjectionMetaData(log10(sample.adat), aptamers = mmps)
+```
