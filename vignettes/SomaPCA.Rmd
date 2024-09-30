@@ -1,14 +1,14 @@
 ---
-title: "Introduction to SomaPCA"
+title: "Introduction to pcapkg"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to SomaPCA}
+  %\VignetteIndexEntry{Introduction to pcapkg}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include = FALSE}
-library(SomaPCA)
+library(pcapkg)
 library(SomaPlotr)
 library(ggplot2)
 knitr::opts_chunk$set(
@@ -19,7 +19,7 @@ set.seed(101)
 
 
 
-The `SomaPCA` package contains the general functions 
+The `pcapkg` package contains the general functions 
 necessary for the unsupervised exploratory analysis of SOMAmer data 
 using Principal Component Analysis (PCA). Primary tools related to
 calculation of principal components and the visualization of
@@ -29,7 +29,7 @@ rotation (loadings) and projection spaces of these components.
 ---------------
 
 
-## Useful functions in `SomaPCA`
+## Useful functions in `pcapkg`
 
 * `pca()`
   + perform principal component analysis (PCA) on a data matrix
@@ -53,8 +53,8 @@ rotation (loadings) and projection spaces of these components.
 
 ## The PCA
 
-Perform principal component analysis (PCA) on a SomaLogic RFU data matrix,
-i.e. an ADAT, via the decomposition of the variance-covariance matrix (`SVD`).
+Perform principal component analysis (PCA) on a 2-dim data matrix,
+via the decomposition of the variance-covariance matrix (`SVD`).
 Some modification of the standard \code{\link[stats]{prcomp}}) is performed.
 Data transformations (e.g. centering and/or scaling) can be performed
 via its arguments.

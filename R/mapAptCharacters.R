@@ -28,7 +28,7 @@
 #' @author Michael Mehan
 #' @examples
 #' # get the mmps
-#' ad <- SomaPCA:::getAnalyteInfo(sample.adat)
+#' ad <- pcapkg:::getAnalyteInfo(sample.adat)
 #' mmps <- filter(ad, grepl("^MMP", EntrezGeneSymbol))$SeqId |>
 #'   seqid2apt()
 #' # get the sps
@@ -36,7 +36,7 @@
 #'   seqid2apt()
 #'
 #' # Do cex and pch mapping
-#' ret <- mapAptCharacters(SomaPCA:::getAnalytes(sample.adat), sps, mmps)
+#' ret <- mapAptCharacters(pcapkg:::getAnalytes(sample.adat), sps, mmps)
 #'
 #' # Look at summary mappings
 #' sum(ret$mask)

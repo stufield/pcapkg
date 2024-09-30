@@ -31,7 +31,7 @@ articles:
   - title: Getting Started
     navbar: ~
     contents:
-    - SomaPCA
+    - pcapkg
 
 reference:
   - title: Perform PCA

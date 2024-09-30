@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# The `SomaPCA` package
+# The `pcapkg` package
 
 <!-- badges: start -->
 
@@ -15,8 +15,8 @@ GPL-3](https://img.shields.io/badge/License-GPL3-blue.svg)](https://www.gnu.org/
 
 ## Overview
 
-The `SomaPCA` package contains the general functions necessary for the
-unsupervised exploratory analysis of SOMAmer reagent data using
+The `pcapkg` package contains the general functions necessary for the
+unsupervised exploratory analysis 2-dim data matrix using
 Principal Component Analysis (PCA). The primary tools in this package
 are dedicated to either the calculation of principal components, or the
 visualization of loadings and projections of those components.

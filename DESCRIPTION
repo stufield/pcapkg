@@ -1,5 +1,5 @@
 Type: Package
-Package: SomaPCA
+Package: pcapkg
 Title: Perform PCA Analysis of Data
 Version: 0.0.1
 Authors@R: c(
@@ -14,7 +14,7 @@ Description: This package contains the general functions
     using Principal Component Analysis (PCA). Primary tools related to
     calculation of principal components and the visualization of loadings
     and projections of these components.
-License: GPL-3 | file LICENSE
+License: MIT + file LICENSE
 Depends:
     R (>= 4.4.0),
     globalr,

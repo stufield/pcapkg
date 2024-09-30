@@ -1,4 +1,4 @@
 library(testthat)
-library(SomaPCA)
+library(pcapkg)
 
-test_check("SomaPCA")
+test_check("pcapkg")

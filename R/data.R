@@ -18,7 +18,7 @@
 #' @rdname objects
 #' @source `smvs`: Mike Mehan
 #' @examples
-#' # ------ SomaPCA -------
+#' # ------ pcapkg -------
 #' lapply(smvs, head)
 "smvs"
 
