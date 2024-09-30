@@ -54,13 +54,9 @@ website.
 -----------------
 
 
-## Custom Installation
+## Installation
 
 It is possible to install a specific version of `pcapkg` 
-(i.e. one differing from your current installation of 
-[SLIDE](http://bitbucket.sladmin.com/projects/BFX/repos/slide/browse)),
-but it comes with a possible trade-off in the reproducibility of your work! 
-
 
 ```{r install-git, eval = FALSE}
 remotes::install_github("pcapkg")

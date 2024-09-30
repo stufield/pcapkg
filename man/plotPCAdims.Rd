@@ -100,11 +100,11 @@ and \code{\link[=plotProjection]{plotProjection()}}.
 pca <- centerScaleData(log10(sim_test_data), center = TRUE, scale = FALSE) |>
   stripMeta() |>
   prcomp2()
-scores <- withr::with_seed(101, rnorm(SomaPCA:::getAnalytes(sim_test_data, n = TRUE)))
+scores <- withr::with_seed(101, rnorm(pcapkg:::getAnalytes(sim_test_data, n = TRUE)))
 
 # Rotation space, with scores to define point colors
 plotPCAdims(pca, value = "r", dims = 1:2L, classes = NULL,
-            scores = rnorm(SomaPCA:::getAnalytes(sim_test_data, n = TRUE)))
+            scores = rnorm(pcapkg:::getAnalytes(sim_test_data, n = TRUE)))
 
 # Projection space, with classes to define point colors
 plotPCAdims(pca, value = "x", dims = 1:2L,

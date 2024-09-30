@@ -89,7 +89,7 @@ plotRotation(pca, col = "green")
 class <- withr::with_seed(123, sample(sim_test_data$class_response, 40L))
 plotRotation(pca, classes = class)
 
-apts <- withr::with_seed(123, sample(SomaPCA:::getAnalytes(sim_test_data), 10L))
+apts <- withr::with_seed(123, sample(pcapkg:::getAnalytes(sim_test_data), 10L))
 plotRotation(pca, aptamers = apts)
 }
 \seealso{
