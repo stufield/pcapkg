@@ -69,19 +69,7 @@
 plotSampleHandling <- function(data.prcomp, add.apts = NULL, samples,
                                filename = NULL, scale = 1, matrix.type,
                                dims = 1:2L, add.apt.col = "firebrick3",
-                               legend.pos = c(1, 1),
-                               legend.cex = deprecated(),
-                               legend.ncol = deprecated()) {
-
-  if ( is_present(legend.cex) ) {
-    deprecate_soft("3.4.0",
-                   "plotSampleHandling(legend.cex)")
-  }
-
-  if ( is_present(legend.ncol) ) {
-    deprecate_soft("3.4.0",
-                   "plotSampleHandling(legend.ncol)")
-  }
+                               legend.pos = c(1, 1)) {
 
   if ( inherits(data.prcomp, "supervised_peel") ) {
     stop(
@@ -162,7 +150,7 @@ plotSampleHandling <- function(data.prcomp, add.apts = NULL, samples,
           legend.text = element_text(size = rel(0.8)),
           legend.margin = margin(t = -0.1, l = 0.07, b = 0.07, r = 0.2,
                                  unit = "cm"),
-          legend.position = legend.pos,
+          legend.position.inside = legend.pos,
           legend.justification = legend.pos,
           legend.background = element_rect(color = "black",
                                            linewidth = 0.1))
@@ -178,13 +166,13 @@ plotSampleHandling <- function(data.prcomp, add.apts = NULL, samples,
           legend.text = element_text(size = rel(0.8)),
           legend.margin = margin(t = -0.1, l = 0.07, b = 0.07, r = 0.2,
                                  unit = "cm"),
-          legend.position = legend.pos,
+          legend.position.inside = legend.pos,
           legend.justification = legend.pos,
           legend.background = element_rect(color = "black",
                                            linewidth = 0.1)) +
     guides(color = "none")
 
-  f <- grid.arrange(p, r, ncol = 2)
+  f <- grid.arrange(p, r, ncol = 2L)
 
   if ( !is.null(filename) ) {
     ht <- 4.5

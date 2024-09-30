@@ -1,11 +1,16 @@
 withr::local_options(list(digits = 6L))
 
+seq2apt <- function(x) {
+  x <- vapply(strsplit(x, "_", fixed = TRUE), `[[`, i = 1L,  "")
+  paste0("seq.", sub("-", ".", x))
+}
+
 # Setup ----
 # create fake AptNames
 fake_AptName <- function(n = 1) {
   replicate(n, {
     paste0(sample(1000:9999, 1), "-", sample(1:99, 1)) |>
-      seqid2apt()
+      seq2apt()
   })
 }
 
