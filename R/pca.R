@@ -37,7 +37,7 @@ pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
     apt_data <- tibble::tibble(Feature = features)
   }
   not_feat <- setdiff(names(data), features)
-  meta     <- dplyr::select(data, not_feat) |>
+  meta     <- dplyr::select(data, all_of(not_feat)) |>
     structure(class = "data.frame") |>  # strip `soma_adat` class
     as_tibble(rownames = ".id")         #   (important for method dispatch below)
 
