@@ -29,8 +29,7 @@ pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
     if ( is.null(features) ) {
       features <- getAnalytes(data)
     }
-    apt_data <- getAnalyteInfo(data)
-    apt_data$Feature <- apt_data$TargetFullName
+    apt_data <- getAnalyteInfo(data) |> dplyr::rename(Feature = "TargetFullName")
   } else {
     if ( is.null(features) ) {
       stop("`features` must be passed", call. = FALSE)
@@ -141,7 +140,14 @@ plot.pca <- function(x, type = c("projection", "rotation"), dims = 1:2L,
   if ( type == "rotation" ) {
     x$rotation$Group <- "X"
   } else {
-    x$projection <- dplyr::mutate(x$projection, Group = !!rlang::enquo(color))
+    color2 <- tryCatch(eval(color), error = function(e) NULL) %||% rlang::enquo(color)
+    if ( is_chr(color2) ) {
+      warning("The `color` param should be a naked string!", call. = FALSE)
+      color2 <- str2lang(color2)
+    } else if ( rlang::quo_is_missing(color2) ) {
+      stop("The `color` param cannot be missing for projections.", call. = FALSE)
+    }
+    x$projection <- dplyr::mutate(x$projection, Group = !!color2)
     if ( !missing(id.labels) ) {
       identify  <- TRUE
       id.labels <- rlang::enquo(id.labels)

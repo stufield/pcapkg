@@ -2,7 +2,7 @@
 # Setup ------
 pca   <- pca(sim_test_data)
 scree <- plotScree(pca)
-apts  <- getAnalytes(sim_test_data)
+apts  <- getAnalyteInfo(sim_test_data)$TargetFullName
 p     <- length(apts)
 n     <- nrow(sim_test_data)
 meta  <- getMeta(sim_test_data)
@@ -26,10 +26,11 @@ test_that("the `pca` function returns the correct projection element", {
 
 test_that("the `pca` function returns the correct rotation element", {
   expect_s3_class(pca$rotation, "tbl_df")
-  expect_equal(pca$rotation$AptName, apts)
+  expect_equal(pca$rotation$Feature, apts)
   expect_equal(dim(pca$rotation), c(p, ncol(getAnalyteInfo(sim_test_data)) + min(n, p)))
   expect_true(all(paste0("PC", 1:p) %in% names(pca$rotation)))
-  expect_equal(names(getAnalyteInfo(sim_test_data)),
+  tbl <- dplyr::rename(getAnalyteInfo(sim_test_data), Feature = "TargetFullName")
+  expect_equal(names(tbl),
                names(dplyr::select(pca$rotation, -starts_with("PC"))) # nolint
   )
 })
@@ -51,9 +52,9 @@ test_that("the data from the `plotScree` call has the correct values", {
   expect_s3_class(scree$data, "tbl_df")
   expect_equal(dim(scree$data), c(15, 4))
   expect_named(scree,
-               c("data", "layers", "scales",
+               c("data", "layers", "scales", "guides",
                  "mapping", "theme", "coordinates",
-                 "facet", "plot_env", "labels"))
+                 "facet", "plot_env", "layout", "labels"))
   expect_named(scree$data, c("Component", "value", "y", "cum_perc"))
   scree_data <- dplyr::select_if(scree$data, is.numeric) |> colSums()
   expect_equal(scree_data, c(Component = 120,
