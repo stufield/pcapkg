@@ -66,10 +66,10 @@
 #' @author Michael Mehan, Amanda Hiser
 #' @seealso [pca()], [supervised_peel()]
 #' @examples
-#' pca <- centerScaleData(log10(sim_test_data), center = TRUE, scale = FALSE) |>
-#'   stripMeta() |>
+#' pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
+#'   strip_meta() |>
 #'   prcomp2()
-#' tr <- SomaClassify::convert2TrainingData(sim_test_data, group.var = "class_response")
+#' tr <- libml::create_train(sim_test_data, group.var = class_response)
 #' apts <- withr::with_seed(1, sample(getAnalytes(sim_test_data), 10L))
 #' plotPeelWrapper(pca, tr.data = tr, aptamers = apts)
 #'

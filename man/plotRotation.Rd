@@ -81,8 +81,8 @@ Plot the features from a PCA rotation in a 2-dimensional scatter plot.
 }
 }
 \examples{
-pca <- centerScaleData(log10(sim_test_data), center = TRUE, scale = FALSE) |>
-  stripMeta() |>
+pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
+  strip_meta() |>
   prcomp2()
 plotRotation(pca, col = "green")
 

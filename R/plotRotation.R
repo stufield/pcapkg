@@ -33,8 +33,8 @@
 #' @param ... Additional arguments passed to [plotPCAdims()].
 #' @author Michael Mehan
 #' @examples
-#' pca <- centerScaleData(log10(sim_test_data), center = TRUE, scale = FALSE) |>
-#'   stripMeta() |>
+#' pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
+#'   strip_meta() |>
 #'   prcomp2()
 #' plotRotation(pca, col = "green")
 #'

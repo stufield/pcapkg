@@ -12,8 +12,8 @@
 #' @param ... Additional arguments passed to [plotPCAdims()].
 #' @author Michael Mehan, Amanda Hiser
 #' @examples
-#' pca <- centerScaleData(log10(sim_test_data), center = TRUE, scale = FALSE) |>
-#'   stripMeta() |>
+#' pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
+#'   strip_meta() |>
 #'   prcomp2()
 #'
 #' # Define color of points

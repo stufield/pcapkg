@@ -45,7 +45,7 @@
 #'     \item{orig_data}{The original data matrix}
 #'     \item{call}{The matched call}
 #' @author Michael Mehan, Stu Field
-#' @seealso [stats::prcomp()], [centerScaleData()]
+#' @seealso [stats::prcomp()], [center_scale()]
 #' @examples
 #' sim <- log10(sim_test_data)
 #' sim$Response <- factor(sim$class_response)  # must add Response column (plotting)
@@ -84,11 +84,11 @@ supervised_peel <- function(data, aptamers,
   }
 
   # Perform centering and scaling outside of `prcomp2()`
-  scaled_data <- centerScaleData(data, center = center, scale = scale) |>
-    stripMeta()
+  scaled_data <- center_scale(data, center = center, scale = scale) |>
+    strip_meta()
 
   # careful here, we need to keep the rownames
-  # but there is a as_tibble() call in centerScaleData()
+  # but there is a as_tibble() call in center_scale()
   # must keep rownames -> rownames check below
   stopifnot(all(rownames(scaled_data) == rownames(data)))
 
@@ -131,7 +131,7 @@ supervised_peel <- function(data, aptamers,
   # Undo the center/scaling
   # Hack the object here as if it were the old applyCenterScale() -> undoCenterScale()
   # I'm not sure here we actually want to log() the reference; double-log danger
-  ref <- log(stripMeta(data))
+  ref <- log(strip_meta(data))
   tbl <- tibble(AptName = getAnalytes(data),
                 means   = colMeans(ref),
                 sds     = apply(ref, 2, stats::sd))

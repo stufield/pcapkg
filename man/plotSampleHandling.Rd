@@ -13,9 +13,7 @@ plotSampleHandling(
   matrix.type,
   dims = 1:2L,
   add.apt.col = "firebrick3",
-  legend.pos = c(1, 1),
-  legend.cex = deprecated(),
-  legend.ncol = deprecated()
+  legend.pos = c(1, 1)
 )
 }
 \arguments{
@@ -78,8 +76,8 @@ new_seqs <- c(
   "seq.2242.51"    # complement activation
 )
 names(data)[31:33L] <- new_seqs   # assign into 'noise' apts
-pca <- centerScaleData(data, center = TRUE, scale = FALSE) |>
-  stripMeta() |>
+pca <- center_scale(data, center = TRUE, scale = FALSE) |>
+  strip_meta() |>
   prcomp2()
 
 plotSampleHandling(pca, samples = data$class_response, matrix.type = "p")

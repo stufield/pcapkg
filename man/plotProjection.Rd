@@ -48,8 +48,8 @@ Plot the samples from a PCA projection in a 2-dimensional
 scatter plot.
 }
 \examples{
-pca <- centerScaleData(log10(sim_test_data), center = TRUE, scale = FALSE) |>
-  stripMeta() |>
+pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
+  strip_meta() |>
   prcomp2()
 
 # Define color of points

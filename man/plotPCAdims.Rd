@@ -97,8 +97,8 @@ and \code{\link[=plotProjection]{plotProjection()}}.
 }
 \examples{
 # Prepare data
-pca <- centerScaleData(log10(sim_test_data), center = TRUE, scale = FALSE) |>
-  stripMeta() |>
+pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
+  strip_meta() |>
   prcomp2()
 scores <- withr::with_seed(101, rnorm(pcapkg:::getAnalytes(sim_test_data, n = TRUE)))
 

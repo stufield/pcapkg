@@ -1,6 +1,6 @@
 # Setup ----------
-pca <- centerScaleData(log10(sim_test_data), center = TRUE, scale = FALSE) |>
-  stripMeta() |>
+pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
+  strip_meta() |>
   prcomp2()
 scores <- withr::with_seed(101, rnorm(getAnalytes(sim_test_data, n = TRUE)))
 p_classes <- sim_test_data$class_response

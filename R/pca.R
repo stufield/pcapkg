@@ -52,8 +52,8 @@ pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
 
   # Perform centering and scaling outside of `prcomp2()`
   if ( inherits(data, "soma_adat") ) {
-    scaled_data <- centerScaleData(data, center = center, scale = scale) |>
-      stripMeta()
+    scaled_data <- center_scale(data, center = center, scale = scale) |>
+      strip_meta()
   } else {
     scaled_data <- as.matrix(data[, features])
   }

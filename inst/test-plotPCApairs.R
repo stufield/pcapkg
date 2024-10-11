@@ -1,11 +1,10 @@
 # Setup ----------
-tr <- SomaClassify::convert2TrainingData(sim_test_data,
-                                         group.var = class_response) |>
+tr <- libml::create_train(sim_test_data, group.var = class_response) |>
   ungroup() |>
   log10() |>
-  centerScaleData(center = TRUE, scale = FALSE)
+  center_scale(center = TRUE, scale = FALSE)
 pca <- ungroup(tr) |>
-  stripMeta() |>
+  strip_meta() |>
   prcomp2()
 apts <- withr::with_seed(123, sample(getAnalytes(sim_test_data), 5L))
 apts2 <- withr::with_seed(678, sample(getAnalytes(sim_test_data), 5L))

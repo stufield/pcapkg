@@ -23,9 +23,9 @@
 #' @param ... Arguments passed to either [plotRotation()] or [plotProjection()].
 #' @author Michael Mehan, Amanda Hiser
 #' @examples
-#' tr <- SomaClassify::convert2TrainingData(sim_test_data, group.var = class_response) |>
-#'   ungroup() |> log10() |> centerScaleData(center = TRUE, scale = FALSE)
-#' pca <- ungroup(tr) |> stripMeta() |> prcomp2()
+#' tr <- libml::create_train(sim_test_data, group.var = class_response) |>
+#'   ungroup() |> log10() |> center_scale(center = TRUE, scale = FALSE)
+#' pca <- ungroup(tr) |> strip_meta() |> prcomp2()
 #' apts <- withr::with_seed(123, sample(getAnalytes(sim_test_data), 10L))
 #'
 #' # Default colors w/ marked aptamers

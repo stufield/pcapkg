@@ -1,7 +1,7 @@
 # Setup ----------
 withr::with_seed(123, {
-  pca <- centerScaleData(log10(sim_test_data), center = TRUE, scale = FALSE) |>
-    stripMeta() |> prcomp2()
+  pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
+    strip_meta() |> prcomp2()
   class <- sample(sim_test_data$class_response, 40L)
   all_apts <- getAnalytes(sim_test_data)
   apts1 <- all_apts[1:3]

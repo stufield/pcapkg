@@ -8,8 +8,8 @@ new_seqs <- c(
   "seq.2242.51"    # complement activation
 )
 names(data)[31:33L] <- new_seqs   # assign into 'noise' apts
-pca <- centerScaleData(data, center = TRUE, scale = FALSE) |>
-  stripMeta() |>
+pca <- center_scale(data, center = TRUE, scale = FALSE) |>
+  strip_meta() |>
   prcomp2()
 
 # Testing ----------

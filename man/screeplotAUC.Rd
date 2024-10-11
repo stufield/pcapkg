@@ -34,8 +34,8 @@ to the AUC of the corresponding classes in a specified
 training response vector.
 }
 \examples{
-pca <- centerScaleData(log10(sim_test_data), center = TRUE, scale = FALSE) |>
-  stripMeta() |>
+pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
+  strip_meta() |>
   prcomp2()
 screeplotAUC(pca, sim_test_data$class_response, main = "My ScreePlot by AUC")
 }
