@@ -1,9 +1,9 @@
 
-getSeqId <- getFromNamespace("getSeqId", "SomaDataIO")
-matchSeqIds <- getFromNamespace("matchSeqIds", "SomaDataIO")
-getMeta <- getFromNamespace("getMeta", "SomaDataIO")
-getAnalytes <- getFromNamespace("getAnalytes", "SomaDataIO")
-getAnalyteInfo <- getFromNamespace("getAnalyteInfo", "SomaDataIO")
+getSeqId <- getFromNamespace("getSeqId", "globalr")
+matchSeqIds <- getFromNamespace("matchSeqIds", "globalr")
+getMeta <- getFromNamespace("getMeta", "globalr")
+getAnalytes <- getFromNamespace("getAnalytes", "globalr")
+getAnalyteInfo <- getFromNamespace("getAnalyteInfo", "globalr")
 
 col_string <- c("dodgerblue", "red", "darkgreen", "darkorchid4", "cyan",
                 "orange", "black", "grey", "#990066", "green", "#24135F")

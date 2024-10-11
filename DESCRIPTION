@@ -34,7 +34,6 @@ Suggests:
     MASS,
     rmarkdown,
     spelling,
-    SomaDataIO,
     testthat,
     tidyr,
     viridisLite,
