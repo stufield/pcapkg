@@ -31,10 +31,6 @@
 #' @param add.apt.col Character. The color to be used for the additional apts
 #'   specified in `add.apts` argument.
 #' @param legend.pos Coordinates of the two legends, in `c(0, 0)` format. See Details.
-#' @param legend.cex Deprecated. Character expansion for the two legends in order
-#'   of `c("projection", "rotation")`.
-#' @param legend.ncol Deprecated. Number of columns for the two legends in order
-#'   of `c("projection", "rotation")`.
 #' @return A sample handling plot.
 #' @author Stu Field, Amanda Hiser
 #' @seealso [points()]

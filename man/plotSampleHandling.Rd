@@ -44,12 +44,6 @@ the same for the projection and rotation.}
 specified in \code{add.apts} argument.}
 
 \item{legend.pos}{Coordinates of the two legends, in \code{c(0, 0)} format. See Details.}
-
-\item{legend.cex}{Deprecated. Character expansion for the two legends in order
-of \code{c("projection", "rotation")}.}
-
-\item{legend.ncol}{Deprecated. Number of columns for the two legends in order
-of \code{c("projection", "rotation")}.}
 }
 \value{
 A sample handling plot.
