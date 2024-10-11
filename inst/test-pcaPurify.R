@@ -1,9 +1,9 @@
 # Setup ----------
-tr <- SomaClassify::convert2TrainingData(sample.adat, "SampleGroup")
+tr <- libml::create_train(sample.adat, group.var = SampleGroup)
 sh <- getSeqId(unique(unlist(sapply(smvs, names))), trim.version = TRUE) # nolint
 sh <- unique(c(sh, getSeqId(unique(unlist(sh_list)), trim.version = TRUE)))
 sh <- matchSeqIds(sh, names(tr))
-tr <- dplyr::select(tr, all_of(sh), Response)
+tr <- dplyr::select(tr, dplyr::all_of(sh), SampleGroup)
 
 # Testing ----------
 test_that("pcaPurify() returns aptamers and mu scores", {

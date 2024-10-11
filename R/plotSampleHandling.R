@@ -91,7 +91,7 @@ plotSampleHandling <- function(data.prcomp, add.apts = NULL, samples,
 
   matrix.type  <- match.arg(matrix.type, c("plasma", "serum"))
   pca_apts     <- rownames(data.prcomp$rotation)
-  pca_apts     <- addClass(pca_apts, matrix.type)  # for the S3 method next
+  pca_apts     <- add_class(pca_apts, matrix.type)  # for the S3 method next
   apt_list     <- getHandlingList(apts = pca_apts, add.apts = add.apts)
   legend_names <- c("Cell Lysis", "Platelet Activation", "Complement Activation")
 

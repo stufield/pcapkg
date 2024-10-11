@@ -20,7 +20,7 @@
 #' @examples
 #' pca <- pca(log10(sim_test_data))
 #' @seealso [prcomp2()]
-#' @importFrom dplyr ungroup left_join select
+#' @importFrom dplyr ungroup left_join select all_of rename
 #' @importFrom tibble as_tibble
 #' @export
 pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
@@ -29,7 +29,7 @@ pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
     if ( is.null(features) ) {
       features <- getAnalytes(data)
     }
-    apt_data <- getAnalyteInfo(data) |> dplyr::rename(Feature = "TargetFullName")
+    apt_data <- getAnalyteInfo(data) |> rename(Feature = "TargetFullName")
   } else {
     if ( is.null(features) ) {
       stop("`features` must be passed", call. = FALSE)
@@ -45,9 +45,7 @@ pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
   stopifnot(".id" %in% names(meta))
 
   if ( inherits(data, "grouped_df") ) {
-    # if `tr_data` object -> use `ungroup::tr_data()` method
-    #   makes c("soma_adat", "data.frame")
-    data <- dplyr::ungroup(data)
+    data <- ungroup(data)
   }
 
   # Perform centering and scaling outside of `prcomp2()`

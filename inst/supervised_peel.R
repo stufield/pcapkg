@@ -161,7 +161,7 @@ supervised_peel <- function(data, aptamers,
                           aptamers5 = aptamers5),
        orig_data   = data,
        call = .call) |>
-    addClass("supervised_peel")
+    add_class("supervised_peel")
 }
 
 #' @describeIn supervised_peel

@@ -33,13 +33,13 @@
 #' @seealso [supervised_peel()]
 #' @examples
 #' \dontrun{
-#'   tr <- SomaClassify::convert2TrainingData(sample.adat, "SampleGroup")
+#'   tr <- libml::create_train(sample.adat, group.var = SampleGroup)
 #'   sh <- getSeqId(unique(unlist(sapply(smvs, names))), trim.version = TRUE)
 #'   sh <- unique(c(sh, getSeqId(unique(unlist(sh_list)), trim.version = TRUE)))
 #'   sh <- matchSeqIds(sh, names(tr))
 #'
 #'   # Small iter, for example
-#'   purify <- dplyr::select(tr, all_of(sh), Response) |>
+#'   purify <- dplyr::select(tr, dplyr::all_of(sh), SampleGroup) |>
 #'     pcaPurify(sh_list$plasmaLysis, max.iter = 5)
 #' }
 #' @importFrom graphics points
