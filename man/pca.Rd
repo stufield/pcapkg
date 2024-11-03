@@ -28,8 +28,7 @@ plotScree(
 )
 }
 \arguments{
-\item{data}{A \code{soma_adat} class object or data frame containing
-SOMAmer reagent RFU data.}
+\item{data}{A \code{data.frame} or \code{tibble} class object.}
 
 \item{features}{Which colunns are the features.}
 
@@ -65,8 +64,8 @@ to PCA in correlation space as opposed to covariance space.}
 An object of class \code{pca}, similar to \code{\link[=prcomp]{prcomp()}}.
 }
 \description{
-Perform principal component analysis (PCA) on a SomaLogic RFU data matrix,
-i.e. an ADAT, via the decomposition of the variance-covariance matrix (\code{SVD}).
+Perform principal component analysis (PCA) on a proteomic data matrix,
+via the decomposition of the variance-covariance matrix (\code{SVD}).
 Some modification of the standard \code{\link[=prcomp]{prcomp()}} is performed.
 Data transformations (e.g. centering and/or scaling) can be performed
 via its arguments.

@@ -9,7 +9,7 @@
 #' @noRd
 peel_pca_dims <- function(data, data.prcomp, dims) {
   for ( peel.dim in dims ) {
-    new_peel <- apply(data, 1, peelPCA, data.prcomp$rotation[, peel.dim])
+    new_peel <- apply(data, 1, peel_pca, data.prcomp$rotation[, peel.dim])
   }
   data.frame(t(new_peel))
 }

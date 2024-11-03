@@ -1,13 +1,12 @@
 #' Principal Component Analysis
 #'
-#' Perform principal component analysis (PCA) on a SomaLogic RFU data matrix,
-#' i.e. an ADAT, via the decomposition of the variance-covariance matrix (`SVD`).
+#' Perform principal component analysis (PCA) on a proteomic data matrix,
+#' via the decomposition of the variance-covariance matrix (`SVD`).
 #' Some modification of the standard [prcomp()] is performed.
 #' Data transformations (e.g. centering and/or scaling) can be performed
 #' via its arguments.
 #'
-#' @param data A `soma_adat` class object or data frame containing
-#'   SOMAmer reagent RFU data.
+#' @param data A `data.frame` or `tibble` class object.
 #' @param features Which colunns are the features.
 #' @param center Logical. Should the features/variables be zero centered
 #'   prior to decomposition? In general this should be performed so that
@@ -88,7 +87,7 @@ pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
 #'
 #' @export
 print.pca <- function(x, ...) {
-  writeLines(signal_rule("SomaLogic PCA Object", line_col = "blue"))
+  writeLines(signal_rule("PCA Object", line_col = "blue"))
   key   <- c("Rotation", "Projection", "Projection variables") |> pad(25)
   value <- c(paste0(dim(x$rotation), collapse = " x "),
              paste0(dim(x$projection), collapse = " x "),
@@ -126,7 +125,7 @@ print.pca <- function(x, ...) {
 #' plot(pca, "p", color = class_response, id.labels = id) # label points
 #' plot(pca, "p", color = class_response, alpha = 0.5)    # adjust point alpha
 #' @importFrom dplyr arrange filter mutate desc pull
-#' @importFrom ggplot2 ggplot aes labs geom_point geom_text
+#' @importFrom ggplot2 ggplot aes labs geom_point geom_text discrete_scale theme
 #' @export
 plot.pca <- function(x, type = c("projection", "rotation"), dims = 1:2L,
                      color, identify = FALSE, id.labels, ...) {
@@ -160,9 +159,9 @@ plot.pca <- function(x, type = c("projection", "rotation"), dims = 1:2L,
                              color = Group)) +
     geom_point(size = 2.5, alpha = 0.6, ...) +
     labs(x = labels[1L], y = labels[2L]) +
-    SomaPlotr::scale_color_soma() +
-    SomaPlotr::theme_soma(legend.position = ifelse(type == "rotation",
-                                                   "none", "right"))
+    discrete_scale("color", palette = function(n) 
+                   rep_len(unlist(col_palette, use.names = FALSE), length.out = n)) +
+    ggplot2::theme(legend.position = ifelse(type == "rotation", "none", "right"))
 
   if ( identify ) {
     if ( type == "rotation" ) {

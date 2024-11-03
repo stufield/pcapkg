@@ -3,7 +3,7 @@
 #' Plots either the projection or the loadings (rotation) of
 #'   `"prcomp"` object. This is a base function that is
 #'   wrapped into driver parent functions in the plotting of
-#'   principal components, most notably [plotRotation()]
+#'   principal components, most notably [plot_rotation()]
 #'   and [plot_projection()].
 #'
 #' @family PCA plots
@@ -30,19 +30,14 @@
 #'   both the `classes` and `scores` parameters above.
 #' @param xlab Character. A string indicating the label of the x axis.
 #' @param ylab Character. A string indicating the label of the y axis.
-#' @param do.legend Deprecated. Should a legend be plotted? Particularly
-#'   for a projection.
 #' @param legend.pos Character. Position of the legend, if plotted.
 #'   Options include "left", "right", "bottom", or "top", or "none"
 #'   if no legend is desired. Ignored if `value = "r"` (rotation) and
 #'   classes are not specified.
 #' @param xlim Numeric. Optional limits for the x-axis in the format `c(0, 0)`.
 #' @param ylim Numeric. Optional limits for the y-axis in the format `c(0, 0)`.
-#' @param colors Deprecated. A string of colors for the points.
-#'   If `NULL`, reverts to a default palette string.
 #' @param pt.cex Numeric. Character expansion for the points.
 #' @param pt.pch Numeric. Shape of the points. Accepted values are 0-25.
-#' @param pt.bg Deprecated. Background color for the points.
 #' @param add.ellipse Logical. Should an ellipse be added to the
 #'   rotation? Ignored if `value = "x"` (projection).
 #' @return A points plot of either rotation or projection space.
@@ -65,7 +60,7 @@
 #'               classes = sim_adat$class_response)
 #' @importFrom graphics plot points identify abline
 #' @importFrom utils head
-#' @importFrom ggplot2 ggplot aes theme rel labs element_text
+#' @importFrom ggplot2 ggplot aes theme rel labs element_text discrete_scale
 #' @importFrom ggplot2 geom_hline geom_vline geom_point stat_ellipse
 #' @importFrom ggplot2 scale_color_manual scale_size_identity ylim xlim
 #' @export
@@ -170,7 +165,6 @@ plot_pca_dims <- function(data.prcomp, value = c(NA, "rotation", "x"),
   p <- ggplot(plot.data, aes(x = x, y = y, color = class)) +
     geom_point(size = pt.cex, shape = pt.pch, ...) +
     labs(title = main, x = xlab, y = ylab) +
-    SomaPlotr::theme_soma() +
     theme(legend.position = legend.pos,
           legend.title = element_blank(),
           plot.title = element_text(face = "bold", hjust = 0.5,
@@ -181,7 +175,9 @@ plot_pca_dims <- function(data.prcomp, value = c(NA, "rotation", "x"),
   if ( !is.null(col) || !is.null(scores) ) {
     p <- p + scale_color_manual(values = unname(col))
   } else if ( is.null(col) ) {
-    p <- p + SomaPlotr::scale_color_soma()
+    p <- p + discrete_scale("color", palette = function(n)
+                            rep_len(unlist(col_palette, use.names = FALSE),
+                                    length.out = n))
   }
 
   if ( value == "rotation" ) {

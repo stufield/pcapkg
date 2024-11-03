@@ -3,11 +3,14 @@ get_seq  <- function(x) sub("\\.", "-", sub("^seq\\.", "", x))
 add_seq <- getFromNamespace("add_seq", "helpr")
 get_analytes <- getFromNamespace("get_analytes", "helpr")
 get_meta <- getFromNamespace("get_meta", "helpr")
+cf = SomaDataIO::addClass
 
 get_col_meta <- function(x) {
   attr(x, "Col.Meta") %||% tibble::tibble(feature = get_analytes(x))
 }
 
+#' @importFrom tibble tibble
+#' @noRd
 match_seq <- function(x, y) {
   xtbl <- tibble(x = x, seq = get_seq(x))
   ytbl <- tibble(y = as.character(y), seq = get_seq(y))  # rm class

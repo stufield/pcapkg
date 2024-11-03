@@ -14,7 +14,7 @@
 #' generating plots for >5 iterations can be slow.
 #'
 #' @param tr.data A `tr_data` object with a "Response" column containing
-#'   the `true` class names. See `SomaClassify::convert2TrainingData()`.
+#'   the `true` class names. See `calcr::create_train()`.
 #' @param features Character. A string of possible features
 #'   to initiate the search.
 #' @param max.iter Integer. The maximum number of iterations to run.
@@ -29,7 +29,6 @@
 #'     iteration}
 #' Also plots the progress of each iteration with a rotation
 #'   space (i.e. loadings) plot.
-#' @author Mike Mehan, Amanda Hiser
 #' @seealso [supervised_peel()]
 #' @examples
 #' \dontrun{
@@ -87,24 +86,18 @@ pcaPurify <- function(tr.data, features, max.iter = 10L, start.size = 30L,
     plot_data  <- data.frame(x = seq_len(length(mean_score)),
                              y = mean_score)
     iter       <- ggplot(plot_data, aes(x = x, y = y))
-    col        <- ifelse(apts %in% cur_apts,
-                         SomaPlotr::soma_colors2$blue,
-                         "chocolate1")
+    col        <- ifelse(apts %in% cur_apts, col_palette$blue, "chocolate1")
 
     # geom_line produces error when only 1 data point present
     if ( count > 1 ) {
       iter <- iter + geom_line(aes(group = 1),
-                               color = SomaPlotr::soma_colors2$blue)
+                               color = col_palette$blue)
     }
 
     # Create iteration dot/line plot
     iter <- iter +
-      geom_point(color = SomaPlotr::soma_colors2$blue,
-                 size = 2, shape = pch, fill = "white") +
-      labs(title = sprintf("Iteration %i", count),
-           x = "Iteration",
-           y = "Mean Score") +
-      SomaPlotr::theme_soma() +
+      geom_point(color = col_palette$blue, size = 2, shape = pch, fill = "white") +
+      labs(title = sprintf("Iteration %i", count), x = "Iteration", y = "Mean Score")
       scale_y_continuous(labels = function(x) format(x, digits = 2)) +
       theme(plot.title   = element_text(hjust = 0.5, size = rel(0.7),
                                         face = "bold"),
@@ -116,7 +109,7 @@ pcaPurify <- function(tr.data, features, max.iter = 10L, start.size = 30L,
             axis.ticks.length = unit(0.1, "cm"))
 
     # Create 1st rotation plot (dims 1 & 2)
-    rot1 <- plotRotation(curPCA, col = col, pt.cex = 1, lab.cex = rel(2)) +
+    rot1 <- plot_rotation(curPCA, col = col, pt.cex = 1, lab.cex = rel(2)) +
       theme(plot.title   = element_text(hjust = 0.5, size = rel(0.7)),
             panel.grid   = element_blank(),
             panel.border = element_rect(fill = NA),
@@ -140,7 +133,7 @@ pcaPurify <- function(tr.data, features, max.iter = 10L, start.size = 30L,
     }
 
     # Create 2nd rotation plot (dims 2 & 3)
-    rot2 <- plotRotation(curPCA, col = col, dims = c(2, 3),
+    rot2 <- plot_rotation(curPCA, col = col, dims = c(2, 3),
                          pt.cex = 1, lab.cex = rel(2)) +
       scale_y_continuous(labels = function(x) format(x, digits = 1)) +
       theme(plot.title   = element_text(hjust = 0.5, size = rel(0.7)),

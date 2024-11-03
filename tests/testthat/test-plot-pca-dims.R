@@ -48,7 +48,7 @@ test_that("plot_pca_dims(add.ellipse = TRUE) adds an ellipse for each class", {
 })
 
 test_that("plot_pca_dims() colors points when a vector is provided to 'col'", {
-  col_vec <- withr::with_seed(345, unlist(sample(SomaPlotr::soma_colors,
+  col_vec <- withr::with_seed(345, unlist(sample(col_palette,
                                                  nrow(pca$rotation),
                                                  replace = TRUE)))
   expect_snapshot_plot(

@@ -1,7 +1,8 @@
 # Inspired by `expect_snapshot_file()` documentation
 save_png <- function(code, ..., gg = TRUE) {
-  path <- SomaPlotr::figure(tempfile(fileext = ".png"), ...)
-  on.exit(SomaPlotr::close_figure(path))
+  path <- tempfile(fileext = ".png")
+  png(path, height = 480, width = 480, ...)
+  on.exit(grDevices::dev.off())
   if ( gg ) {
     print(force(code))
   } else {

@@ -2,7 +2,7 @@
 #'
 #' Map a series of vectors containing feature lists such that each
 #' list is mapped to a specific point character (`pch`) value for
-#' downstream plotting (e.g. [plotRotation()].
+#' downstream plotting (e.g. [plot_rotation()].
 #' Additionally, character expansion (`cex`) is also mapped if `> 2` aptamer
 #' lists are passed. A masking of `TRUE/FALSE` is also returned that
 #' is used in the weighted PCA.

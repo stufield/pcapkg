@@ -52,7 +52,6 @@ screeplot_auc <- function(data.prcomp, auc.classes, auc.proj = NULL, main = NULL
              color = "black", linewidth = 0.3, ...) +
     labs(x = NULL, title = main) +
     scale_fill_manual(values = cols) +
-    SomaPlotr::theme_soma() +
     theme(legend.position = "none",
           plot.title = element_text(face = "bold", hjust = 0.5,
                                     size = rel(1)))

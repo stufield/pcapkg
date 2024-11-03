@@ -51,7 +51,7 @@
 #'   (rotation) plots.
 #' @param apt.classes A vector the same length as aptamers to color the points
 #'   in the rotation.
-#' @param apt.auto.ident Logical. See [plotRotation()].
+#' @param apt.auto.ident Logical. See [plot_rotation()].
 #' @param apt.xlim Numeric. Optional limits for the rotation x-axis in
 #'   the format `c(0, 0)`.
 #' @param apt.ylim Numeric. Optional limits for the rotation y-axis in

@@ -14,13 +14,13 @@
 #' @param tr.data Optional data frame of class `tr_data`.
 #'   Used to generate `apt.scores`. If `sample.classes`
 #'   is _not_ passed, the "Response" column is used to color the projection.
-#' @param apt.scores See `scores =` argument in [plotRotation()].
+#' @param apt.scores See `scores =` argument in [plot_rotation()].
 #' @param sample.classes See `classes =` argument in [plot_projection()].
 #' @param sample.scores See `scores =` argument in [plot_projection()].
-#' @param apt.col See `col =` argument in [plotRotation()].
-#' @param apt.classes See `classes =` argument in [plotRotation()].
-#' @param auto.ident Logical. See [plotRotation()].
-#' @param ... Arguments passed to either [plotRotation()] or [plot_projection()].
+#' @param apt.col See `col =` argument in [plot_rotation()].
+#' @param apt.classes See `classes =` argument in [plot_rotation()].
+#' @param auto.ident Logical. See [plot_rotation()].
+#' @param ... Arguments passed to either [plot_rotation()] or [plot_projection()].
 #' @author Michael Mehan, Amanda Hiser
 #' @examples
 #' tr <- libml::create_train(sim_adat, group.var = class_response) |>
@@ -81,7 +81,7 @@ plot_pca_pairs <- function(data.prcomp, dims = 1:5L, tr.data = NULL,
                 axis.text    = element_text(size = rel(0.6)),
                 axis.ticks.length = unit(0.1, "cm"))
       } else {
-        p <- plotRotation(data.prcomp, dims = c(dims[j], dims[i]),
+        p <- plot_rotation(data.prcomp, dims = c(dims[j], dims[i]),
                           scores = apt.scores, xlab = "", ylab = "", main = "",
                           col = apt.col, classes = apt.classes,
                           aptamers = aptamers, aptamers2 = aptamers2,
