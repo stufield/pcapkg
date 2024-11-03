@@ -5,11 +5,11 @@
 #' training response vector.
 #'
 #' @family PCA plots
-#' @inheritParams plotPCAdims
+#' @inheritParams plot_pca_dims
 #' @param auc.classes A vector of the training classes used in calculating the AUC.
 #' @param auc.proj An alternative projection matrix from another decomposition.
 #'   By default, the projection from `data.prcomp` is used.
-#' @param nPCs Integer. Number of PCs to plot. Defaults to 20.
+#' @param nPCs `integer(1)`. Number of PCs to plot.
 #' @param ... Additional arguments passed to [geom_col()].
 #' @author Michael Mehan, Amanda Hiser
 #' @seealso [screeplot()], [plotScree()]
@@ -19,10 +19,10 @@
 #' pca <- center_scale(log10(sim_adat), center = TRUE, scale = FALSE) |>
 #'   strip_meta() |>
 #'   prcomp2()
-#' screeplotAUC(pca, sim_adat$class_response, main = "My ScreePlot by AUC")
+#' screeplot_auc(pca, sim_adat$class_response, main = "My ScreePlot by AUC")
 #' @export
-screeplotAUC <- function(data.prcomp, auc.classes, auc.proj = NULL, main = NULL,
-                         nPCs = 20, ...) {
+screeplot_auc <- function(data.prcomp, auc.classes, auc.proj = NULL, main = NULL,
+                          nPCs = 20L, ...) {
 
   if ( is.null(auc.proj) ) {
     auc.proj <- data.prcomp$x

@@ -15,12 +15,12 @@
 #'   Used to generate `apt.scores`. If `sample.classes`
 #'   is _not_ passed, the "Response" column is used to color the projection.
 #' @param apt.scores See `scores =` argument in [plotRotation()].
-#' @param sample.classes See `classes =` argument in [plotProjection()].
-#' @param sample.scores See `scores =` argument in [plotProjection()].
+#' @param sample.classes See `classes =` argument in [plot_projection()].
+#' @param sample.scores See `scores =` argument in [plot_projection()].
 #' @param apt.col See `col =` argument in [plotRotation()].
 #' @param apt.classes See `classes =` argument in [plotRotation()].
 #' @param auto.ident Logical. See [plotRotation()].
-#' @param ... Arguments passed to either [plotRotation()] or [plotProjection()].
+#' @param ... Arguments passed to either [plotRotation()] or [plot_projection()].
 #' @author Michael Mehan, Amanda Hiser
 #' @examples
 #' tr <- libml::create_train(sim_adat, group.var = class_response) |>
@@ -29,23 +29,23 @@
 #' apts <- withr::with_seed(123, sample(get_analytes(sim_adat), 10L))
 #'
 #' # Default colors w/ marked aptamers
-#' plotPCApairs(pca, aptamers = apts)
+#' plot_pca_pairs(pca, aptamers = apts)
 #'
 #' # Color projection plots by training data
-#' plotPCApairs(pca, aptamers = apts, tr.data = tr)
+#' plot_pca_pairs(pca, aptamers = apts, tr.data = tr)
 #'
 #' # Override default colors with "col" and "scores" args
 #' scores <- withr::with_seed(101, rnorm(nrow(tr)))
-#' plotPCApairs(pca, sample.scores = scores, apt.col = "red")
+#' plot_pca_pairs(pca, sample.scores = scores, apt.col = "red")
 #' @importFrom ggplot2 ggplot theme_void geom_text scale_y_continuous
 #' @importFrom ggplot2 theme element_blank element_line unit
 #' @export
-plotPCApairs <- function(data.prcomp, dims = 1:5L, tr.data = NULL,
-                         apt.scores = NULL, sample.classes = NULL,
-                         sample.scores = NULL, apt.col = NULL, aptamers = NULL,
-                         aptamers2 = NULL, aptamers3 = NULL, aptamers4 = NULL,
-                         aptamers5 = NULL, apt.classes = NULL,
-                         auto.ident = TRUE, ...) {
+plot_pca_pairs <- function(data.prcomp, dims = 1:5L, tr.data = NULL,
+                           apt.scores = NULL, sample.classes = NULL,
+                           sample.scores = NULL, apt.col = NULL, aptamers = NULL,
+                           aptamers2 = NULL, aptamers3 = NULL, aptamers4 = NULL,
+                           aptamers5 = NULL, apt.classes = NULL,
+                           auto.ident = TRUE, ...) {
 
   if ( !inherits(data.prcomp, "prcomp") ) {
     stop(
@@ -70,10 +70,10 @@ plotPCApairs <- function(data.prcomp, dims = 1:5L, tr.data = NULL,
         if ( is.null(sample.classes) && !is.null(tr.data) ) {
           sample.classes <- tr.data$Response
         }
-        p <- plotProjection(data.prcomp, dims = c(dims[j], dims[i]),
-                            classes = sample.classes, scores = sample.scores,
-                            xlab = "", ylab = "", main = "",
-                            legend.pos = "none", pt.cex = 1.5, ...) +
+        p <- plot_projection(data.prcomp, dims = c(dims[j], dims[i]),
+                             classes = sample.classes, scores = sample.scores,
+                             xlab = "", ylab = "", main = "",
+                             legend.pos = "none", pt.cex = 1.5, ...) +
           scale_y_continuous(labels = function(x) format(x, digits = 1)) +
           theme(plot.margin  = margin(-0.5, -0.2, -0.5, -0.2, "cm"),
                 panel.grid   = element_blank(),

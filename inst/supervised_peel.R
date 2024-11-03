@@ -172,7 +172,7 @@ supervised_peel <- function(data, aptamers,
 #' @param ... Additional arguments passed to [plotPeelWrapper()], such as
 #'   `sample.col` (to control projection plot color) or `apt.xlim/apt.ylim` (to
 #'   control x/y-axis limits in the rotation plot). These arguments are, in turn,
-#'   passed to [plotRotation()] or [plotProjection()], as appropriate.
+#'   passed to [plot_rotation()] or [plot_projection()], as appropriate.
 #' @author Mike Mehan
 #' @examples
 #' # S3 plot method

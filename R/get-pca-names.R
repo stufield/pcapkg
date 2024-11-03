@@ -18,13 +18,13 @@
 #' for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
 #' pca <- pca(sim_adat)
 #'
-#' getPCAnames(pca, "r", 1, 0.1)      # feature names
+#' get_pca_names(pca, "r", 1, 0.1)      # feature names
 #'
-#' getPCAnames(pca, "p", value = 0.1) # sample names
+#' get_pca_names(pca, "p", value = 0.1) # sample names
 #' @importFrom dplyr filter
 #' @export
-getPCAnames <- function(x, type = c("rotation", "projection"),
-                        dim = 1L, value) {
+get_pca_names <- function(x, type = c("rotation", "projection"),
+                          dim = 1L, value) {
   stopifnot(inherits(x, "pca"))
   type <- match.arg(type)
   dim  <- paste0("PC", dim)

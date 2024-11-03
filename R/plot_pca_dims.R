@@ -1,10 +1,10 @@
 #' Plot A PCA Dimension
 #'
 #' Plots either the projection or the loadings (rotation) of
-#' `"prcomp"` object. This is a base function that is
-#' wrapped into driver parent functions in the plotting of
-#' principal components, most notably [plotRotation()]
-#' and [plotProjection()].
+#'   `"prcomp"` object. This is a base function that is
+#'   wrapped into driver parent functions in the plotting of
+#'   principal components, most notably [plotRotation()]
+#'   and [plot_projection()].
 #'
 #' @family PCA plots
 #' @inheritParams pca
@@ -57,47 +57,29 @@
 #' scores <- withr::with_seed(101, rnorm(length(feat)))
 #'
 #' # Rotation space, with scores to define point colors
-#' plotPCAdims(pca, value = "r", dims = 1:2L, classes = NULL,
-#'             scores = rnorm(length(feat)))
+#' plot_pca_dims(pca, value = "r", dims = 1:2L, classes = NULL,
+#'               scores = rnorm(length(feat)))
 #'
 #' # Projection space, with classes to define point colors
-#' plotPCAdims(pca, value = "x", dims = 1:2L,
-#'             classes = sim_adat$class_response)
+#' plot_pca_dims(pca, value = "x", dims = 1:2L,
+#'               classes = sim_adat$class_response)
 #' @importFrom graphics plot points identify abline
 #' @importFrom utils head
-#' @importFrom lifecycle deprecated is_present deprecate_soft
 #' @importFrom ggplot2 ggplot aes theme rel labs element_text
 #' @importFrom ggplot2 geom_hline geom_vline geom_point stat_ellipse
 #' @importFrom ggplot2 scale_color_manual scale_size_identity ylim xlim
 #' @export
-plotPCAdims <- function(data.prcomp, value = c(NA, "rotation", "x"),
-                        dims, classes,
-                        main = sprintf("PCA Plot (%s)",
-                                       ifelse(value == "x",
-                                              "projection", value)),
-                        scores = NULL, col = NULL,
-                        xlab = NULL, ylab = NULL,
-                        do.legend = deprecated(), legend.pos = "right",
-                        xlim = NULL, ylim = NULL, colors = deprecated(),
-                        pt.cex = 2.5, pt.pch = 19, pt.bg = deprecated(),
-                        add.ellipse = FALSE, ...) {
-
-  if ( is_present(do.legend) ) {
-    deprecate_soft("3.4.0",
-                   "plotPCAdims(do.legend)",
-                   "plotPCAdims(legend.position)")
-  }
-  if ( is_present(colors) ) {
-    deprecate_soft("3.4.0",
-                   "plotPCAdims(colors)",
-                   "plotPCAdims(col)")
-  }
-
-  if ( is_present(pt.bg) ) {
-    deprecate_soft("3.4.0",
-                   "plotPCAdims(pt.bg)",
-                   "plotPCAdims(col)")
-  }
+plot_pca_dims <- function(data.prcomp, value = c(NA, "rotation", "x"),
+                          dims, classes,
+                          main = sprintf("PCA Plot (%s)",
+                                         ifelse(value == "x",
+                                                "projection", value)),
+                          scores = NULL, col = NULL,
+                          xlab = NULL, ylab = NULL,
+                          legend.pos = "right",
+                          xlim = NULL, ylim = NULL,
+                          pt.cex = 2.5, pt.pch = 19,
+                          add.ellipse = FALSE, ...) {
 
   value <- match.arg(value)
 
@@ -138,7 +120,7 @@ plotPCAdims <- function(data.prcomp, value = c(NA, "rotation", "x"),
              "the plot type,\n i.e. number of samples for projection ",
              "and number of features for rotation", call. = FALSE)
       }
-      col <- mapColor(scores, topo_colors(nrow(data.prcomp$rotation)))
+      col <- .map_color(scores, topo_colors(nrow(data.prcomp$rotation)))
       classes <- factor(seq_len(type_len)) # Each class must be unique
       legend.pos <- "none" # Prevents large legend due to factor classes
     }
@@ -231,21 +213,18 @@ plotPCAdims <- function(data.prcomp, value = c(NA, "rotation", "x"),
 }
 
 
-#' Color Map (internal)
+#' Color Map
 #'
-#' Creates a mapping between a vector of numeric values to a color gradient.
-#' Similar to [classColor()] but for quantitative data.
+#' Creates a mapping between a vector of numeric
+#'   values to a color gradient. Similar to [class_color()]
+#'   but for quantitative data.
 #'
 #' @param values Numeric. A vector of values to rescale.
 #' @param color.scheme a vector of colors to map into to.
 #'   Typically a color gradient.
 #' @return A vector of colors of the same length as `values`.
-#' @author Stu Field & Michael R. Mehan
-#' @examples
-#' plot.data <- sort(rnorm(100))
-#' plot(plot.data, col = mapColor(plot.data))
 #' @noRd
-mapColor <- function(values, color.scheme = topo_colors(100)) {
+.map_color <- function(values, color.scheme = topo_colors(100)) {
   lmap <- function(x, from, to) {
     (x - min(x)) / max(x - min(x)) * (to - from) + from
   }

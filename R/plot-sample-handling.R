@@ -31,8 +31,8 @@
 #' @param add.apt.col Character. The color to be used for the additional apts
 #'   specified in `add.apts` argument.
 #' @param legend.pos Coordinates of the two legends, in `c(0, 0)` format. See Details.
-#' @return A sample handling plot.
-#' @author Stu Field, Amanda Hiser
+#' @return A `ggplot2` plot.
+#' @author Stu Field
 #' @seealso [points()]
 #' @examples
 #' data <- log10(sim_adat[c(1:10L, 91:100L), ])
@@ -47,25 +47,24 @@
 #'   strip_meta() |>
 #'   prcomp2()
 #'
-#' plotSampleHandling(pca, samples = data$class_response, matrix.type = "p")
-#' plotSampleHandling(pca, samples = data$class_response, matrix.type = "p",
+#' plot_sample_handling(pca, samples = data$class_response, matrix.type = "p")
+#' plot_sample_handling(pca, samples = data$class_response, matrix.type = "p",
 #'                    add.apts = "seq.2802.68")
 #'
 #' # Save to file
 #' f_out <- tempfile("SHplot-", fileext = ".pdf")
-#' plotSampleHandling(pca, samples = data$class_response, matrix.type = "p",
+#' plot_sample_handling(pca, samples = data$class_response, matrix.type = "p",
 #'                    legend.pos = c(0, 0), filename = f_out)
-#' @importFrom lifecycle deprecated is_present deprecate_soft
 #' @importFrom dplyr case_when left_join
 #' @importFrom ggplot2 geom_point scale_fill_manual scale_shape_manual
 #' @importFrom ggplot2 theme guides element_blank element_rect
 #' @importFrom ggplot2 margin ggsave
 #' @importFrom gridExtra grid.arrange
 #' @export
-plotSampleHandling <- function(data.prcomp, add.apts = NULL, samples,
+plot_sample_handling <- function(data.prcomp, add.apts = NULL, samples,
                                filename = NULL, scale = 1, matrix.type,
                                dims = 1:2L, add.apt.col = "firebrick3",
-                               legend.pos = c(1, 1)) {
+                               legend.pos = c(1L, 1L)) {
 
   if ( inherits(data.prcomp, "supervised_peel") ) {
     stop(
@@ -141,7 +140,7 @@ plotSampleHandling <- function(data.prcomp, add.apts = NULL, samples,
   names(col_vec) <- legend_names
 
   # Create projection plot
-  p <- plotProjection(data.prcomp, dims = dims, classes = samples) +
+  p <- plot_projection(data.prcomp, dims = dims, classes = samples) +
     theme(legend.title = element_blank(),
           legend.text = element_text(size = rel(0.8)),
           legend.margin = margin(t = -0.1, l = 0.07, b = 0.07, r = 0.2,
@@ -151,8 +150,8 @@ plotSampleHandling <- function(data.prcomp, add.apts = NULL, samples,
           legend.background = element_rect(color = "black",
                                            linewidth = 0.1))
   # Create rotation plot
-  r <- plotRotation(data.prcomp, dims = dims, col = apt_colors,
-                    auto.ident = TRUE) +
+  r <- plot_rotation(data.prcomp, dims = dims, col = apt_colors,
+                     auto.ident = TRUE) +
     geom_point(data = point_ann[point_ann$class != "none", ], # Additional apts
                aes(x = x, y = y, fill = class, shape = class),
                size = 3, color = "black") +

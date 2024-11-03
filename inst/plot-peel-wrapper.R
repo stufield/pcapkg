@@ -23,9 +23,9 @@
 #' }
 #'
 #' @family PCA plots
-#' @inheritParams plotPCAdims
-#' @inheritParams plotProjection
-#' @inheritParams plotRotation
+#' @inheritParams plot_pca_dims
+#' @inheritParams plot_projection
+#' @inheritParams plot_rotation
 #' @inheritParams supervised_peel
 #' @param sample.bg Deprecated. Background for sample points.
 #' @param sample.classes Character. A vector corresponding to the class labels
@@ -60,8 +60,8 @@
 #' @param sample.cex Numeric. Size of points for the projection plot.
 #' @param apt.cex Numeric. Size of points for the rotation plot.
 #' @param apt.pch Character expansion and symbols for the rotation plot.
-#' @param ... Additional arguments passed to *either* [plotRotation()]
-#'   or [plotProjection()].
+#' @param ... Additional arguments passed to *either* [plot_rotation()]
+#'   or [plot_projection()].
 #' @return A vertical 3 panel plot. See _Details_.
 #' @author Michael Mehan, Amanda Hiser
 #' @seealso [pca()], [supervised_peel()]
@@ -71,56 +71,34 @@
 #'   prcomp2()
 #' tr <- libml::create_train(sim_adat, group.var = class_response)
 #' apts <- withr::with_seed(1, sample(get_analytes(sim_adat), 10L))
-#' plotPeelWrapper(pca, tr.data = tr, aptamers = apts)
+#' plot_peel_wrapper(pca, tr.data = tr, aptamers = apts)
 #'
 #' # Using a "supervised_peel" object (apts included)
 #' spp <- supervised_peel(tr, aptamers = apts)
-#' plotPeelWrapper(spp$orig, aptamers = spp$apts$aptamers)                # no colors
-#' plotPeelWrapper(spp$orig, aptamers = spp$apts$aptamers, tr.data = tr)  # colors
+#' plot_peel_wrapper(spp$orig, aptamers = spp$apts$aptamers)                # no colors
+#' plot_peel_wrapper(spp$orig, aptamers = spp$apts$aptamers, tr.data = tr)  # colors
 #' @importFrom lifecycle deprecated is_present deprecate_soft deprecate_warn
 #' @importFrom gridExtra grid.arrange
 #' @export
-plotPeelWrapper <- function(data.prcomp, dims = 1:2L,
-                            sample.classes = NULL, samples = NULL,
-                            sample.scores = NULL, apt.scores = NULL,
-                            apt.col = NULL, sample.col = NULL,
-                            tr.data = NULL, main = NULL,
-                            skip.layout = deprecated(),
-                            report.layout = deprecated(),
-                            aptamers = NULL, aptamers2 = NULL,
-                            aptamers3 = NULL, aptamers4 = NULL,
-                            aptamers5 = NULL,
-                            sample.xlim = NULL, sample.ylim = NULL,
-                            sample.bg = deprecated(), apt.bg = deprecated(),
-                            apt.classes = NULL, apt.auto.ident = TRUE,
-                            apt.xlim = NULL, apt.ylim = NULL,
-                            sample.cex = 2.5, apt.cex = 2.5, apt.pch = 21, ...) {
-
-  if ( is_present(skip.layout) ) {
-    deprecate_soft("3.4.0",
-                   "plotPeelWrapper(skip.layout)")
-  }
-
-  if ( is_present(report.layout) ) {
-    deprecate_soft("3.4.0",
-                   "plotPeelWrapper(report.layout)")
-  }
-
-  if ( is_present(apt.bg) ) {
-    deprecate_soft("3.4.0",
-                   "plotPeelWrapper(apt.bg)",
-                   "plotPeelWrapper(apt.col)")
-  }
-
-  if ( is_present(sample.bg) ) {
-    deprecate_soft("3.4.0",
-                   "plotPeelWrapper(sample.bg)",
-                   "plotPeelWrapper(sample.col)")
-  }
+plot_peel_wrapper <- function(data.prcomp, dims = 1:2L,
+                              sample.classes = NULL, samples = NULL,
+                              sample.scores = NULL, apt.scores = NULL,
+                              apt.col = NULL, sample.col = NULL,
+                              tr.data = NULL, main = NULL,
+                              skip.layout = deprecated(),
+                              report.layout = deprecated(),
+                              aptamers = NULL, aptamers2 = NULL,
+                              aptamers3 = NULL, aptamers4 = NULL,
+                              aptamers5 = NULL,
+                              sample.xlim = NULL, sample.ylim = NULL,
+                              sample.bg = deprecated(), apt.bg = deprecated(),
+                              apt.classes = NULL, apt.auto.ident = TRUE,
+                              apt.xlim = NULL, apt.ylim = NULL,
+                              sample.cex = 2.5, apt.cex = 2.5, apt.pch = 21, ...) {
 
   if ( !is.null(tr.data) ) {
     apt.scores <- suppressWarnings(
-      SomaClassify::calc.ks(tr.data)$stat.table[get_analytes(tr.data), "ks.dist"]
+      calcr::calc.ks(tr.data)$stat_table[get_analytes(tr.data), "ks_dist"]
     )
     if ( is.null(sample.classes) ) {
       sample.classes <- tr.data$Response
@@ -128,22 +106,22 @@ plotPeelWrapper <- function(data.prcomp, dims = 1:2L,
   }
 
   if ( !is.null(data.prcomp$sdev) ) {
-    scree <- screeplotAUC(data.prcomp, auc.classes = sample.classes) +
+    scree <- screeplot_auc(data.prcomp, auc.classes = sample.classes) +
       labs(title = main)
   }
 
-  rot <- plotRotation(data.prcomp, dims = dims, classes = apt.classes,
-                      scores = apt.scores, col = apt.col,
-                      xlim = apt.xlim, ylim = apt.ylim,
-                      pt.cex = apt.cex, auto.ident = apt.auto.ident,
-                      aptamers = aptamers, aptamers2 = aptamers2,
-                      aptamers3 = aptamers3, aptamers4 = aptamers4,
-                      aptamers5 = aptamers5, ...)
+  rot <- plot_rotation(data.prcomp, dims = dims, classes = apt.classes,
+                       scores = apt.scores, col = apt.col,
+                       xlim = apt.xlim, ylim = apt.ylim,
+                       pt.cex = apt.cex, auto.ident = apt.auto.ident,
+                       aptamers = aptamers, aptamers2 = aptamers2,
+                       aptamers3 = aptamers3, aptamers4 = aptamers4,
+                       aptamers5 = aptamers5, ...)
 
-  proj <- plotProjection(data.prcomp, dims = dims, classes = sample.classes,
-                         scores = sample.scores, col = sample.col, samples = samples,
-                         xlim = sample.xlim, ylim = sample.ylim,
-                         pt.cex = sample.cex, ...) +
+  proj <- plot_projection(data.prcomp, dims = dims, classes = sample.classes,
+                          scores = sample.scores, col = sample.col, samples = samples,
+                          xlim = sample.xlim, ylim = sample.ylim,
+                          pt.cex = sample.cex, ...) +
     theme(legend.margin = margin(t = -0.1, l = 0.07, b = 0.07, r = 0.2,
                                  unit = "cm"),
           legend.position = c(1, 0),

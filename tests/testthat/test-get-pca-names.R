@@ -3,8 +3,8 @@ feat <- grep("^seq", names(sim_adat), value = TRUE)
 for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
 pca <- pca(sim_adat)
 
-test_that("`getPCAnames()` returns correct 'rotation' object when value = positive", {
-  rot1 <- getPCAnames(pca, "r", 1, 0.2)      # feature names
+test_that("`get_pca_names()` returns correct 'rotation' object when value = positive", {
+  rot1 <- get_pca_names(pca, "r", 1, 0.2)      # feature names
   expect_type(rot1, "character")
   expect_true(all(rot1 %in% names(sim_adat)))
   expect_length(rot1, 7L)
@@ -15,8 +15,8 @@ test_that("`getPCAnames()` returns correct 'rotation' object when value = positi
   )
 })
 
-test_that("`getPCAnames()` returns correct 'rotation' object when value = negative", {
-  rot2 <- getPCAnames(pca, "r", 1, -0.04)      # feature names
+test_that("`get_pca_names()` returns correct 'rotation' object when value = negative", {
+  rot2 <- get_pca_names(pca, "r", 1, -0.04)      # feature names
   expect_type(rot2, "character")
   expect_true(all(rot2 %in% names(sim_adat)))
   expect_length(rot2, 11L)
@@ -28,15 +28,15 @@ test_that("`getPCAnames()` returns correct 'rotation' object when value = negati
   )
 })
 
-test_that("`getPCAnames()` returns correct 'rotation' object with defaults", {
-  expect_equal(getPCAnames(pca, "r", 1, value = 0.1),
-               getPCAnames(pca, value = 0.1))
-  expect_equal(getPCAnames(pca, "r", 1, value = -0.04),
-               getPCAnames(pca, value = -0.04))
+test_that("`get_pca_names()` returns correct 'rotation' object with defaults", {
+  expect_equal(get_pca_names(pca, "r", 1, value = 0.1),
+               get_pca_names(pca, value = 0.1))
+  expect_equal(get_pca_names(pca, "r", 1, value = -0.04),
+               get_pca_names(pca, value = -0.04))
 })
 
-test_that("`getPCAnames` returns correct 'projection' object when value = positive", {
-  pro1 <- getPCAnames(pca, "p", 1, 0.2)
+test_that("`get_pca_names` returns correct 'projection' object when value = positive", {
+  pro1 <- get_pca_names(pca, "p", 1, 0.2)
   expect_type(pro1, "character")
   expect_true(all(pro1 %in% rownames(sim_adat)))
   expect_length(pro1, 9L)
@@ -47,8 +47,8 @@ test_that("`getPCAnames` returns correct 'projection' object when value = positi
   )
 })
 
-test_that("`getPCAnames()` returns correct 'projection' object when value = negative", {
-  pro2 <- getPCAnames(pca, "p", 1, -0.2)
+test_that("`get_pca_names()` returns correct 'projection' object when value = negative", {
+  pro2 <- get_pca_names(pca, "p", 1, -0.2)
   expect_type(pro2, "character")
   expect_true(all(pro2 %in% rownames(sim_adat)))
   expect_length(pro2, 8L)
