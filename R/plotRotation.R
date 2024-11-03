@@ -33,17 +33,20 @@
 #' @param ... Additional arguments passed to [plotPCAdims()].
 #' @author Michael Mehan
 #' @examples
-#' pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
+#' feat <- grep("^seq", names(sim_adat), value = TRUE)
+#' for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
+#' pca <- center_scale(sim_adat, center = TRUE, scale = FALSE) |>
 #'   strip_meta() |>
 #'   prcomp2()
 #' plotRotation(pca, col = "green")
 #'
-#' class <- withr::with_seed(123, sample(sim_test_data$class_response, 40L))
+#' class <- withr::with_seed(123, sample(sim_adat$class_response, 40L))
 #' plotRotation(pca, classes = class)
 #'
-#' apts <- withr::with_seed(123, sample(pcapkg:::getAnalytes(sim_test_data), 10L))
+#' apts <- withr::with_seed(123, sample(pcapkg:::get_analytes(sim_adat), 10L))
 #' plotRotation(pca, aptamers = apts)
 #' @importFrom ggplot2 geom_text aes
+#' @importFrom utils head tail
 #' @export
 plotRotation <- function(data.prcomp, dims = 1:2L,
                          classes = NULL, scores = NULL, col = NULL,
@@ -52,11 +55,11 @@ plotRotation <- function(data.prcomp, dims = 1:2L,
                          lab.cex = 3, pt.cex = 2.5, auto.ident = TRUE, ...) {
 
   if ( !is.null(aptamers) ) {
-    apMap <- mapAptCharacters(rownames(data.prcomp$rotation), aptamers,
-                              aptamers2, aptamers3, aptamers4,
-                              aptamers5, default.cex = pt.cex)
-    pt.pch <- apMap$pch
-    pt.cex <- apMap$cex
+    map <- map_plot_pch(rownames(data.prcomp$rotation),
+                        aptamers, aptamers2, aptamers3, aptamers4,
+                        aptamers5, default.cex = pt.cex)
+    pt.pch <- map$pch
+    pt.cex <- map$cex
   } else {
     pt.pch <- 19
   }
@@ -68,13 +71,14 @@ plotRotation <- function(data.prcomp, dims = 1:2L,
   if ( auto.ident ) {
     rn1 <- rownames(data.prcomp$rotation[order(data.prcomp$rotation[, dims[1L]]), ])
     rn2 <- rownames(data.prcomp$rotation[order(data.prcomp$rotation[, dims[2L]]), ])
-    p1  <- c(head(rn1, 5L), utils::tail(rn1, 5L))
-    p2  <- c(head(rn2, 5L), utils::tail(rn2, 5L))
+    p1  <- c(head(rn1, 5L), tail(rn1, 5L))
+    p2  <- c(head(rn2, 5L), tail(rn2, 5L))
     top <- union(p1, p2)
 
     # Create data subset for labeling points identified in 'top'
     labs <- p$data[top, ]
-    labs$label <- ifelse(rownames(labs) %in% top, getSeqId(top), "")
+    labs$label <- ifelse(rownames(labs) %in% top,
+                         gsub("^seq\\.", "", top), "")
 
     p <- p + geom_text(data = labs, aes(x = x, y = y, label = label),
                        hjust = -0.20, vjust = 0.5,

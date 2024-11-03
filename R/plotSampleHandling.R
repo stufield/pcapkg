@@ -35,7 +35,7 @@
 #' @author Stu Field, Amanda Hiser
 #' @seealso [points()]
 #' @examples
-#' data <- log10(sim_test_data[c(1:10L, 91:100L), ])
+#' data <- log10(sim_adat[c(1:10L, 91:100L), ])
 #' # Create fake matching SH analytes
 #' new_seqs <- c(
 #'   "seq.4124.24",   # cell lysis
@@ -92,13 +92,13 @@ plotSampleHandling <- function(data.prcomp, add.apts = NULL, samples,
   matrix.type  <- match.arg(matrix.type, c("plasma", "serum"))
   pca_apts     <- rownames(data.prcomp$rotation)
   pca_apts     <- add_class(pca_apts, matrix.type)  # for the S3 method next
-  apt_list     <- getHandlingList(apts = pca_apts, add.apts = add.apts)
+  apt_list     <- get_handling(apts = pca_apts, add.apts = add.apts)
   legend_names <- c("Cell Lysis", "Platelet Activation", "Complement Activation")
 
-  col_vec <- c(SomaPlotr::soma_colors2$pink,
-               SomaPlotr::soma_colors2$blue,
-               SomaPlotr::soma_colors2$green) |>
-    globalr::set_Names(names(apt_list)[1:3L])
+  col_vec <- c(col_palette$purple,
+               col_palette$lightgreen,
+               col_palette$lightblue) |>
+    helpr::set_Names(names(apt_list)[1:3L])
 
   if ( !is.null(add.apts) ) {
     col_vec <- c(col_vec, add.apt.col)
@@ -106,7 +106,7 @@ plotSampleHandling <- function(data.prcomp, add.apts = NULL, samples,
   }
 
   apt_colors <- rep("gray75", length(pca_apts)) |>
-    globalr::set_Names(pca_apts)
+    helpr::set_Names(pca_apts)
 
   for ( i in seq_along(col_vec) ) {
     apt_colors[ pca_apts %in% apt_list[[i]] ] <- col_vec[i]
@@ -114,7 +114,7 @@ plotSampleHandling <- function(data.prcomp, add.apts = NULL, samples,
 
   # Select shapes for overlaid points & sync names with legend labels
   apt_pch_vec <- c(21, 24, 22, 23)[seq_along(apt_list)] |>
-    globalr::set_Names(legend_names)
+    helpr::set_Names(legend_names)
 
   rot_rnames <- rownames(data.prcomp$rotation)
 
@@ -123,7 +123,7 @@ plotSampleHandling <- function(data.prcomp, add.apts = NULL, samples,
                           x = data.prcomp$rotation[, dims[1L]],
                           y = data.prcomp$rotation[, dims[2L]],
                           class = case_when(
-                            rot_rnames %in% apt_list$cell.abuse ~ legend_names[1L], # nolint
+                            rot_rnames %in% apt_list$cell_abuse ~ legend_names[1L], # nolint
                             rot_rnames %in% apt_list$platelet ~ legend_names[2L],   # nolint
                             rot_rnames %in% apt_list$complement ~ legend_names[3L], # nolint
                             TRUE ~ "none"))

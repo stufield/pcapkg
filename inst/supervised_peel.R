@@ -47,7 +47,7 @@
 #' @author Michael Mehan, Stu Field
 #' @seealso [stats::prcomp()], [center_scale()]
 #' @examples
-#' sim <- log10(sim_test_data)
+#' sim <- log10(sim_adat)
 #' sim$Response <- factor(sim$class_response)  # must add Response column (plotting)
 #' apts1 <- attributes(sim)$sig_feats$class
 #' apts2 <- attributes(sim)$sig_feats$reg
@@ -75,7 +75,7 @@ supervised_peel <- function(data, aptamers,
   }
 
   logspace <- is.logspace(data)
-  apts     <- getAnalytes(data)
+  apts     <- get_analytes(data)
 
   if ( inherits(data, "grouped_df") ) {
     # if `tr_data` object; use `ungroup::tr_data()` method
@@ -107,8 +107,8 @@ supervised_peel <- function(data, aptamers,
   }
 
   # Create weight mask from aptamers
-  weight_mat <- mapAptCharacters(apts, aptamers, aptamers2, aptamers3,
-                                 aptamers4, aptamers5)$mask |> diag()
+  weight_mat <- map_plot_pch(apts, aptamers, aptamers2, aptamers3,
+                             aptamers4, aptamers5)$mask |> as.numeric() |> diag()
   # Perform weighted PCA
   weighted_data           <- scaled_data %*% weight_mat
   colnames(weighted_data) <- apts
@@ -132,7 +132,7 @@ supervised_peel <- function(data, aptamers,
   # Hack the object here as if it were the old applyCenterScale() -> undoCenterScale()
   # I'm not sure here we actually want to log() the reference; double-log danger
   ref <- log(strip_meta(data))
-  tbl <- tibble(AptName = getAnalytes(data),
+  tbl <- tibble(AptName = get_analytes(data),
                 means   = colMeans(ref),
                 sds     = apply(ref, 2, stats::sd))
   attr(peeled_data, "par_tbl")    <- tbl
@@ -143,7 +143,7 @@ supervised_peel <- function(data, aptamers,
   if ( "Response" %in% names(data) ) {
     peeled_data_undo$Response <- data$Response
   } else {
-    peeled_data_undo <- cbind(data[, getMeta(data)], peeled_data_undo)
+    peeled_data_undo <- cbind(data[, get_meta(data)], peeled_data_undo)
   }
 
   list(orig        = orig_pca,
@@ -200,12 +200,8 @@ plot.supervised_peel <- function(x, dims = 1:2, aptamers = NULL,
     aptamers5 <- x$apts$aptamers5
   }
 
-  apt_pch <- mapAptCharacters(rownames(x$orig$rotation),
-                              aptamers,
-                              aptamers2,
-                              aptamers3,
-                              aptamers4,
-                              aptamers5)$pch
+  apt_pch <- map_plot_pch(rownames(x$orig$rotation),
+                          aptamers, aptamers2, aptamers3, aptamers4, aptamers5)$pch
 
   mains <- c("Original Data", "Weighted Data", "Unweighted Data", "Peeled Data")
 
