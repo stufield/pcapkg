@@ -62,7 +62,7 @@ For the legend positions:
 }
 }
 \examples{
-data <- log10(sim_test_data[c(1:10L, 91:100L), ])
+data <- log10(sim_adat[c(1:10L, 91:100L), ])
 # Create fake matching SH analytes
 new_seqs <- c(
   "seq.4124.24",   # cell lysis

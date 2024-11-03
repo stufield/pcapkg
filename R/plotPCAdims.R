@@ -49,18 +49,20 @@
 #' @author Michael Mehan, Amanda Hiser
 #' @examples
 #' # Prepare data
-#' pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
+#' feat <- grep("^seq", names(sim_adat), value = TRUE)
+#' for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
+#' pca <- center_scale(sim_adat, center = TRUE, scale = FALSE) |>
 #'   strip_meta() |>
 #'   prcomp2()
-#' scores <- withr::with_seed(101, rnorm(pcapkg:::getAnalytes(sim_test_data, n = TRUE)))
+#' scores <- withr::with_seed(101, rnorm(length(feat)))
 #'
 #' # Rotation space, with scores to define point colors
 #' plotPCAdims(pca, value = "r", dims = 1:2L, classes = NULL,
-#'             scores = rnorm(pcapkg:::getAnalytes(sim_test_data, n = TRUE)))
+#'             scores = rnorm(length(feat)))
 #'
 #' # Projection space, with classes to define point colors
 #' plotPCAdims(pca, value = "x", dims = 1:2L,
-#'             classes = sim_test_data$class_response)
+#'             classes = sim_adat$class_response)
 #' @importFrom graphics plot points identify abline
 #' @importFrom utils head
 #' @importFrom lifecycle deprecated is_present deprecate_soft

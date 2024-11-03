@@ -1,11 +1,11 @@
 
 test_that("pca print method returns known output", {
-  expect_snapshot_output(pca(sim_test_data))
+  expect_snapshot_output(pca(sim_adat))
 })
 
 test_that("supervised peel print method returns known output", {
   skip("Return test once `supervised_peel()` is back in")
-  sim <- log10(sim_test_data)
+  sim <- log10(sim_adat)
   sim$Response <- factor(sim$class_response)
   apts1 <- attributes(sim)$sig_feats$class
   apts2 <- attributes(sim)$sig_feats$reg

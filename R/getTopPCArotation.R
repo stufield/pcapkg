@@ -6,14 +6,16 @@
 #' represented by a column of the resulting data frame.
 #'
 #' @param x A `pca` class object.
-#' @param dims Integer. Vector of dimensions to interrogate.
-#' @param n Integer. The limit on how many features
+#' @param dims `integer(2)`. Vector of dimensions to interrogate.
+#' @param n `integer(1)`. The limit on how many features
 #'   to report (i.e. the rows of the resulting data frame).
 #' @return A data frame of the top features ordered by the principal
 #'   components given in the selected dimension.
 #' @author Michael R. Mehan
 #' @examples
-#' pca <- pca(log10(sim_test_data))
+#' feat <- grep("^seq", names(sim_adat), value = TRUE)
+#' for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
+#' pca <- pca(sim_adat)
 #' getTopPCArotation(pca, n = 10)
 #' @export
 getTopPCArotation <- function(x, dims = 1:5, n = 30L) {

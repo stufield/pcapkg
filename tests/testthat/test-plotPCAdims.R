@@ -1,10 +1,10 @@
 # Setup ----------
-pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
+pca <- center_scale(log10(sim_adat), center = TRUE, scale = FALSE) |>
   strip_meta() |>
   prcomp2()
-scores <- withr::with_seed(101, rnorm(getAnalytes(sim_test_data, n = TRUE)))
-p_classes <- sim_test_data$class_response
-r_classes <- withr::with_seed(123, sample(sim_test_data$class_response,
+scores <- withr::with_seed(101, rnorm(length(get_analytes(sim_adat))))
+p_classes <- sim_adat$class_response
+r_classes <- withr::with_seed(123, sample(sim_adat$class_response,
                                           nrow(pca$rotation),
                                           replace = TRUE))
 

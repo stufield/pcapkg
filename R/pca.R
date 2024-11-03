@@ -18,7 +18,10 @@
 #' @return An object of class `pca`, similar to [prcomp()].
 #' @author Stu Field
 #' @examples
-#' pca <- pca(log10(sim_test_data))
+#' feat <- grep("^seq", names(sim_adat), value = TRUE)
+#' for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
+#' pca <- pca(sim_adat)
+#'
 #' @seealso [prcomp2()]
 #' @importFrom dplyr ungroup left_join select all_of rename
 #' @importFrom tibble as_tibble
@@ -27,9 +30,10 @@ pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
 
   if ( inherits(data, "soma_adat") ) {
     if ( is.null(features) ) {
-      features <- getAnalytes(data)
+      features <- get_analytes(data)
     }
-    apt_data <- getAnalyteInfo(data) |> rename(Feature = "TargetFullName")
+    apt_data <- get_col_meta(data)
+    apt_data$Feature <- add_seq(apt_data$SeqId)
   } else {
     if ( is.null(features) ) {
       stop("`features` must be passed", call. = FALSE)
@@ -196,7 +200,7 @@ plot.pca <- function(x, type = c("projection", "rotation"), dims = 1:2L,
 #' # Scree plots
 #' plotScree(pca)               # barplot
 #' plotScree(pca, type = "l")   # lines
-#' plotScree(pca, type = "l") + SomaPlotr::theme_soma()  # use "SomaLogic" theme
+#' plotScree(pca, type = "l")
 #' @importFrom tibble enframe
 #' @importFrom ggplot2 geom_bar aes ggplot geom_line geom_point scale_x_continuous
 #' @export

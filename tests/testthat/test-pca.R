@@ -1,11 +1,11 @@
 
 # Setup ------
-pca   <- pca(sim_test_data)
+pca   <- pca(sim_adat)
 scree <- plotScree(pca)
-apts  <- getAnalyteInfo(sim_test_data)$TargetFullName
-p     <- length(apts)
-n     <- nrow(sim_test_data)
-meta  <- getMeta(sim_test_data)
+feats <- add_seq(get_col_meta(sim_adat)$SeqId)
+p     <- length(feats)
+n     <- nrow(sim_adat)
+meta  <- get_meta(sim_adat)
 
 
 # Testing ----
@@ -17,19 +17,19 @@ test_that("the `pca` function returns shape object", {
 test_that("the `pca` function returns the correct projection element", {
   expect_s3_class(pca$projection, "tbl_df")
   expect_equal(dim(pca$projection), # + 1 for new `.id` column during merge
-               c(nrow(sim_test_data), 1 + min(n, p) + length(meta)))
+               c(nrow(sim_adat), 1 + min(n, p) + length(meta)))
   expect_true(all(meta %in% names(pca$projection)))
   expect_true(".id" %in% names(pca$projection))
-  expect_equal(pca$projection$.id, rownames(sim_test_data))
+  expect_equal(pca$projection$.id, rownames(sim_adat))
   expect_true(all(paste0("PC", 1:p) %in% names(pca$projection)))
 })
 
 test_that("the `pca` function returns the correct rotation element", {
   expect_s3_class(pca$rotation, "tbl_df")
-  expect_equal(pca$rotation$Feature, apts)
-  expect_equal(dim(pca$rotation), c(p, ncol(getAnalyteInfo(sim_test_data)) + min(n, p)))
+  expect_equal(pca$rotation$Feature, feats)
+  expect_equal(dim(pca$rotation), c(p, ncol(get_col_meta(sim_adat)) + p + 1L))
   expect_true(all(paste0("PC", 1:p) %in% names(pca$rotation)))
-  tbl <- dplyr::rename(getAnalyteInfo(sim_test_data), Feature = "TargetFullName")
+  tbl <- dplyr::mutate(get_col_meta(sim_adat), Feature = add_seq(SeqId))
   expect_equal(names(tbl),
                names(dplyr::select(pca$rotation, -starts_with("PC"))) # nolint
   )

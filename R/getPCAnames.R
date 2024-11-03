@@ -14,7 +14,9 @@
 #' @author Stu Field
 #' @seealso [pca()]
 #' @examples
-#' pca <- pca(log10(sim_test_data))
+#' feat <- grep("^seq", names(sim_adat), value = TRUE)
+#' for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
+#' pca <- pca(sim_adat)
 #'
 #' getPCAnames(pca, "r", 1, 0.1)      # feature names
 #'
@@ -22,11 +24,11 @@
 #' @importFrom dplyr filter
 #' @export
 getPCAnames <- function(x, type = c("rotation", "projection"),
-                        dim = 1, value) {
+                        dim = 1L, value) {
   stopifnot(inherits(x, "pca"))
   type <- match.arg(type)
   dim  <- paste0("PC", dim)
-  var  <- ifelse(type == "rotation", "AptName", ".id")
+  var  <- ifelse(type == "rotation", "Feature", ".id")
   gt_lt <- ifelse(value < 0, `<`, `>`)   # greater-than; less-than
   dplyr::filter(x[[type]], gt_lt(!!rlang::sym(dim), value))[[var]]
 }

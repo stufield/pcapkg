@@ -4,7 +4,7 @@
 \alias{getPCAnames}
 \title{Get PCA Names}
 \usage{
-getPCAnames(x, type = c("rotation", "projection"), dim = 1, value)
+getPCAnames(x, type = c("rotation", "projection"), dim = 1L, value)
 }
 \arguments{
 \item{x}{A \code{pca} class object. See \code{\link[=pca]{pca()}}.}
@@ -26,7 +26,9 @@ Determine the names of the features (rotation) or samples
 principal component dimension specified by \code{dim}.
 }
 \examples{
-pca <- pca(log10(sim_test_data))
+feat <- grep("^seq", names(sim_adat), value = TRUE)
+for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
+pca <- pca(sim_adat)
 
 getPCAnames(pca, "r", 1, 0.1)      # feature names
 

@@ -48,7 +48,7 @@ Plot the samples from a PCA projection in a 2-dimensional
 scatter plot.
 }
 \examples{
-pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
+pca <- center_scale(log10(sim_adat), center = TRUE, scale = FALSE) |>
   strip_meta() |>
   prcomp2()
 
@@ -56,10 +56,10 @@ pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
 plotProjection(pca, col = "green")
 
 # Use classes to define point colors
-plotProjection(pca, classes = sim_test_data$class_response)
+plotProjection(pca, classes = sim_adat$class_response)
 
 # Mark specific samples
-plotProjection(pca, samples = rownames(sim_test_data)[1:5])
+plotProjection(pca, samples = rownames(sim_adat)[1:5])
 }
 \seealso{
 Other PCA plots: 

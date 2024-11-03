@@ -2,6 +2,6 @@
 #' @keywords internal package
 "_PACKAGE"
 
-#' @import splyr globalr
+#' @import splyr helpr
 #' @importFrom rlang sym syms enquo
 NULL

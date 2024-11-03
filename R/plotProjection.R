@@ -12,7 +12,7 @@
 #' @param ... Additional arguments passed to [plotPCAdims()].
 #' @author Michael Mehan, Amanda Hiser
 #' @examples
-#' pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
+#' pca <- center_scale(log10(sim_adat), center = TRUE, scale = FALSE) |>
 #'   strip_meta() |>
 #'   prcomp2()
 #'
@@ -20,10 +20,10 @@
 #' plotProjection(pca, col = "green")
 #'
 #' # Use classes to define point colors
-#' plotProjection(pca, classes = sim_test_data$class_response)
+#' plotProjection(pca, classes = sim_adat$class_response)
 #'
 #' # Mark specific samples
-#' plotProjection(pca, samples = rownames(sim_test_data)[1:5])
+#' plotProjection(pca, samples = rownames(sim_adat)[1:5])
 #' @export
 plotProjection <- function(data.prcomp, dims = 1:2L,
                            classes = NULL, scores = NULL, col = NULL,

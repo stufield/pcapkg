@@ -81,7 +81,10 @@ The \code{\link[=plotScree]{plotScree()}} function generates a \code{"scree plot
 
 }}
 \examples{
-pca <- pca(log10(sim_test_data))
+feat <- grep("^seq", names(sim_adat), value = TRUE)
+for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
+pca <- pca(sim_adat)
+
 # print method
 pca
 
@@ -96,7 +99,7 @@ plot(pca, "p", color = class_response, alpha = 0.5)    # adjust point alpha
 # Scree plots
 plotScree(pca)               # barplot
 plotScree(pca, type = "l")   # lines
-plotScree(pca, type = "l") + SomaPlotr::theme_soma()  # use "SomaLogic" theme
+plotScree(pca, type = "l")
 }
 \seealso{
 \code{\link[=prcomp2]{prcomp2()}}

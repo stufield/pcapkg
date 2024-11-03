@@ -9,9 +9,9 @@ getTopPCArotation(x, dims = 1:5, n = 30L)
 \arguments{
 \item{x}{A \code{pca} class object.}
 
-\item{dims}{Integer. Vector of dimensions to interrogate.}
+\item{dims}{\code{integer(2)}. Vector of dimensions to interrogate.}
 
-\item{n}{Integer. The limit on how many features
+\item{n}{\code{integer(1)}. The limit on how many features
 to report (i.e. the rows of the resulting data frame).}
 }
 \value{
@@ -25,7 +25,9 @@ components in that dimension. Each dimension is
 represented by a column of the resulting data frame.
 }
 \examples{
-pca <- pca(log10(sim_test_data))
+feat <- grep("^seq", names(sim_adat), value = TRUE)
+for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
+pca <- pca(sim_adat)
 getTopPCArotation(pca, n = 10)
 }
 \author{

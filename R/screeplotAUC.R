@@ -16,10 +16,10 @@
 #' @importFrom ggplot2 ggplot aes geom_col labs scale_fill_manual
 #' @importFrom ggplot2 theme element_text rel
 #' @examples
-#' pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
+#' pca <- center_scale(log10(sim_adat), center = TRUE, scale = FALSE) |>
 #'   strip_meta() |>
 #'   prcomp2()
-#' screeplotAUC(pca, sim_test_data$class_response, main = "My ScreePlot by AUC")
+#' screeplotAUC(pca, sim_adat$class_response, main = "My ScreePlot by AUC")
 #' @export
 screeplotAUC <- function(data.prcomp, auc.classes, auc.proj = NULL, main = NULL,
                          nPCs = 20, ...) {
