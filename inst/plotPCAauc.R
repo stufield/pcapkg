@@ -10,7 +10,7 @@
 #' @author Mike Mehan, Amanda Hiser
 #' @examples
 #' # Can utilize the same preparation steps as pcaAUC()
-#' data <- SomaClassify::convert2TrainingData(sim_test_data, group.var = class_response)
+#' data <- SomaClassify::convert2TrainingData(sim_adat, group.var = class_response)
 #' x    <- pca(log10(data))
 #' plotPCAauc(x)
 #'

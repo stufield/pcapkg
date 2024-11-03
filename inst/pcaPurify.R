@@ -52,8 +52,8 @@ pcaPurify <- function(tr.data, features, max.iter = 10L, start.size = 30L,
                       verbose = TRUE) {
 
   start.size <- min(start.size, length(features))
-  apts       <- getAnalytes(tr.data)
-  pca_data   <- dplyr::select(tr.data, getAnalytes(tr.data), "Response")
+  apts       <- get_analytes(tr.data)
+  pca_data   <- dplyr::select(tr.data, get_analytes(tr.data), "Response")
   cur_apts   <- matchSeqIds(head(features, start.size), apts)
   mean_score <- numeric(0)
   thresh     <- 1e-02
@@ -174,7 +174,7 @@ pcaPurify <- function(tr.data, features, max.iter = 10L, start.size = 30L,
     cur_apts <- c(add_apts, setdiff(cur_apts, rem_apts))
     count    <- count + 1L
     cur_iter <- c(list(iter), list(rot1), list(rot2)) |>
-      globalr::set_Names(c(paste0(c("iter_", "rot1_", "rot2_"), count)))
+      helpr::set_Names(c(paste0(c("iter_", "rot1_", "rot2_"), count)))
     # Add this iteration's plots to final list
     plot_list <- c(plot_list, cur_iter)
   }

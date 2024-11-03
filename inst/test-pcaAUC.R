@@ -1,5 +1,5 @@
 
-data <- sim_test_data |>
+data <- sim_adat |>
   SomaClassify::convert2TrainingData(group.var = class_response)
 x <- pca(log10(data))
 

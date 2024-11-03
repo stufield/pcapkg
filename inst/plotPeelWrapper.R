@@ -66,11 +66,11 @@
 #' @author Michael Mehan, Amanda Hiser
 #' @seealso [pca()], [supervised_peel()]
 #' @examples
-#' pca <- center_scale(log10(sim_test_data), center = TRUE, scale = FALSE) |>
+#' pca <- center_scale(log10(sim_adat), center = TRUE, scale = FALSE) |>
 #'   strip_meta() |>
 #'   prcomp2()
-#' tr <- libml::create_train(sim_test_data, group.var = class_response)
-#' apts <- withr::with_seed(1, sample(getAnalytes(sim_test_data), 10L))
+#' tr <- libml::create_train(sim_adat, group.var = class_response)
+#' apts <- withr::with_seed(1, sample(get_analytes(sim_adat), 10L))
 #' plotPeelWrapper(pca, tr.data = tr, aptamers = apts)
 #'
 #' # Using a "supervised_peel" object (apts included)
@@ -120,7 +120,7 @@ plotPeelWrapper <- function(data.prcomp, dims = 1:2L,
 
   if ( !is.null(tr.data) ) {
     apt.scores <- suppressWarnings(
-      SomaClassify::calc.ks(tr.data)$stat.table[getAnalytes(tr.data), "ks.dist"]
+      SomaClassify::calc.ks(tr.data)$stat.table[get_analytes(tr.data), "ks.dist"]
     )
     if ( is.null(sample.classes) ) {
       sample.classes <- tr.data$Response

@@ -12,7 +12,7 @@
 #'   of the training data.
 #' @author Mike Mehan
 #' @examples
-#' data <- SomaClassify::convert2TrainingData(sim_test_data, group.var = class_response)
+#' data <- SomaClassify::convert2TrainingData(sim_adat, group.var = class_response)
 #' x    <- pca(log10(data))
 #' pcaAUC(x, 1L)
 #'

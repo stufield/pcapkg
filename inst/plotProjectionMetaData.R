@@ -14,15 +14,15 @@
 #' @author Stu Field
 #' @seealso [supervised_peel()]
 #' @examples
-#' ft <- attr(sim_test_data, "sig_feat")$class_response
-#' plotProjectionMetaData(log10(sim_test_data), aptamers = ft)
+#' ft <- attr(sim_adat, "sig_feat")$class_response
+#' plotProjectionMetaData(log10(sim_adat), aptamers = ft)
 #' @importFrom dplyr select select_if left_join
 #' @importFrom tibble as_tibble
 #' @importFrom ggplot2 ggplot aes geom_point facet_wrap
 #' @export
 plotProjectionMetaData <- function(data, dims = 1:2L, ...) {
   good_meta <- function(.x) length(unique(.x)) > 1L & length(unique(.x)) <= 8L
-  meta <- dplyr::select_if(data[, getMeta(data)], good_meta) |>
+  meta <- dplyr::select_if(data[, get_meta(data)], good_meta) |>
     as_tibble(rownames = ".id")
   df <- supervised_peel(data, ...)$weighted$x |>
     as_tibble(rownames = ".id") |>
