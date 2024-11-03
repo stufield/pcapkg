@@ -9,8 +9,8 @@ vignette: >
 
 ```{r setup, include = FALSE}
 library(pcapkg)
-library(SomaPlotr)
 library(ggplot2)
+library(SomaPlotr)
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>"
 )
@@ -55,12 +55,12 @@ rotation (loadings) and projection spaces of these components.
 
 Perform principal component analysis (PCA) on a 2-dim data matrix,
 via the decomposition of the variance-covariance matrix (`SVD`).
-Some modification of the standard \code{\link[stats]{prcomp}}) is performed.
+Some modification of the standard `stats::prcomp()` is performed.
 Data transformations (e.g. centering and/or scaling) can be performed
 via its arguments.
 
 ```{r pca}
-pr <- pca(log10(splyr:::sim_test_data))
+pr <- pca(log10(splyr::sim_adat))
 pr
 ```
 
