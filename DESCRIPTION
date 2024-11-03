@@ -17,7 +17,7 @@ Description: This package contains the general functions
 License: MIT + file LICENSE
 Depends:
     R (>= 4.4.0),
-    globalr,
+    helpr,
     splyr
 Imports:
     dplyr,
