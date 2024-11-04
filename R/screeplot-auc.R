@@ -12,11 +12,11 @@
 #' @param nPCs `integer(1)`. Number of PCs to plot.
 #' @param ... Additional arguments passed to [geom_col()].
 #' @author Michael Mehan, Amanda Hiser
-#' @seealso [screeplot()], [plotScree()]
+#' @seealso [screeplot()], [plot_scree()]
 #' @importFrom ggplot2 ggplot aes geom_col labs scale_fill_manual
 #' @importFrom ggplot2 theme element_text rel
 #' @examples
-#' pca <- center_scale(log10(sim_adat), center = TRUE, scale = FALSE) |>
+#' pca <- center_scale(pcapkg:::log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
 #'   strip_meta() |>
 #'   prcomp2()
 #' screeplot_auc(pca, sim_adat$class_response, main = "My ScreePlot by AUC")

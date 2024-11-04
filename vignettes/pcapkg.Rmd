@@ -10,7 +10,6 @@ vignette: >
 ```{r setup, include = FALSE}
 library(pcapkg)
 library(ggplot2)
-library(SomaPlotr)
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>"
 )
@@ -20,7 +19,7 @@ set.seed(101)
 
 
 The `pcapkg` package contains the general functions 
-necessary for the unsupervised exploratory analysis of SOMAmer data 
+necessary for the unsupervised exploratory analysis of proteomic data 
 using Principal Component Analysis (PCA). Primary tools related to
 calculation of principal components and the visualization of
 rotation (loadings) and projection spaces of these components.
@@ -38,11 +37,11 @@ rotation (loadings) and projection spaces of these components.
   + peel away various components conditionally on specific
   features (rotation space) of the data, resulting in `weighted` and `peeled`
   components.
-* `plotScree()`
+* `plot_scree()`
   + generate a "scree"-plot of the top variances for a `pca` class object.
-* `plotRotation()`, `plotProjection()`
+* `plot_rotation()`, `plot_projection()`
   + plot specific rotation and projection space objects
-* `plotSampleHandling()`
+* `plot_sample_handling()`
   + plot rotation and projection with known sample 
   handling analytes highlighted.
 
@@ -60,7 +59,7 @@ Data transformations (e.g. centering and/or scaling) can be performed
 via its arguments.
 
 ```{r pca}
-pr <- pca(log10(splyr::sim_adat))
+pr <- pca(pcapkg:::log_rfu(sim_adat))
 pr
 ```
 
@@ -78,9 +77,8 @@ plot(pr, "r", identify = TRUE)
 ### Projection space
 
 ```{r projection, fig.width = 6, fig.height = 5}
-plot(pr, "p", color = SiteId)                    # unquoted string!
-plot(pr, "p", color = SiteId, id.labels = id) +  # with labels
-  theme_soma(legend.position = "top")
+plot(pr, "p", color = SiteId)                   # unquoted string!
+plot(pr, "p", color = SiteId, id.labels = id)   # with labels
 ```
 
 ### Combine rotation and projection
@@ -88,34 +86,15 @@ plot(pr, "p", color = SiteId, id.labels = id) +  # with labels
 ```{r combo, fig.width = 8, fig.height = 4}
 rot  <- plot(pr, "r", identify = TRUE)
 proj <- plot(pr, "p", color = SiteId, id.labels = id) +
-  theme_soma(legend.position = "top")
+  theme(legend.position = "top")
 gridExtra::grid.arrange(rot, proj, ncol = 2L)
 ```
 
 ### Corresponding `Scree` plots
 
 ```{r scree, fig.width = 8, fig.height = 5}
-a <- plotScree(pr, n = 10L)
-b <- plotScree(pr, n = 10L, type = "l")
-gridExtra::grid.arrange(a, b, ncol = 2)
+a <- plot_scree(pr, n = 10L)
+b <- plot_scree(pr, n = 10L, type = "l")
+gridExtra::grid.arrange(a, b, ncol = 2L)
 ```
 
-### Plotting sample projections by meta-data
-
-A useful first pass of correlated variance by clinical meta data is quickly
-achieved via `plotProjectionMetaData()`.
-Since `supervised_peel()` is called under the hood, you *must* pass 
-an `aptamers =` argument via the `...`. In this example, subset the `MMPs`
-analytes.
-
-```{r proj-meta, fig.width = 8, fig.height = 3.5, eval = FALSE}
-mmps <- attributes(sample.adat)$Col.Meta |>
-  dplyr::filter(grepl("^MMP", EntrezGeneSymbol)) |>
-  dplyr::pull("SeqId") |>
-  paste0("seq.", .) |
-  gsub("-|_", ".", .)
-
-mmps
-
-plotProjectionMetaData(log10(sample.adat), aptamers = mmps)
-```

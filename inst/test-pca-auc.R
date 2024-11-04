@@ -1,7 +1,8 @@
 
 data <- sim_adat |>
   libml::create_train(group.var = class_response)
-x <- pca(log10(data))
+
+x <- pca(log_rfu(log10(data)))
 
 test_that("`pca_auc()` returns correct AUC", {
   withr::local_options(list(digits = 6L))

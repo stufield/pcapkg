@@ -1,10 +1,10 @@
 #' Principal Component Analysis
 #'
 #' Perform principal component analysis (PCA) on a proteomic data matrix,
-#' via the decomposition of the variance-covariance matrix (`SVD`).
-#' Some modification of the standard [prcomp()] is performed.
-#' Data transformations (e.g. centering and/or scaling) can be performed
-#' via its arguments.
+#'   via the decomposition of the variance-covariance matrix (`SVD`).
+#'   Some modification of the standard [prcomp()] is performed.
+#'   Data transformations (e.g. centering and/or scaling) can be performed
+#'   via its arguments.
 #'
 #' @param data A `data.frame` or `tibble` class object.
 #' @param features Which colunns are the features.
@@ -17,13 +17,11 @@
 #' @return An object of class `pca`, similar to [prcomp()].
 #' @author Stu Field
 #' @examples
-#' feat <- grep("^seq", names(sim_adat), value = TRUE)
-#' for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
-#' pca <- pca(sim_adat)
+#' pca <- pca(pcapkg:::log_rfu(sim_adat))
 #'
 #' @seealso [prcomp2()]
 #' @importFrom dplyr ungroup left_join select all_of rename
-#' @importFrom tibble as_tibble
+#' @importFrom tibble as_tibble tibble
 #' @export
 pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
 
@@ -106,8 +104,8 @@ print.pca <- function(x, ...) {
 #' @describeIn pca
 #'   The S3 plot method for objects of class `pca`.
 #' @param type Either `projection` (default) or `rotation`. If called from
-#'   [plotScree()], either `barplot` (default) or `lines`.
-#' @param dims Integer. Length 2. Which dimensions to plot.
+#'   [plot_scree()], either `barplot` (default) or `lines`.
+#' @param dims `integer(2)`. Which dimensions to plot.
 #' @param color An unquoted string indicating the variable in
 #'   `x$projection` to color points by. Required for `projection` plots.
 #' @param identify Logical. Identify points? For `rotation` space, the top
@@ -191,20 +189,21 @@ plot.pca <- function(x, type = c("projection", "rotation"), dims = 1:2L,
 
 #' Plot % variance by principal component
 #'
-#' The [plotScree()] function generates a `"scree plot"` of a `pca` class object.
+#' The [plot_scree()] function generates a `"scree plot"`
+#'   of a `pca` class object.
 #'
 #' @rdname pca
-#' @param n Integer. The number of components to plot.
+#' @param n `integer(1)`. The number of components to plot.
 #' @examples
 #' # Scree plots
-#' plotScree(pca)               # barplot
-#' plotScree(pca, type = "l")   # lines
-#' plotScree(pca, type = "l")
+#' plot_scree(pca)               # barplot
+#' plot_scree(pca, type = "l")   # lines
+#' plot_scree(pca, type = "l")
 #' @importFrom tibble enframe
 #' @importFrom ggplot2 geom_bar aes ggplot geom_line geom_point scale_x_continuous
 #' @export
-plotScree <- function(x, n = min(15L, length(attributes(x)$sdev)),
-                      type = c("barplot", "lines")) {
+plot_scree <- function(x, n = min(15L, length(attributes(x)$sdev)),
+                       type = c("barplot", "lines")) {
   type <- match.arg(type)
   data <- attributes(x)$sdev^2 |>
     enframe(name = "Component") |>

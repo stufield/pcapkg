@@ -6,18 +6,15 @@
 #'
 #' @param x A `pca` class object. See [pca()].
 #' @param type Matched character. Either `"rotation"` or `"projection"`.
-#' @param dim Integer. Which PCA dimension to select.
-#' @param value Numeric. The value corresponding to the
+#' @param dim `integer(2)`. Which PCA dimension to select.
+#' @param value `numeric(1)`. The value corresponding to the
 #'   dimension to interrogate for names.
 #' @return A character string corresponding to the feature names
 #'   that exceed `value` in the dimension `dim`.
 #' @author Stu Field
 #' @seealso [pca()]
 #' @examples
-#' feat <- grep("^seq", names(sim_adat), value = TRUE)
-#' for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
-#' pca <- pca(sim_adat)
-#'
+#' pca <- pca(pcapkg:::log_rfu(sim_adat))
 #' get_pca_names(pca, "r", 1, 0.1)      # feature names
 #'
 #' get_pca_names(pca, "p", value = 0.1) # sample names

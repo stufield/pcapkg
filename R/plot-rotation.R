@@ -33,9 +33,7 @@
 #' @param ... Additional arguments passed to [plot_pca_dims()].
 #' @author Michael Mehan
 #' @examples
-#' feat <- grep("^seq", names(sim_adat), value = TRUE)
-#' for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
-#' pca <- center_scale(sim_adat, center = TRUE, scale = FALSE) |>
+#' pca <- center_scale(pcapkg:::log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
 #'   strip_meta() |>
 #'   prcomp2()
 #' plot_rotation(pca, col = "green")

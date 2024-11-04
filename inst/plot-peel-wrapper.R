@@ -66,7 +66,7 @@
 #' @author Michael Mehan, Amanda Hiser
 #' @seealso [pca()], [supervised_peel()]
 #' @examples
-#' pca <- center_scale(log10(sim_adat), center = TRUE, scale = FALSE) |>
+#' pca <- center_scale(log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
 #'   strip_meta() |>
 #'   prcomp2()
 #' tr <- libml::create_train(sim_adat, group.var = class_response)

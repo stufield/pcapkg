@@ -24,7 +24,7 @@
 #' @author Michael Mehan, Amanda Hiser
 #' @examples
 #' tr <- libml::create_train(sim_adat, group.var = class_response) |>
-#'   ungroup() |> log10() |> center_scale(center = TRUE, scale = FALSE)
+#'   ungroup() |> log_rfu() |> center_scale(center = TRUE, scale = FALSE)
 #' pca <- ungroup(tr) |> strip_meta() |> prcomp2()
 #' apts <- withr::with_seed(123, sample(get_analytes(sim_adat), 10L))
 #'

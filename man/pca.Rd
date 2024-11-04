@@ -4,7 +4,7 @@
 \alias{pca}
 \alias{print.pca}
 \alias{plot.pca}
-\alias{plotScree}
+\alias{plot_scree}
 \title{Principal Component Analysis}
 \usage{
 pca(data, features = NULL, center = TRUE, scale = FALSE)
@@ -21,7 +21,7 @@ pca(data, features = NULL, center = TRUE, scale = FALSE)
   ...
 )
 
-plotScree(
+plot_scree(
   x,
   n = min(15L, length(attributes(x)$sdev)),
   type = c("barplot", "lines")
@@ -45,9 +45,9 @@ to PCA in correlation space as opposed to covariance space.}
 \item{...}{Additional arguments passed to \code{\link[=geom_point]{geom_point()}}.}
 
 \item{type}{Either \code{projection} (default) or \code{rotation}. If called from
-\code{\link[=plotScree]{plotScree()}}, either \code{barplot} (default) or \code{lines}.}
+\code{\link[=plot_scree]{plot_scree()}}, either \code{barplot} (default) or \code{lines}.}
 
-\item{dims}{Integer. Length 2. Which dimensions to plot.}
+\item{dims}{\code{integer(2)}. Which dimensions to plot.}
 
 \item{color}{An unquoted string indicating the variable in
 \code{x$projection} to color points by. Required for \code{projection} plots.}
@@ -58,7 +58,7 @@ to PCA in correlation space as opposed to covariance space.}
 \item{id.labels}{An unquoted string indicating the variable in
 \code{x$projection} containing point labels. Ignored for \code{rotation} plots.}
 
-\item{n}{Integer. The number of components to plot.}
+\item{n}{\code{integer(1)}. The number of components to plot.}
 }
 \value{
 An object of class \code{pca}, similar to \code{\link[=prcomp]{prcomp()}}.
@@ -70,7 +70,8 @@ Some modification of the standard \code{\link[=prcomp]{prcomp()}} is performed.
 Data transformations (e.g. centering and/or scaling) can be performed
 via its arguments.
 
-The \code{\link[=plotScree]{plotScree()}} function generates a \code{"scree plot"} of a \code{pca} class object.
+The \code{\link[=plot_scree]{plot_scree()}} function generates a \code{"scree plot"}
+of a \code{pca} class object.
 }
 \section{Methods (by generic)}{
 \itemize{
@@ -80,9 +81,7 @@ The \code{\link[=plotScree]{plotScree()}} function generates a \code{"scree plot
 
 }}
 \examples{
-feat <- grep("^seq", names(sim_adat), value = TRUE)
-for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
-pca <- pca(sim_adat)
+pca <- pca(pcapkg:::log_rfu(sim_adat))
 
 # print method
 pca
@@ -96,9 +95,9 @@ plot(pca, "p", color = gender)         # use "gender" for colors
 plot(pca, "p", color = class_response, id.labels = id) # label points
 plot(pca, "p", color = class_response, alpha = 0.5)    # adjust point alpha
 # Scree plots
-plotScree(pca)               # barplot
-plotScree(pca, type = "l")   # lines
-plotScree(pca, type = "l")
+plot_scree(pca)               # barplot
+plot_scree(pca, type = "l")   # lines
+plot_scree(pca, type = "l")
 }
 \seealso{
 \code{\link[=prcomp2]{prcomp2()}}

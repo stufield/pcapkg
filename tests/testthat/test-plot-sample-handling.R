@@ -1,5 +1,5 @@
 # Setup ----------
-data <- log10(sim_adat[c(1:10L, 91:100L), ])
+data <- log_rfu(sim_adat[c(1:10L, 91:100L), ])
 samps <- data$class_response
 # Create fake matching SH analytes
 new_seqs <- c(

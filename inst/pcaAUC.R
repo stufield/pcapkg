@@ -13,12 +13,11 @@
 #' @author Mike Mehan
 #' @examples
 #' data <- libml::create_train(sim_adat, group.var = class_response)
-#' x    <- pca(log10(data))
-#' pcaAUC(x, 1L)
-#'
+#' x <- pca(log_rfu(data))
+#' pca_auc(x, 1L)
 #' @importFrom libml calc_pepe_auc
 #' @export
-pcaAUC <- function(pca.data, dim) {
+pca_auc <- function(pca.data, dim) {
   stopifnot(inherits(pca.data, "pca"))
   respvec <- pca.data$projection$Response
   .col <- paste0("PC", dim)

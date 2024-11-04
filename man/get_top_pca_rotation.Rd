@@ -25,9 +25,7 @@ components in that dimension. Each dimension is
 represented by a column of the resulting data frame.
 }
 \examples{
-feat <- grep("^seq", names(sim_adat), value = TRUE)
-for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
-pca <- pca(sim_adat)
+pca <- pca(pcapkg:::log_rfu(sim_adat))
 get_top_pca_rotation(pca, n = 10)
 }
 \author{

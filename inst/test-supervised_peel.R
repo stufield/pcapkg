@@ -1,7 +1,7 @@
 withr::local_options(list(digits = 6L))
 
 # Setup ----
-sim <- log10(sim_adat)
+sim <- log_rfu(sim_adat)
 sim$Response <- factor(sim$class_response)
 apts <- attributes(sim)$sig_feats$class
 x    <- supervised_peel(sim, aptamers = apts)

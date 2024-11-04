@@ -12,7 +12,7 @@
 #' @param ... Additional arguments passed to [plot_pca_dims()].
 #' @author Michael Mehan, Amanda Hiser
 #' @examples
-#' pca <- center_scale(log10(sim_adat), center = TRUE, scale = FALSE) |>
+#' pca <- center_scale(pcapkg:::log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
 #'   strip_meta() |>
 #'   prcomp2()
 #'

@@ -47,7 +47,7 @@
 #' @author Michael Mehan, Stu Field
 #' @seealso [stats::prcomp()], [center_scale()]
 #' @examples
-#' sim <- log10(sim_adat)
+#' sim <- log10(pcapkg:::log_rfu(sim_adat))
 #' sim$Response <- factor(sim$class_response)  # must add Response column (plotting)
 #' apts1 <- attributes(sim)$sig_feats$class
 #' apts2 <- attributes(sim)$sig_feats$reg

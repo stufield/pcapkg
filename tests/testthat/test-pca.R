@@ -1,7 +1,7 @@
 
 # Setup ------
 pca   <- pca(sim_adat)
-scree <- plotScree(pca)
+scree <- plot_scree(pca)
 feats <- add_seq(get_col_meta(sim_adat)$SeqId)
 p     <- length(feats)
 n     <- nrow(sim_adat)
@@ -48,9 +48,9 @@ test_that("the `pca` function returns the correct attributes", {
   expect_equal(dim(atts$basis), c(n, p))
 })
 
-test_that("the data from the `plotScree` call has the correct values", {
+test_that("the data from the `plot_scree()` call has the correct values", {
   expect_s3_class(scree$data, "tbl_df")
-  expect_equal(dim(scree$data), c(15, 4))
+  expect_equal(dim(scree$data), c(15L, 4L))
   expect_named(scree,
                c("data", "layers", "scales", "guides",
                  "mapping", "theme", "coordinates",

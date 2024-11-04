@@ -1,7 +1,7 @@
 # Setup ----------
 tr <- libml::create_train(sim_adat, group.var = class_response) |>
   ungroup() |>
-  log10() |>
+  log_rfu() |>
   center_scale(center = TRUE, scale = FALSE)
 pca <- ungroup(tr) |>
   strip_meta() |>
@@ -10,14 +10,14 @@ apts <- withr::with_seed(123, sample(get_analytes(sim_adat), 5L))
 apts2 <- withr::with_seed(678, sample(get_analytes(sim_adat), 5L))
 
 # Testing ----------
-test_that("plotPCApairs() works as expected when colors are specified", {
+test_that("`plotPCApairs()` works as expected when colors are specified", {
   expect_snapshot_plot(
     plotPCApairs(pca, apt.col = "green"),
     "plotPCApairs_colors", gg = FALSE
   )
 })
 
-test_that("plotPCApairs(aptamers = ) marks selected aptamers", {
+test_that("`plotPCApairs(aptamers = )` marks selected aptamers", {
   expect_snapshot_plot(
     plotPCApairs(pca, aptamers = apts, aptamers2 = apts2),
     "plotPCApairs_aptamers", gg = FALSE

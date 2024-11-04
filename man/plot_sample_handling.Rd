@@ -37,13 +37,13 @@ as file type will be inferred from the extension.}
 \item{matrix.type}{Which matrix type ("plasma" or "serum") to use for the
 cell abuse SMVs. Partial matching is allowed.}
 
-\item{dims}{Numeric. Length 2. Which dimensions of the PCA to plot. Must be
+\item{dims}{\code{integer(2)}. Which dimensions of the PCA to plot. Must be
 the same for the projection and rotation.}
 
-\item{add.apt.col}{Character. The color to be used for the additional apts
+\item{add.apt.col}{\code{character(1)}. The color to be used for the additional apts
 specified in \code{add.apts} argument.}
 
-\item{legend.pos}{Coordinates of the two legends, in \code{c(0, 0)} format. See Details.}
+\item{legend.pos}{Coordinates of the two legends, in \code{c(1, 1)} format. See Details.}
 }
 \value{
 A \code{ggplot2} plot.
@@ -62,7 +62,7 @@ For the legend positions:
 }
 }
 \examples{
-data <- log10(sim_adat[c(1:10L, 91:100L), ])
+data <- pcapkg:::log_rfu(sim_adat[c(1:10L, 91:100L), ])
 # Create fake matching SH analytes
 new_seqs <- c(
   "seq.4124.24",   # cell lysis

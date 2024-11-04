@@ -26,16 +26,16 @@
 #' @param scale Optional. Scale (as a numeric value) for the saved plot.
 #' @param matrix.type Which matrix type ("plasma" or "serum") to use for the
 #'   cell abuse SMVs. Partial matching is allowed.
-#' @param dims Numeric. Length 2. Which dimensions of the PCA to plot. Must be
+#' @param dims `integer(2)`. Which dimensions of the PCA to plot. Must be
 #'   the same for the projection and rotation.
-#' @param add.apt.col Character. The color to be used for the additional apts
+#' @param add.apt.col `character(1)`. The color to be used for the additional apts
 #'   specified in `add.apts` argument.
-#' @param legend.pos Coordinates of the two legends, in `c(0, 0)` format. See Details.
+#' @param legend.pos Coordinates of the two legends, in `c(1, 1)` format. See Details.
 #' @return A `ggplot2` plot.
 #' @author Stu Field
 #' @seealso [points()]
 #' @examples
-#' data <- log10(sim_adat[c(1:10L, 91:100L), ])
+#' data <- pcapkg:::log_rfu(sim_adat[c(1:10L, 91:100L), ])
 #' # Create fake matching SH analytes
 #' new_seqs <- c(
 #'   "seq.4124.24",   # cell lysis

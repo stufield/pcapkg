@@ -12,7 +12,7 @@
 #' @examples
 #' # Can utilize the same preparation steps as pca_auc()
 #' data <- libml::create_train(sim_adat, group.var = class_response)
-#' x    <- pca(log10(data))
+#' x    <- pca(log_rfu(data))
 #' plot_pca_auc(x)
 #'
 #' # Change point color and linetype on the plot

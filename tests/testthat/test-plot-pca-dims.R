@@ -1,5 +1,5 @@
 # Setup ----------
-pca <- center_scale(log10(sim_adat), center = TRUE, scale = FALSE) |>
+pca <- center_scale(log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
   strip_meta() |>
   prcomp2()
 scores <- withr::with_seed(101, rnorm(length(get_analytes(sim_adat))))

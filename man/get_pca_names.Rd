@@ -11,9 +11,9 @@ get_pca_names(x, type = c("rotation", "projection"), dim = 1L, value)
 
 \item{type}{Matched character. Either \code{"rotation"} or \code{"projection"}.}
 
-\item{dim}{Integer. Which PCA dimension to select.}
+\item{dim}{\code{integer(2)}. Which PCA dimension to select.}
 
-\item{value}{Numeric. The value corresponding to the
+\item{value}{\code{numeric(1)}. The value corresponding to the
 dimension to interrogate for names.}
 }
 \value{
@@ -26,10 +26,7 @@ Determine the names of the features (rotation) or samples
 principal component dimension specified by \code{dim}.
 }
 \examples{
-feat <- grep("^seq", names(sim_adat), value = TRUE)
-for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
-pca <- pca(sim_adat)
-
+pca <- pca(pcapkg:::log_rfu(sim_adat))
 get_pca_names(pca, "r", 1, 0.1)      # feature names
 
 get_pca_names(pca, "p", value = 0.1) # sample names

@@ -30,7 +30,7 @@ plot_pca_dims(
 \item{value}{Character. The type of plot to be generated. For projection
 enter "x", for rotation enter "rotation".}
 
-\item{dims}{Integer. Length 2. Which dimensions to plot.}
+\item{dims}{\code{integer(2)}. Which dimensions to plot.}
 
 \item{classes}{Optional. A vector indicating the classes of
 observations (either features or samples) used for coloring the
@@ -86,16 +86,14 @@ and \code{\link[=plot_projection]{plot_projection()}}.
 }
 \examples{
 # Prepare data
-feat <- grep("^seq", names(sim_adat), value = TRUE)
-for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
-pca <- center_scale(sim_adat, center = TRUE, scale = FALSE) |>
+pca <- center_scale(pcapkg:::log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
   strip_meta() |>
   prcomp2()
-scores <- withr::with_seed(101, rnorm(length(feat)))
+scores <- withr::with_seed(101, rnorm(40))
 
 # Rotation space, with scores to define point colors
 plot_pca_dims(pca, value = "r", dims = 1:2L, classes = NULL,
-              scores = rnorm(length(feat)))
+              scores = rnorm(40))
 
 # Projection space, with classes to define point colors
 plot_pca_dims(pca, value = "x", dims = 1:2L,

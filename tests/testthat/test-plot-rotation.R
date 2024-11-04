@@ -1,6 +1,6 @@
 # Setup ----------
 withr::with_seed(123, {
-  pca <- center_scale(log10(sim_adat), center = TRUE, scale = FALSE) |>
+  pca <- center_scale(log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
     strip_meta() |> prcomp2()
   class <- sample(sim_adat$class_response, 40L)
   all_apts <- get_analytes(sim_adat)
@@ -13,31 +13,32 @@ withr::with_seed(123, {
 
 
 # Testing ----------
-test_that("plot_rotation() produces the expected plot when default args are used", {
+test_that("`plot_rotation()` produces the expected plot when default args are used", {
   expect_snapshot_plot(plot_rotation(pca),
                        "plot_rotation_defaults")
 })
 
-test_that("plot_rotation() produces the expected plot when 'col' is provided", {
+test_that("`plot_rotation()` produces the expected plot when 'col' is provided", {
   expect_snapshot_plot(plot_rotation(pca, col = "blue"),
                        "plot_rotation_color")
 })
 
-test_that("plot_rotation() produces the expected plot when 'classes' are provided", {
+test_that("`plot_rotation()` produces the expected plot when 'classes' are provided", {
   expect_snapshot_plot(plot_rotation(pca, classes = class),
                        "plot_rotation_classes")
 })
 
-test_that("plot_rotation() produces the expected plot when 'aptamers' are provided", {
+test_that("`plot_rotation()` produces the expected plot when 'aptamers' are provided", {
   expect_snapshot_plot(plot_rotation(pca, aptamers = apts1),
                        "plot_rotation_aptamers")
 })
 
-test_that("plot_rotation() modifies point size when 'aptamer' vectors are provided", {
-  expect_snapshot_plot(plot_rotation(pca, aptamers = apts1,
-                                    aptamers2 = apts2,
-                                    aptamers3 = apts3,
-                                    aptamers4 = apts4,
-                                    aptamers5 = apts5),
+test_that("`plot_rotation()` modifies point size when 'aptamer' vectors are provided", {
+  expect_snapshot_plot(plot_rotation(pca, 
+                                     aptamers = apts1,
+                                     aptamers2 = apts2,
+                                     aptamers3 = apts3,
+                                     aptamers4 = apts4,
+                                     aptamers5 = apts5),
                        "plot_rotation_aptamers2")
 })

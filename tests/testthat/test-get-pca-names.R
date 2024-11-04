@@ -1,7 +1,5 @@
 
-feat <- grep("^seq", names(sim_adat), value = TRUE)
-for (i in feat) sim_adat[[i]] <- log10(sim_adat[[i]])
-pca <- pca(sim_adat)
+pca <- pca(log_rfu(sim_adat))
 
 test_that("`get_pca_names()` returns correct 'rotation' object when value = positive", {
   rot1 <- get_pca_names(pca, "r", 1, 0.2)      # feature names

@@ -8,6 +8,13 @@ get_col_meta <- function(x) {
   attr(x, "Col.Meta") %||% tibble::tibble(feature = get_analytes(x))
 }
 
+log_rfu <- function(x) {
+  cls <- class(x)
+  cols <- get_analytes(x)
+  for ( i in cols ) x[[i]] <- log10(x[[i]])
+  structure(x, class = cls)
+}
+
 #' @importFrom tibble tibble
 #' @noRd
 match_seq <- function(x, y) {
