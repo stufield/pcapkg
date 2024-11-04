@@ -3,7 +3,7 @@
 #' Quick wrapper for plotting PCA sample handling, both the sample projection
 #' and the rotation (loadings) of the protein space.
 #'
-#' For the legend positions:
+#' @section Legend Positions:
 #' \tabular{rl}{
 #'   `c(1, 1)` \tab top right \cr
 #'   `c(1, 0)` \tab bottom right \cr
@@ -26,8 +26,7 @@
 #' @param matrix_type `character(1)`. Either "plasma" or "serum".
 #' @param dims `integer(2)`. Which dimensions of the PCA to plot. Must be
 #'   the same for the projection and rotation.
-#' @param legend_pos Coordinates of the two legends, in `c(1, 1)` format.
-#'   See Details.
+#' @param legend_pos Coordinates of the two legends, see Section below.
 #' @return A `ggplot2` plot.
 #' @author Stu Field
 #' @examples
@@ -50,7 +49,7 @@
 #' # Save to file
 #' f_out <- tempfile("plot-", fileext = ".pdf")
 #' plot_sample_handling(pca, samples = data$class_response, matrix_type = "p",
-#'                    legend.pos = c(0, 0), file = f_out)
+#'                    legend_pos = c(0, 0), file = f_out)
 #' @importFrom dplyr case_when left_join
 #' @importFrom ggplot2 geom_point scale_fill_manual scale_shape_manual ggsave
 #' @importFrom ggplot2 theme guides element_blank element_rect margin

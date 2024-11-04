@@ -37,8 +37,7 @@ the same for the projection and rotation.}
 \item{extra_feat_col}{\code{character(1)}. The color to be used for
 the additional features specified in \code{extra_feat} argument.}
 
-\item{legend_pos}{Coordinates of the two legends, in \code{c(1, 1)} format.
-See Details.}
+\item{legend_pos}{Coordinates of the two legends, see Section below.}
 }
 \value{
 A \code{ggplot2} plot.
@@ -47,8 +46,8 @@ A \code{ggplot2} plot.
 Quick wrapper for plotting PCA sample handling, both the sample projection
 and the rotation (loadings) of the protein space.
 }
-\details{
-For the legend positions:
+\section{Legend Positions}{
+
 \tabular{rl}{
 \code{c(1, 1)} \tab top right \cr
 \code{c(1, 0)} \tab bottom right \cr
@@ -56,6 +55,7 @@ For the legend positions:
 \code{c(0, 0)} \tab bottom left\cr
 }
 }
+
 \examples{
 data <- pcapkg:::log_rfu(sim_adat[c(1:10L, 91:100L), ])
 # Create fake matching SH features
@@ -76,7 +76,7 @@ plot_sample_handling(pca, samples = data$class_response, matrix_type = "p",
 # Save to file
 f_out <- tempfile("plot-", fileext = ".pdf")
 plot_sample_handling(pca, samples = data$class_response, matrix_type = "p",
-                   legend.pos = c(0, 0), file = f_out)
+                   legend_pos = c(0, 0), file = f_out)
 }
 \seealso{
 Other PCA plots: 
