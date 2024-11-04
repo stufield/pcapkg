@@ -8,8 +8,8 @@
 #'
 #' @family PCA plots
 #' @inheritParams pca
-#' @param data.prcomp A prcomp class object. Typically the object returned by
-#'   [prcomp2()].
+#' @param data.prcomp A prcomp class object. Typically the object
+#'   returned by [prcomp2()].
 #' @param value Character. The type of plot to be generated. For projection
 #'   enter "x", for rotation enter "rotation".
 #' @param classes Optional. A vector indicating the classes of
@@ -17,30 +17,35 @@
 #'   points, depending on whether a rotation or a projection is to be
 #'   plotted. Must be the same length as the plot type, i.e. number
 #'   of samples for projection and features for rotation.
-#' @param scores Optional. KS scores to pass through for the coloring
-#'   of the points during plotting. If a training data set is passed and
-#'   `scores = NULL`, then KS-distances (scores) will be calculated under the
-#'   hood and used to determine point color. Can be either a single value
-#'   (e.g. "red") or a vector of color values the same length as the number of
-#'   observations. This overrides the point color assigned by `classes` above.
-#' @param main Character. A string containing the title for the plot.
-#' @param col Character. The color of the points. Can be either a single value
-#'   (e.g. "red") or a vector of color values the same length as the number of
-#'   observations. This parameter overrides the point colors determined by
+#' @param scores Optional statistical scores to pass through for the
+#'   coloring of the points during plotting. If a training data
+#'   set is passed and `scores = NULL`,
+#'   then KS-distances (scores) will be calculated under the
+#'   hood and used to determine point color. Can be either a
+#'   single value (e.g. "red") or a vector of color values the
+#'   same length as the number of observations.
+#'   This overrides the point color assigned by `classes` above.
+#' @param main `character(1)`. A string containing the title for the plot.
+#' @param col `character(1)`. The color of the points. Can be either
+#'   a single value (e.g. "red") or a vector of color values the
+#'   same length as the number of observations.
+#'   This parameter overrides the point colors determined by
 #'   both the `classes` and `scores` parameters above.
-#' @param xlab Character. A string indicating the label of the x axis.
-#' @param ylab Character. A string indicating the label of the y axis.
-#' @param legend.pos Character. Position of the legend, if plotted.
+#' @param xlim Numeric. Optional limits for the x-axis in the
+#'   format `c(0, 0)`.
+#' @param ylim Numeric. Optional limits for the y-axis in the
+#'   format `c(0, 0)`.
+#' @param xlab `character(1)`. A string indicating the label of the x axis.
+#' @param ylab `character(1)`. A string indicating the label of the y axis.
+#' @param legend_pos `character(1)`. Position of the legend, if plotted.
 #'   Options include "left", "right", "bottom", or "top", or "none"
 #'   if no legend is desired. Ignored if `value = "r"` (rotation) and
 #'   classes are not specified.
-#' @param xlim Numeric. Optional limits for the x-axis in the format `c(0, 0)`.
-#' @param ylim Numeric. Optional limits for the y-axis in the format `c(0, 0)`.
-#' @param pt.cex Numeric. Character expansion for the points.
-#' @param pt.pch Numeric. Shape of the points. Accepted values are 0-25.
-#' @param add.ellipse Logical. Should an ellipse be added to the
-#'   rotation? Ignored if `value = "x"` (projection).
-#' @return A points plot of either rotation or projection space.
+#' @param pt_cex `numeric(1)`. Character expansion for the points.
+#' @param pt_pch `numeric(1)`. Shape of the points. Accepted values are 0-25.
+#' @param add_ellipse Logical. Should an ellipse be added to the
+#'   rotation? Ignored if projection (`value = "x"`).
+#' @return A points plot of either the rotation or projection space.
 #' @author Michael Mehan, Amanda Hiser
 #' @examples
 #' # Prepare data
@@ -69,10 +74,10 @@ plot_pca_dims <- function(data.prcomp, value = c(NA, "rotation", "x"),
                                                 "projection", value)),
                           scores = NULL, col = NULL,
                           xlab = NULL, ylab = NULL,
-                          legend.pos = "right",
+                          legend_pos = "right",
                           xlim = NULL, ylim = NULL,
-                          pt.cex = 2.5, pt.pch = 19,
-                          add.ellipse = FALSE, ...) {
+                          pt_cex = 2.5, pt_pch = 19,
+                          add_ellipse = FALSE, ...) {
 
   value <- match.arg(value)
 
@@ -82,13 +87,13 @@ plot_pca_dims <- function(data.prcomp, value = c(NA, "rotation", "x"),
       "Must be either `x` or `rotation`", call. = FALSE
     )
   }
-  if ( value == "projection" && add.ellipse ) {
+  if ( value == "projection" && add_ellipse ) {
     signal_info("Value is 'projection', no ellipse will be plotted!")
   }
 
   # Silence legend for non-projection plots
   if ( value != "x" && is.null(classes) ) {
-    legend.pos <- "right"
+    legend_pos <- "right"
   }
 
   type_len <- nrow(data.prcomp[[value]])
@@ -96,7 +101,7 @@ plot_pca_dims <- function(data.prcomp, value = c(NA, "rotation", "x"),
   if ( is.null(col) ) {
     if ( is.null(classes) ) {
       classes <- rep_len("none", type_len)
-      legend.pos <- "none"
+      legend_pos <- "none"
     } else {
       if ( length(classes) != type_len ) {
         stop("The length of `classes = ` must be the same length as ",
@@ -115,13 +120,13 @@ plot_pca_dims <- function(data.prcomp, value = c(NA, "rotation", "x"),
       }
       col <- .map_color(scores, topo_colors(nrow(data.prcomp$rotation)))
       classes <- factor(seq_len(type_len)) # Each class must be unique
-      legend.pos <- "none" # Prevents large legend due to factor classes
+      legend_pos <- "none" # Prevents large legend due to factor classes
     }
   }
 
   if ( is.null(classes) ) {
     classes <- col
-    legend.pos <- "none"
+    legend_pos <- "none"
   }
 
   # Expand col vector if only 1 value provided
@@ -139,8 +144,8 @@ plot_pca_dims <- function(data.prcomp, value = c(NA, "rotation", "x"),
   plot.data <- data.frame(x = data.prcomp[[value]][, dims[1L]],
                           y = data.prcomp[[value]][, dims[2L]],
                           class = classes,
-                          shape = pt.pch,
-                          size = pt.cex)
+                          shape = pt_pch,
+                          size  = pt_cex)
 
   # Create x and y-axis labels
   if ( is.null(xlab) ) {
@@ -161,12 +166,12 @@ plot_pca_dims <- function(data.prcomp, value = c(NA, "rotation", "x"),
 
   # Generate the base plot
   p <- ggplot(plot.data, aes(x = x, y = y, color = class)) +
-    geom_point(size = pt.cex, shape = pt.pch, ...) +
+    geom_point(size = pt_cex, shape = pt_pch, ...) +
     labs(title = main, x = xlab, y = ylab) +
-    theme(legend.position = legend.pos,
-          legend.title = element_blank(),
-          plot.title = element_text(face = "bold", hjust = 0.5,
-                                    size = rel(1.2))) +
+    theme(legend.position = legend_pos,
+          legend.title    = element_blank(),
+          plot.title      = element_text(face = "bold", hjust = 0.5,
+                                         size = rel(1.2))) +
     scale_size_identity()
 
   # Adjust color scale based on 'scores' or user-supplied 'col' values
@@ -179,7 +184,7 @@ plot_pca_dims <- function(data.prcomp, value = c(NA, "rotation", "x"),
   }
 
   if ( value == "rotation" ) {
-    if ( add.ellipse ) {
+    if ( add_ellipse ) {
       if ( is.null(classes) ) {
         p <- p + stat_ellipse(color = col) # Add single ellipse to base plot
       } else {

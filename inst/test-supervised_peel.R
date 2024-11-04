@@ -3,14 +3,14 @@ withr::local_options(list(digits = 6L))
 # Setup ----
 sim <- log_rfu(sim_adat)
 sim$Response <- factor(sim$class_response)
-apts <- attributes(sim)$sig_feats$class
-x    <- supervised_peel(sim, aptamers = apts)
+feats <- attributes(sim)$sig_feats$class
+x     <- supervised_peel(sim, set1 = feats)
 
 # Testing ----
 test_that("`supervised_peel` generates correct output", {
   expect_s3_class(x, "supervised_peel")
   expect_named(x, c("orig", "weighted", "unweighted", "peeled", "peeled_data",
-                    "center", "scale", "logged", "apts", "orig_data", "call"))
+                    "center", "scale", "logged", "feats", "orig_data", "call"))
   nms <- c("sdev", "rotation", "x", "basis", "single.vals")
   expect_named(x$orig, nms)
   expect_equal(rownames(x$orig$x), rownames(sim))
@@ -22,10 +22,10 @@ test_that("`supervised_peel` generates correct output", {
   expect_true(x$center)
   expect_false(x$scale)
   expect_equal(lengths(x),
-               c(orig = 5, weighted = 5, unweighted = 5,
-                 peeled = 5, peeled_data = 41, center = 1,
-                 scale = 1, logged = 1, apts = 5,
-                 orig_data = 56, call = 3))
+               c(orig = 5L, weighted = 5L, unweighted = 5L,
+                 peeled = 5L, peeled_data = 41L, center = 1L,
+                 scale = 1L, logged = 1L, feats = 5L,
+                 orig_data = 56L, call = 3L))
   expect_equal(nrow(x$peeled_data), nrow(sim))
   expect_equal(lapply(x, class),
                list(orig        = "prcomp",
@@ -36,7 +36,7 @@ test_that("`supervised_peel` generates correct output", {
                     center      = "logical",
                     scale       = "logical",
                     logged      = "logical",
-                    apts        = "list",
+                    feats       = "list",
                     orig_data   = c("soma_adat", "data.frame"),
                     call        = "call"))
 })
@@ -68,12 +68,11 @@ test_that("`supervised_peel()` generates the expected plot", {
   expect_snapshot_plot(plot(x), "supervised_peel_plotDefaults", gg = FALSE)
 })
 
-test_that("`supervised_peel()` generates the expected plot when aptamers are provided", {
-  apts2 <- attributes(sim)$sig_feats$surv
-  apts3 <- attributes(sim)$sig_feats$noise[1:3]
-  apts4 <- attributes(sim)$sig_feats$noise[7:9]
+test_that("`supervised_peel()` generates the expected plot when feature sets provided", {
+  set3 <- attributes(sim)$sig_feats$noise[1:3L]
+  set4 <- attributes(sim)$sig_feats$noise[7:9L]
   expect_snapshot_plot(
-    plot(x, aptamers = apts, aptamers3 = apts3, aptamers4 = apts4),
+    plot(x, set1 = feats, set3 = set3, set4 = set4),
     "supervised_peel_plotAptamers", gg = FALSE
   )
 })

@@ -45,34 +45,33 @@ topo_colors <- function(n, alpha) {
   grDevices::topo.colors(n = n, alpha = alpha, rev = TRUE)
 }
 
-#' Internal S3 methods for pulling
+#' S3 internal methods for pulling
 #'   V3 sample handling lists from the object `smvs`.
-#' Separate methods for serum and plasma
 #' @noRd
-get_handling <- function(apts, add.apts = NULL) UseMethod("get_handling", apts)
+get_handling <- function(x, add = NULL) UseMethod("get_handling", x)
 
 # S3 plasma method
 #' @noRd
-get_handling.plasma <- function(apts, add.apts) {
+get_handling.plasma <- function(x, add) {
   ret <- list()
-  ret$cell_abuse <- match_seq(names(smvs$PlasmaCellAbuse), apts)
-  ret$platelet   <- match_seq(names(smvs$PlasmaPlatelet), apts)
-  ret$complement <- match_seq(names(smvs$Complement), apts)
-  if ( !is.null(add.apts) ) {
-    ret$add.apts <- match_seq(add.apts, apts)
+  ret$cell_abuse <- match_seq(names(smvs$PlasmaCellAbuse), x)
+  ret$platelet   <- match_seq(names(smvs$PlasmaPlatelet), x)
+  ret$complement <- match_seq(names(smvs$Complement), x)
+  if ( !is.null(add) ) {
+    ret$extra <- match_seq(add, x)
   }
   ret
 }
 
 # S3 serum method
 #' @noRd
-get_handling.serum <- function(apts, add.apts) {
+get_handling.serum <- function(x, add) {
   ret <- list()
-  ret$cell_abuse <- match_seq(names(smvs$SerumCellAbuse), apts)
-  ret$platelet   <- match_seq(names(smvs$PlasmaPlatelet), apts)
-  ret$complement <- match_seq(names(smvs$Complement), apts)
-  if ( !is.null(add.apts) ) {
-    ret$add.apts <- match_seq(add.apts, apts)
+  ret$cell_abuse <- match_seq(names(smvs$SerumCellAbuse), x)
+  ret$platelet   <- match_seq(names(smvs$PlasmaPlatelet), x)
+  ret$complement <- match_seq(names(smvs$Complement), x)
+  if ( !is.null(add) ) {
+    ret$extra <- match_seq(add, x)
   }
   ret
 }

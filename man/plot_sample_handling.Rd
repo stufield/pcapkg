@@ -6,14 +6,13 @@
 \usage{
 plot_sample_handling(
   data.prcomp,
-  add.apts = NULL,
+  extra_feat = NULL,
   samples,
-  filename = NULL,
-  scale = 1,
-  matrix.type,
+  file = NULL,
+  matrix_type,
   dims = 1:2L,
-  add.apt.col = "firebrick3",
-  legend.pos = c(1L, 1L)
+  extra_feat_col = "firebrick3",
+  legend_pos = c(1L, 1L)
 )
 }
 \arguments{
@@ -22,28 +21,24 @@ plot_sample_handling(
 call to \code{supervised_peel()}, any 1 of the 4 components may be
 plotted, e.g. \code{orig}, \code{weighted}, \code{unweighted}, or \code{peeled}.}
 
-\item{add.apts}{Vector of additional SOMAmer reagents to highlight, beyond
-the sample handling SMVs.}
+\item{extra_feat}{\code{character(n)}. vector of additional features
+to highlight, beyond the sample handling SMVs.}
 
 \item{samples}{Character. A string corresponding to the samples to be used
 to color the points in the projection plot.}
 
-\item{filename}{Optional. File name if plot is to be saved to an
-external file. Include file extension (ex. \code{filename = "example_file.png"}),
-as file type will be inferred from the extension.}
+\item{file}{File name if plot is to be saved to an external file.}
 
-\item{scale}{Optional. Scale (as a numeric value) for the saved plot.}
-
-\item{matrix.type}{Which matrix type ("plasma" or "serum") to use for the
-cell abuse SMVs. Partial matching is allowed.}
+\item{matrix_type}{\code{character(1)}. Either "plasma" or "serum".}
 
 \item{dims}{\code{integer(2)}. Which dimensions of the PCA to plot. Must be
 the same for the projection and rotation.}
 
-\item{add.apt.col}{\code{character(1)}. The color to be used for the additional apts
-specified in \code{add.apts} argument.}
+\item{extra_feat_col}{\code{character(1)}. The color to be used for
+the additional features specified in \code{extra_feat} argument.}
 
-\item{legend.pos}{Coordinates of the two legends, in \code{c(1, 1)} format. See Details.}
+\item{legend_pos}{Coordinates of the two legends, in \code{c(1, 1)} format.
+See Details.}
 }
 \value{
 A \code{ggplot2} plot.
@@ -63,29 +58,27 @@ For the legend positions:
 }
 \examples{
 data <- pcapkg:::log_rfu(sim_adat[c(1:10L, 91:100L), ])
-# Create fake matching SH analytes
+# Create fake matching SH features
 new_seqs <- c(
   "seq.4124.24",   # cell lysis
   "seq.2811.27",   # platelet activation
   "seq.2242.51"    # complement activation
 )
-names(data)[31:33L] <- new_seqs   # assign into 'noise' apts
+names(data)[31:33L] <- new_seqs   # assign into 'noise' features
 pca <- center_scale(data, center = TRUE, scale = FALSE) |>
   strip_meta() |>
   prcomp2()
 
 plot_sample_handling(pca, samples = data$class_response, matrix.type = "p")
 plot_sample_handling(pca, samples = data$class_response, matrix.type = "p",
-                   add.apts = "seq.2802.68")
+                     extra_feat = "seq.2802.68")
 
 # Save to file
-f_out <- tempfile("SHplot-", fileext = ".pdf")
+f_out <- tempfile("plot-", fileext = ".pdf")
 plot_sample_handling(pca, samples = data$class_response, matrix.type = "p",
-                   legend.pos = c(0, 0), filename = f_out)
+                   legend.pos = c(0, 0), file = f_out)
 }
 \seealso{
-\code{\link[=points]{points()}}
-
 Other PCA plots: 
 \code{\link{plot_pca_dims}()},
 \code{\link{plot_projection}()},

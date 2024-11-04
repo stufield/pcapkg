@@ -6,20 +6,20 @@ tr <- libml::create_train(sim_adat, group.var = class_response) |>
 pca <- ungroup(tr) |>
   strip_meta() |>
   prcomp2()
-apts <- withr::with_seed(123, sample(get_analytes(sim_adat), 5L))
-apts2 <- withr::with_seed(678, sample(get_analytes(sim_adat), 5L))
+set1 <- withr::with_seed(123, sample(get_analytes(sim_adat), 5L))
+set2 <- withr::with_seed(678, sample(get_analytes(sim_adat), 5L))
 
 # Testing ----------
 test_that("`plotPCApairs()` works as expected when colors are specified", {
   expect_snapshot_plot(
-    plotPCApairs(pca, apt.col = "green"),
+    plotPCApairs(pca, rot.col = "green"),
     "plotPCApairs_colors", gg = FALSE
   )
 })
 
-test_that("`plotPCApairs(aptamers = )` marks selected aptamers", {
+test_that("`plotPCApairs(set1=)` marks selected features", {
   expect_snapshot_plot(
-    plotPCApairs(pca, aptamers = apts, aptamers2 = apts2),
-    "plotPCApairs_aptamers", gg = FALSE
+    plotPCApairs(pca, set1 = set1, set2 = set2),
+    "plotPCApairs_feat_sets", gg = FALSE
   )
 })

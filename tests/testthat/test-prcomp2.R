@@ -1,16 +1,10 @@
 withr::local_options(list(digits = 6L))
 
-seq2apt <- function(x) {
-  x <- vapply(strsplit(x, "_", fixed = TRUE), `[[`, i = 1L,  "")
-  paste0("seq.", sub("-", ".", x))
-}
-
 # Setup ----
-# create fake AptNames
-fake_AptName <- function(n = 1) {
+# create fake names
+fake_name <- function(n = 1) {
   replicate(n, {
-    paste0(sample(1000:9999, 1), "-", sample(1:99, 1)) |>
-      seq2apt()
+    paste0(sample(1000:9999, 1), "-", sample(1:99, 1)) |> add_seq()
   })
 }
 
@@ -25,7 +19,7 @@ withr::with_seed(1, {
   n <- 20
   p <- 100
   x <- matrix(rnorm(n * p), nrow = n, ncol = p)
-  colnames(x) <- fake_AptName(p)
+  colnames(x) <- fake_name(p)
   rownames(x) <- fake_rn(n)
   pr <- prcomp2(x)
 })

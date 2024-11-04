@@ -19,7 +19,7 @@
 #' @param sample.scores See `scores =` argument in [plot_projection()].
 #' @param apt.col See `col =` argument in [plot_rotation()].
 #' @param apt.classes See `classes =` argument in [plot_rotation()].
-#' @param auto.ident Logical. See [plot_rotation()].
+#' @param auto_ident Logical. See [plot_rotation()].
 #' @param ... Arguments passed to either [plot_rotation()] or [plot_projection()].
 #' @author Michael Mehan, Amanda Hiser
 #' @examples
@@ -45,7 +45,7 @@ plot_pca_pairs <- function(data.prcomp, dims = 1:5L, tr.data = NULL,
                            sample.scores = NULL, apt.col = NULL, aptamers = NULL,
                            aptamers2 = NULL, aptamers3 = NULL, aptamers4 = NULL,
                            aptamers5 = NULL, apt.classes = NULL,
-                           auto.ident = TRUE, ...) {
+                           auto_ident = TRUE, ...) {
 
   if ( !inherits(data.prcomp, "prcomp") ) {
     stop(
@@ -73,7 +73,7 @@ plot_pca_pairs <- function(data.prcomp, dims = 1:5L, tr.data = NULL,
         p <- plot_projection(data.prcomp, dims = c(dims[j], dims[i]),
                              classes = sample.classes, scores = sample.scores,
                              xlab = "", ylab = "", main = "",
-                             legend.pos = "none", pt.cex = 1.5, ...) +
+                             legend.pos = "none", pt_cex = 1.5, ...) +
           scale_y_continuous(labels = function(x) format(x, digits = 1)) +
           theme(plot.margin  = margin(-0.5, -0.2, -0.5, -0.2, "cm"),
                 panel.grid   = element_blank(),
@@ -86,8 +86,8 @@ plot_pca_pairs <- function(data.prcomp, dims = 1:5L, tr.data = NULL,
                           col = apt.col, classes = apt.classes,
                           aptamers = aptamers, aptamers2 = aptamers2,
                           aptamers3 = aptamers3, aptamers4 = aptamers4,
-                          aptamers5 = aptamers5, auto.ident = auto.ident,
-                          legend.pos = "none", pt.cex = 1.5, ...) +
+                          aptamers5 = aptamers5, auto_ident = auto_ident,
+                          legend.pos = "none", pt_cex = 1.5, ...) +
           scale_y_continuous(labels = function(x) format(x, digits = 1)) +
           theme(plot.margin  = margin(-0.5, -0.2, -0.5, -0.2, "cm"),
                 panel.grid   = element_blank(),

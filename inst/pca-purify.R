@@ -109,7 +109,7 @@ pcaPurify <- function(tr.data, features, max.iter = 10L, start.size = 30L,
             axis.ticks.length = unit(0.1, "cm"))
 
     # Create 1st rotation plot (dims 1 & 2)
-    rot1 <- plot_rotation(curPCA, col = col, pt.cex = 1, lab.cex = rel(2)) +
+    rot1 <- plot_rotation(curPCA, col = col, pt_cex = 1, lab.cex = rel(2)) +
       theme(plot.title   = element_text(hjust = 0.5, size = rel(0.7)),
             panel.grid   = element_blank(),
             panel.border = element_rect(fill = NA),
@@ -134,7 +134,7 @@ pcaPurify <- function(tr.data, features, max.iter = 10L, start.size = 30L,
 
     # Create 2nd rotation plot (dims 2 & 3)
     rot2 <- plot_rotation(curPCA, col = col, dims = c(2, 3),
-                         pt.cex = 1, lab.cex = rel(2)) +
+                          pt_cex = 1, lab_cex = rel(2)) +
       scale_y_continuous(labels = function(x) format(x, digits = 1)) +
       theme(plot.title   = element_text(hjust = 0.5, size = rel(0.7)),
             panel.grid   = element_blank(),

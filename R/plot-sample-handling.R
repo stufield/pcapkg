@@ -16,55 +16,49 @@
 #'   `supervised_peel()` or [prcomp2()]. If the result of a
 #'   call to `supervised_peel()`, any 1 of the 4 components may be
 #'   plotted, e.g. `orig`, `weighted`, `unweighted`, or `peeled`.
-#' @param add.apts Vector of additional SOMAmer reagents to highlight, beyond
-#'   the sample handling SMVs.
+#' @param extra_feat `character(n)`. vector of additional features
+#'   to highlight, beyond the sample handling SMVs.
+#' @param extra_feat_col `character(1)`. The color to be used for
+#'   the additional features specified in `extra_feat` argument.
 #' @param samples Character. A string corresponding to the samples to be used
 #'   to color the points in the projection plot.
-#' @param filename Optional. File name if plot is to be saved to an
-#'   external file. Include file extension (ex. `filename = "example_file.png"`),
-#'   as file type will be inferred from the extension.
-#' @param scale Optional. Scale (as a numeric value) for the saved plot.
-#' @param matrix.type Which matrix type ("plasma" or "serum") to use for the
-#'   cell abuse SMVs. Partial matching is allowed.
+#' @param file File name if plot is to be saved to an external file.
+#' @param matrix_type `character(1)`. Either "plasma" or "serum".
 #' @param dims `integer(2)`. Which dimensions of the PCA to plot. Must be
 #'   the same for the projection and rotation.
-#' @param add.apt.col `character(1)`. The color to be used for the additional apts
-#'   specified in `add.apts` argument.
-#' @param legend.pos Coordinates of the two legends, in `c(1, 1)` format. See Details.
+#' @param legend_pos Coordinates of the two legends, in `c(1, 1)` format.
+#'   See Details.
 #' @return A `ggplot2` plot.
 #' @author Stu Field
-#' @seealso [points()]
 #' @examples
 #' data <- pcapkg:::log_rfu(sim_adat[c(1:10L, 91:100L), ])
-#' # Create fake matching SH analytes
+#' # Create fake matching SH features
 #' new_seqs <- c(
 #'   "seq.4124.24",   # cell lysis
 #'   "seq.2811.27",   # platelet activation
 #'   "seq.2242.51"    # complement activation
 #' )
-#' names(data)[31:33L] <- new_seqs   # assign into 'noise' apts
+#' names(data)[31:33L] <- new_seqs   # assign into 'noise' features
 #' pca <- center_scale(data, center = TRUE, scale = FALSE) |>
 #'   strip_meta() |>
 #'   prcomp2()
 #'
-#' plot_sample_handling(pca, samples = data$class_response, matrix.type = "p")
-#' plot_sample_handling(pca, samples = data$class_response, matrix.type = "p",
-#'                    add.apts = "seq.2802.68")
+#' plot_sample_handling(pca, samples = data$class_response, matrix_type = "p")
+#' plot_sample_handling(pca, samples = data$class_response, matrix_type = "p",
+#'                      extra_feat = "seq.2802.68")
 #'
 #' # Save to file
-#' f_out <- tempfile("SHplot-", fileext = ".pdf")
-#' plot_sample_handling(pca, samples = data$class_response, matrix.type = "p",
-#'                    legend.pos = c(0, 0), filename = f_out)
+#' f_out <- tempfile("plot-", fileext = ".pdf")
+#' plot_sample_handling(pca, samples = data$class_response, matrix_type = "p",
+#'                    legend.pos = c(0, 0), file = f_out)
 #' @importFrom dplyr case_when left_join
-#' @importFrom ggplot2 geom_point scale_fill_manual scale_shape_manual
-#' @importFrom ggplot2 theme guides element_blank element_rect
-#' @importFrom ggplot2 margin ggsave
-#' @importFrom gridExtra grid.arrange
+#' @importFrom ggplot2 geom_point scale_fill_manual scale_shape_manual ggsave
+#' @importFrom ggplot2 theme guides element_blank element_rect margin
 #' @export
-plot_sample_handling <- function(data.prcomp, add.apts = NULL, samples,
-                               filename = NULL, scale = 1, matrix.type,
-                               dims = 1:2L, add.apt.col = "firebrick3",
-                               legend.pos = c(1L, 1L)) {
+plot_sample_handling <- function(data.prcomp, extra_feat = NULL, samples,
+                                 file = NULL, matrix_type, dims = 1:2L,
+                                 extra_feat_col = "firebrick3",
+                                 legend_pos = c(1L, 1L)) {
 
   if ( inherits(data.prcomp, "supervised_peel") ) {
     stop(
@@ -81,38 +75,38 @@ plot_sample_handling <- function(data.prcomp, add.apts = NULL, samples,
     )
   }
 
-  if ( is.na(matrix.type) ) {
+  if ( is.na(matrix_type) ) {
     stop(
       "Must provide either 'plasma' or 'serum' for ",
-      "`matrix.type =` argument.", call. = FALSE
+      "`matrix_type =` argument.", call. = FALSE
     )
   }
 
-  matrix.type  <- match.arg(matrix.type, c("plasma", "serum"))
-  pca_apts     <- rownames(data.prcomp$rotation)
-  pca_apts     <- add_class(pca_apts, matrix.type)  # for the S3 method next
-  apt_list     <- get_handling(apts = pca_apts, add.apts = add.apts)
+  matrix_type  <- match.arg(matrix_type, c("plasma", "serum"))
+  pca_feats    <- rownames(data.prcomp$rotation)
+  pca_feats    <- add_class(pca_feats, matrix_type)  # for the S3 method next
+  sh_list      <- get_handling(x = pca_feats, add = extra_feat)
   legend_names <- c("Cell Lysis", "Platelet Activation", "Complement Activation")
 
   col_vec <- c(col_palette$purple,
                col_palette$lightgreen,
                col_palette$lightblue) |>
-    helpr::set_Names(names(apt_list)[1:3L])
+    helpr::set_Names(names(sh_list)[1:3L])
 
-  if ( !is.null(add.apts) ) {
-    col_vec <- c(col_vec, add.apt.col)
-    legend_names <- c(legend_names, "Suppl. Analytes")
+  if ( !is.null(extra_feat) ) {
+    col_vec <- c(col_vec, extra_feat_col)
+    legend_names <- c(legend_names, "Extra Features")
   }
 
-  apt_colors <- rep("gray75", length(pca_apts)) |>
-    helpr::set_Names(pca_apts)
+  sh_colors <- rep("gray75", length(pca_feats)) |>
+    helpr::set_Names(pca_feats)
 
   for ( i in seq_along(col_vec) ) {
-    apt_colors[ pca_apts %in% apt_list[[i]] ] <- col_vec[i]
+    sh_colors[ pca_feats %in% sh_list[[i]] ] <- col_vec[i]
   }
 
   # Select shapes for overlaid points & sync names with legend labels
-  apt_pch_vec <- c(21, 24, 22, 23)[seq_along(apt_list)] |>
+  pch_vec <- c(21, 24, 22, 23)[seq_along(sh_list)] |>
     helpr::set_Names(legend_names)
 
   rot_rnames <- rownames(data.prcomp$rotation)
@@ -122,17 +116,17 @@ plot_sample_handling <- function(data.prcomp, add.apts = NULL, samples,
                           x = data.prcomp$rotation[, dims[1L]],
                           y = data.prcomp$rotation[, dims[2L]],
                           class = case_when(
-                            rot_rnames %in% apt_list$cell_abuse ~ legend_names[1L], # nolint
-                            rot_rnames %in% apt_list$platelet ~ legend_names[2L],   # nolint
-                            rot_rnames %in% apt_list$complement ~ legend_names[3L], # nolint
+                            rot_rnames %in% sh_list$cell_abuse ~ legend_names[1L], # nolint
+                            rot_rnames %in% sh_list$platelet ~ legend_names[2L],   # nolint
+                            rot_rnames %in% sh_list$complement ~ legend_names[3L], # nolint
                             TRUE ~ "none"))
 
   point_ann$class <- factor(point_ann$class,
                             levels = c(legend_names, "none"))
 
-  if ( !is.null(add.apts) ) {
+  if ( !is.null(extra_feat) ) {
     point_ann$class <- case_when(
-      rownames(data.prcomp$rotation) %in% apt_list$add.apts ~ legend_names[4L],
+      rownames(data.prcomp$rotation) %in% sh_list$extra ~ legend_names[4L],
       TRUE ~ point_ann$class
     )
   }
@@ -145,36 +139,35 @@ plot_sample_handling <- function(data.prcomp, add.apts = NULL, samples,
           legend.text = element_text(size = rel(0.8)),
           legend.margin = margin(t = -0.1, l = 0.07, b = 0.07, r = 0.2,
                                  unit = "cm"),
-          legend.position.inside = legend.pos,
-          legend.justification = legend.pos,
-          legend.background = element_rect(color = "black",
-                                           linewidth = 0.1))
+          legend.position.inside = legend_pos,
+          legend.justification   = legend_pos,
+          legend.background      = element_rect(color = "black",
+                                                linewidth = 0.1))
   # Create rotation plot
-  r <- plot_rotation(data.prcomp, dims = dims, col = apt_colors,
-                     auto.ident = TRUE) +
-    geom_point(data = point_ann[point_ann$class != "none", ], # Additional apts
+  r <- plot_rotation(data.prcomp, dims = dims, col = sh_colors,
+                     auto_ident = TRUE) +
+    geom_point(data = point_ann[point_ann$class != "none", ], # Extra feats
                aes(x = x, y = y, fill = class, shape = class),
                size = 3, color = "black") +
-    scale_fill_manual(values = col_vec) + # Color for addl apts
-    scale_shape_manual(values = apt_pch_vec) +
-    theme(legend.title = element_blank(),
-          legend.text = element_text(size = rel(0.8)),
-          legend.margin = margin(t = -0.1, l = 0.07, b = 0.07, r = 0.2,
-                                 unit = "cm"),
-          legend.position.inside = legend.pos,
-          legend.justification = legend.pos,
-          legend.background = element_rect(color = "black",
-                                           linewidth = 0.1)) +
+    scale_fill_manual(values = col_vec) + # Color for extra feats
+    scale_shape_manual(values = pch_vec) +
+    theme(legend.title  = element_blank(),
+          legend.text   = element_text(size = rel(0.8)),
+          legend.margin = margin(t = -0.1, l = 0.07, b = 0.07,
+                                 r = 0.2, unit = "cm"),
+          legend.position.inside = legend_pos,
+          legend.justification   = legend_pos,
+          legend.background      = element_rect(color = "black",
+                                                linewidth = 0.1)) +
     guides(color = "none")
 
   f <- grid.arrange(p, r, ncol = 2L)
 
-  if ( !is.null(filename) ) {
+  if ( !is.null(file) ) {
     ht <- 4.5
     wd <- ht * 2
-    ggsave(filename, plot = f, scale = scale,
-           height = ht, width = wd,
-           units = "in")
+    ggsave(file, plot = out, scale = scale, height = ht,
+           width = wd, units = "in")
   }
 
   invisible(f)

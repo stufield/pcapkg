@@ -14,15 +14,15 @@ screeplot_auc(
 )
 }
 \arguments{
-\item{data.prcomp}{A prcomp class object. Typically the object returned by
-\code{\link[=prcomp2]{prcomp2()}}.}
+\item{data.prcomp}{A prcomp class object. Typically the object
+returned by \code{\link[=prcomp2]{prcomp2()}}.}
 
 \item{auc.classes}{A vector of the training classes used in calculating the AUC.}
 
 \item{auc.proj}{An alternative projection matrix from another decomposition.
 By default, the projection from \code{data.prcomp} is used.}
 
-\item{main}{Character. A string containing the title for the plot.}
+\item{main}{\code{character(1)}. A string containing the title for the plot.}
 
 \item{nPCs}{\code{integer(1)}. Number of PCs to plot.}
 

@@ -1,4 +1,4 @@
-# pca print method returns known output
+# `pca` S3 print method returns known output
 
     -- PCA Object ------------------------------------------------------------------
     Rotation                 40 x 49 (PC1:PC40)

@@ -18,7 +18,7 @@
 #'   \item{Scree Plot:}{Plot of the principal components. This plot is used to
 #'     determine the number of factors to retain when performing a PCA.}
 #'   \item{Rotation:}{Also called a "loadings" plot. This contains the
-#'     features/aptamers. A scatter plot of the features in 2 dimensional space.}
+#'     features. A scatter plot of the features in 2 dimensional space.}
 #'   \item{Projection:}{A scatter plot of the projected samples into 2 dimensional space.}
 #' }
 #'
@@ -34,7 +34,7 @@
 #'   of the projection points during plotting.
 #' @param apt.scores Optional. KS scores to pass through for the coloring
 #'   of the rotation points during plotting.
-#' @param apt.col Character. Color for the SOMAmer reagents in the plot rotation,
+#' @param ft.col Character. Color for the SOMAmer reagents in the plot rotation,
 #'    i.e. the loadings.
 #' @param sample.col Character. Color for the samples in the projection plot.
 #'   This overrides the `sample.classes =` argument.
@@ -77,21 +77,17 @@
 #' spp <- supervised_peel(tr, aptamers = apts)
 #' plot_peel_wrapper(spp$orig, aptamers = spp$apts$aptamers)                # no colors
 #' plot_peel_wrapper(spp$orig, aptamers = spp$apts$aptamers, tr.data = tr)  # colors
-#' @importFrom lifecycle deprecated is_present deprecate_soft deprecate_warn
 #' @importFrom gridExtra grid.arrange
 #' @export
 plot_peel_wrapper <- function(data.prcomp, dims = 1:2L,
                               sample.classes = NULL, samples = NULL,
                               sample.scores = NULL, apt.scores = NULL,
-                              apt.col = NULL, sample.col = NULL,
+                              ft.col = NULL, sample.col = NULL,
                               tr.data = NULL, main = NULL,
-                              skip.layout = deprecated(),
-                              report.layout = deprecated(),
                               aptamers = NULL, aptamers2 = NULL,
                               aptamers3 = NULL, aptamers4 = NULL,
                               aptamers5 = NULL,
                               sample.xlim = NULL, sample.ylim = NULL,
-                              sample.bg = deprecated(), apt.bg = deprecated(),
                               apt.classes = NULL, apt.auto.ident = TRUE,
                               apt.xlim = NULL, apt.ylim = NULL,
                               sample.cex = 2.5, apt.cex = 2.5, apt.pch = 21, ...) {
@@ -111,9 +107,9 @@ plot_peel_wrapper <- function(data.prcomp, dims = 1:2L,
   }
 
   rot <- plot_rotation(data.prcomp, dims = dims, classes = apt.classes,
-                       scores = apt.scores, col = apt.col,
+                       scores = apt.scores, col = ft.col,
                        xlim = apt.xlim, ylim = apt.ylim,
-                       pt.cex = apt.cex, auto.ident = apt.auto.ident,
+                       pt_cex = apt.cex, auto_ident = apt.auto.ident,
                        aptamers = aptamers, aptamers2 = aptamers2,
                        aptamers3 = aptamers3, aptamers4 = aptamers4,
                        aptamers5 = aptamers5, ...)
@@ -121,7 +117,7 @@ plot_peel_wrapper <- function(data.prcomp, dims = 1:2L,
   proj <- plot_projection(data.prcomp, dims = dims, classes = sample.classes,
                           scores = sample.scores, col = sample.col, samples = samples,
                           xlim = sample.xlim, ylim = sample.ylim,
-                          pt.cex = sample.cex, ...) +
+                          pt_cex = sample.cex, ...) +
     theme(legend.margin = margin(t = -0.1, l = 0.07, b = 0.07, r = 0.2,
                                  unit = "cm"),
           legend.position = c(1, 0),
@@ -132,40 +128,3 @@ plot_peel_wrapper <- function(data.prcomp, dims = 1:2L,
   grid.arrange(scree, rot, proj, nrow = 3L)
 }
 
-
-#' @rdname plotPeelWrapper
-#' @export
-plotPCAwrapper <- function(data.prcomp, dims = 1:2L,
-                           sample.classes = NULL, samples = NULL,
-                           sample.scores = NULL, apt.scores = NULL,
-                           apt.col = NULL, sample.col = NULL,
-                           tr.data = NULL, main = NULL,
-                           skip.layout = deprecated(),
-                           report.layout = deprecated(),
-                           aptamers = NULL, aptamers2 = NULL,
-                           aptamers3 = NULL, aptamers4 = NULL,
-                           aptamers5 = NULL,
-                           sample.xlim = NULL, sample.ylim = NULL,
-                           sample.bg = deprecated(), apt.bg = deprecated(),
-                           apt.classes = NULL, apt.auto.ident = TRUE,
-                           apt.xlim = NULL, apt.ylim = NULL,
-                           sample.cex = 1, apt.cex = 1, apt.pch = 21, ...) {
-
-  deprecate_warn("3.4.0",
-                 "plotPCAwrapper()",
-                 "plotPeelWrapper()")
-
-  plotPeelWrapper(data.prcomp = data.prcomp, dims = dims,
-                  sample.classes = sample.classes, samples = samples,
-                  sample.scores = sample.scores, apt.scores = apt.scores,
-                  apt.col = apt.col, sample.col = sample.col,
-                  tr.data = tr.data, main = main,
-                  aptamers = aptamers, aptamers2 = aptamers2,
-                  aptamers3 = aptamers3, aptamers4 = aptamers4,
-                  aptamers5 = aptamers5,
-                  sample.xlim = sample.xlim, sample.ylim = sample.ylim,
-                  apt.classes = apt.classes, apt.auto.ident = apt.auto.ident,
-                  apt.xlim = apt.xlim, apt.ylim = apt.ylim,
-                  sample.cex = sample.cex, apt.cex = apt.cex, apt.pch = apt.pch,
-                  ...)
-}

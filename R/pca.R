@@ -29,13 +29,13 @@ pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
     if ( is.null(features) ) {
       features <- get_analytes(data)
     }
-    apt_data <- get_col_meta(data)
-    apt_data$Feature <- add_seq(apt_data$SeqId)
+    tbl <- get_col_meta(data)
+    tbl$Feature <- add_seq(tbl$SeqId)
   } else {
     if ( is.null(features) ) {
       stop("`features` must be passed", call. = FALSE)
     }
-    apt_data <- tibble::tibble(Feature = features)
+    tbl <- tibble::tibble(Feature = features)
   }
   not_feat <- setdiff(names(data), features)
   meta     <- dplyr::select(data, all_of(not_feat)) |>
@@ -59,7 +59,7 @@ pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
 
   # Perform initial PCA
   orig_pca <- prcomp2(scaled_data)
-  rotation <- cbind(data.frame(apt_data),        # apts are ordered as in ADAT
+  rotation <- cbind(data.frame(tbl),        # features ordered as in ADAT
                     data.frame(orig_pca$rotation)) |>
     as_tibble()
 

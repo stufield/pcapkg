@@ -3,26 +3,26 @@
 #' Map a series of vectors containing feature lists such that each
 #' list is mapped to a specific point character (`pch`) value for
 #' downstream plotting (e.g. [plot_rotation()].
-#' Additionally, character expansion (`cex`) is also mapped if `> 2` aptamer
+#' Additionally, character expansion (`cex`) is also mapped if `> 2`
 #' lists are passed. A masking of `TRUE/FALSE` is also returned that
 #' is used in the weighted PCA.
 #'
-#' @param apts Character. A vector containing the _superset_ of ALL
+#' @param features `character(n)`. A vector containing the _superset_ of ALL
 #'   analyte/feature names to be mapped.
-#' @param aptamers Character. Required. A _subset_ of `apts`.
+#' @param set1 Character. Required. A _subset_ of `features`.
 #'   Sequence ID matched ... hollow triangle.
-#' @param aptamers2 Character. Optional. A *different * subset.
+#' @param set2 Character. Optional. A *different * subset.
 #'   Sequence ID matched ... hollow diamond.
-#' @param aptamers3 Character. Optional. A *different* subset.
+#' @param set3 Character. Optional. A *different* subset.
 #'   Marked with a hollow square (see [pch()]).
-#'   Sequence ID matched ... hollow square. 
-#' @param aptamers4 Character. Optional. A *different* subset.
-#'   Sequence ID matched ... hollow circle. 
-#' @param aptamers5 Character. Optional. A *different* subset.
+#'   Sequence ID matched ... hollow square.
+#' @param set4 Character. Optional. A *different* subset.
+#'   Sequence ID matched ... hollow circle.
+#' @param set5 Character. Optional. A *different* subset.
 #'   Sequence ID matched ... upside-down triangle.
 #' @return A tibble containing:
 #'   \item{mask}{Logical. A binary depending on whether the entry in
-#'     `apts` is present in any of the optionally added set(s).}
+#'     `features` is present in any of the optionally added set(s).}
 #'   \item{pch}{The point character symbol for each entry.}
 #'   \item{cex}{The character expansion for the symbol for each entry.}
 #' @author Michael Mehan
@@ -41,37 +41,37 @@
 #' length(sps)
 #' table(ret$pch)
 #' @noRd
-map_plot_pch <- function(apts,
-                         aptamers  = NULL,
-                         aptamers2 = NULL,
-                         aptamers3 = NULL,
-                         aptamers4 = NULL,
-                         aptamers5 = NULL,
-                         default.cex = 2.5) {
+map_plot_pch <- function(features,
+                         set1 = NULL,
+                         set2 = NULL,
+                         set3 = NULL,
+                         set4 = NULL,
+                         set5 = NULL,
+                         default_cex = 2.5) {
 
-  if ( is.null(aptamers) ) {
+  if ( is.null(set1) ) {
     stop(
-      "Must pass, at minimum, an `aptamers =` argument.\n",
+      "Must pass, at minimum, an `set1=` argument.\n",
       "Please pass a character string of feature names.",
       call. = FALSE
     )
   }
 
-  aptamers <- c(aptamers, aptamers2, aptamers3, aptamers4, aptamers5)
+  all <- c(set1, set2, set3, set4, set5) |> unique()
   dplyr::left_join(
-    tibble(apts,     seq = get_seq(apts)),
-    tibble(aptamers, seq = get_seq(aptamers)),
+    tibble(features,  seq = get_seq(features)),
+    tibble(all = all, seq = get_seq(all)),
     by= "seq"
     ) |>
     dplyr::mutate(
-      mask = !is.na(aptamers),
-      cex  = ifelse(mask, 4, default.cex),
+      mask = !is.na(all),
+      cex  = ifelse(mask, 4, default_cex),
       pch  = dplyr::case_when(
-        seq %in% get_seq(aptamers)  ~ 23,
-        seq %in% get_seq(aptamers2) ~ 24,
-        seq %in% get_seq(aptamers3) ~ 22,
-        seq %in% get_seq(aptamers4) ~ 21,
-        seq %in% get_seq(aptamers5) ~ 25,
+        seq %in% get_seq(set1) ~ 23,
+        seq %in% get_seq(set2) ~ 24,
+        seq %in% get_seq(set3) ~ 22,
+        seq %in% get_seq(set4) ~ 21,
+        seq %in% get_seq(set5) ~ 25,
         .default = 19
       )
   )

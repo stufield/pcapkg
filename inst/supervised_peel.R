@@ -41,7 +41,7 @@
 #'     \item{center}{Whether the data was mean centered}
 #'     \item{scale}{Whether the data was scaled to unit variance}
 #'     \item{logged}{Whether the data was log-transformed}
-#'     \item{apts}{aptamers that were passed, in list form}
+#'     \item{feats}{features that were passed, in list form}
 #'     \item{orig_data}{The original data matrix}
 #'     \item{call}{The matched call}
 #' @author Michael Mehan, Stu Field
@@ -49,33 +49,26 @@
 #' @examples
 #' sim <- log10(pcapkg:::log_rfu(sim_adat))
 #' sim$Response <- factor(sim$class_response)  # must add Response column (plotting)
-#' apts1 <- attributes(sim)$sig_feats$class
-#' apts2 <- attributes(sim)$sig_feats$reg
-#' apts3 <- attributes(sim)$sig_feats$surv
-#' sp1   <- supervised_peel(sim, aptamers = apts1,
-#'                          aptamers2 = apts2, aptamers3 = apts3)
+#' set1 <- attributes(sim)$sig_feats$class
+#' set2 <- attributes(sim)$sig_feats$reg
+#' set3 <- attributes(sim)$sig_feats$surv
+#' sp1   <- supervised_peel(sim, set1 = set1, set2 = set2, set3 = set3)
 #' @importFrom tibble tibble
 #' @export
-supervised_peel <- function(data, aptamers,
-                            center    = TRUE,
-                            scale     = FALSE,
-                            num.pcs   = 1,
-                            aptamers2 = NULL,
-                            aptamers3 = NULL,
-                            aptamers4 = NULL,
-                            aptamers5 = NULL, ...) {
+supervised_peel <- function(data, set1, center = TRUE, scale = FALSE, num.pcs = 1,
+                            set2 = NULL, set3 = NULL, set4 = NULL, set5 = NULL, ...) {
 
   .call <- match.call(expand.dots = TRUE)
 
-  if ( missing(aptamers) ) {
+  if ( missing(set1) ) {
     stop(
-      "You have not passed an `aptamers =` argument. ",
+      "You have not passed an `set1 =` argument. ",
       "This is incompatible with the intended use.", call. = FALSE
     )
   }
 
   logspace <- is.logspace(data)
-  apts     <- get_analytes(data)
+  feats    <- get_analytes(data)
 
   if ( inherits(data, "grouped_df") ) {
     # if `tr_data` object; use `ungroup::tr_data()` method
@@ -95,23 +88,20 @@ supervised_peel <- function(data, aptamers,
   # Perform initial PCA
   orig_pca <- prcomp2(scaled_data)
 
-  # print(is.null(aptamers))  # nolint: commented_code_linter.
-  # print(class(aptamers))    # nolint: commented_code_linter.
-  # print(length(aptamers))   # nolint: commented_code_linter.
-  if ( is.null(aptamers) || !inherits(aptamers, "character") || length(aptamers) == 0L ) {
-    print(aptamers)
+  if ( is.null(set1) || !inherits(set1, "character") || length(set1) == 0L ) {
+    print(set1)
     stop(
-      "No `aptamers =` argument found or in incorrect format. Please check.",
+      "No `set1 =` argument found or in incorrect format. Please check.",
       call. = FALSE
     )
   }
 
-  # Create weight mask from aptamers
-  weight_mat <- map_plot_pch(apts, aptamers, aptamers2, aptamers3,
-                             aptamers4, aptamers5)$mask |> as.numeric() |> diag()
+  # Create weight mask from set1
+  weight_mat <- map_plot_pch(feats, set1, set2, set3, set4, set5)$mask |>
+    as.numeric() |> diag()
   # Perform weighted PCA
   weighted_data           <- scaled_data %*% weight_mat
-  colnames(weighted_data) <- apts
+  colnames(weighted_data) <- feats
   weighted_pca            <- prcomp2(weighted_data)
 
   # Apply weighted basis to un-weighted data
@@ -154,11 +144,11 @@ supervised_peel <- function(data, aptamers,
        center      = center,
        scale       = scale,
        logged      = logspace,
-       apts        = list(aptamers = aptamers,
-                          aptamers2 = aptamers2,
-                          aptamers3 = aptamers3,
-                          aptamers4 = aptamers4,
-                          aptamers5 = aptamers5),
+       feats       = list(set1 = set1,
+                          set2 = set2,
+                          set3 = set3,
+                          set4 = set4,
+                          set5 = set5),
        orig_data   = data,
        call = .call) |>
     add_class("supervised_peel")
@@ -170,7 +160,7 @@ supervised_peel <- function(data, aptamers,
 #' @inheritParams pca
 #' @param x A `supervised_peel` object created via `supervised_peel()`.
 #' @param ... Additional arguments passed to [plot_peel_wrapper()], such as
-#'   `sample.col` (to control projection plot color) or `apt.xlim/apt.ylim` (to
+#'   `sample.col` (to control projection plot color) or `ft.xlim/ft.ylim` (to
 #'   control x/y-axis limits in the rotation plot). These arguments are, in turn,
 #'   passed to [plot_rotation()] or [plot_projection()], as appropriate.
 #' @author Mike Mehan
@@ -180,37 +170,37 @@ supervised_peel <- function(data, aptamers,
 #'
 #' @importFrom graphics layout par
 #' @export
-plot.supervised_peel <- function(x, dims = 1:2, aptamers = NULL,
-                                 aptamers2 = NULL, aptamers3 = NULL,
-                                 aptamers4 = NULL, aptamers5 = NULL, ...) {
+plot.supervised_peel <- function(x, dims = 1:2, set1 = NULL,
+                                 set2 = NULL, set3 = NULL,
+                                 set4 = NULL, set5 = NULL, ...) {
 
-  if ( is.null(aptamers) ) {
-    aptamers <- x$apts$aptamers
+  if ( is.null(set1) ) {
+    set1 <- x$feats$set1
   }
-  if ( is.null(aptamers2) ) {
-    aptamers2 <- x$apts$aptamers2
+  if ( is.null(set2) ) {
+    set2 <- x$feats$set2
   }
-  if ( is.null(aptamers3) ) {
-    aptamers3 <- x$apts$aptamers3
+  if ( is.null(set3) ) {
+    set3 <- x$feats$set3
   }
-  if ( is.null(aptamers4) ) {
-    aptamers4 <- x$apts$aptamers4
+  if ( is.null(set4) ) {
+    set4 <- x$feats$set4
   }
-  if ( is.null(aptamers5) ) {
-    aptamers5 <- x$apts$aptamers5
+  if ( is.null(set5) ) {
+    set5 <- x$feats$set5
   }
 
-  apt_pch <- map_plot_pch(rownames(x$orig$rotation),
-                          aptamers, aptamers2, aptamers3, aptamers4, aptamers5)$pch
+  pch_vec <- map_plot_pch(rownames(x$orig$rotation),
+                          set1, set2, set3, set4, set5)$pch
 
   mains <- c("Original Data", "Weighted Data", "Unweighted Data", "Peeled Data")
 
   plots <- liter(head(x, 4L), mains, function(.i, .main) {
-    plot_peel_wrapper(.i, tr.data = x$orig_data, apt.pch = apt_pch,
-                    main = .main, dims = dims,
-                    aptamers = aptamers, aptamers2 = aptamers2,
-                    aptamers3 = aptamers3, aptamers4 = aptamers4,
-                    aptamers5 = aptamers5, ...)
+    plot_peel_wrapper(.i, tr.data = x$orig_data, apt.pch = pch_vec,
+                      main = .main, dims = dims,
+                      set1 = set1, set2 = set2,
+                      set3 = set3, set4 = set4,
+                      set5 = set5, ...)
   })
 
   grid.arrange(grobs = plots, ncol = 4L)
@@ -245,7 +235,7 @@ print.supervised_peel <- function(x, ...) {
     !is.null(x$peeled),
     x$center,
     x$scale,
-    paste(lengths(x$apts), collapse = " | "),
+    paste(lengths(x$feats), collapse = " | "),
     x$logged
   )
   writeLines(paste0("  ", key, value))

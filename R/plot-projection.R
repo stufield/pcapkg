@@ -5,10 +5,12 @@
 #'
 #' @family PCA plots
 #' @inheritParams plot_pca_dims
-#' @param classes Optional. A vector indicating the classes of samples used for
-#'   coloring the points. Must be the same length as the number of samples.
-#' @param samples Optional. A vector of sample IDs to mark on the projection plot.
-#'   Specified samples are marked with a hollow diamond (see [pch()]).
+#' @param classes Optional. A vector indicating the classes of
+#'   samples used for coloring the points. Must be the same length
+#'   as the number of samples.
+#' @param samples Optional. A vector of sample IDs to mark
+#'   on the projection plot. Specified samples are marked
+#'   with a hollow diamond (see [pch()]).
 #' @param ... Additional arguments passed to [plot_pca_dims()].
 #' @author Michael Mehan, Amanda Hiser
 #' @examples
@@ -27,7 +29,7 @@
 #' @export
 plot_projection <- function(data.prcomp, dims = 1:2L,
                             classes = NULL, scores = NULL, col = NULL,
-                            samples = NULL, pt.cex = 2.5, ...) {
+                            samples = NULL, pt_cex = 2.5, ...) {
   if ( !is.null(classes) && nrow(data.prcomp$x) != length(classes) ) {
     stop(
       "Inappropriate length of the `classes =` argument.\n",
@@ -37,13 +39,13 @@ plot_projection <- function(data.prcomp, dims = 1:2L,
   }
 
   if ( !is.null(samples) ) {
-    pt.pch <- ifelse(rownames(data.prcomp$x) %in% samples, 23, 19)
-    pt.cex <- ifelse(rownames(data.prcomp$x) %in% samples, 4, 2.5)
+    pt_pch <- ifelse(rownames(data.prcomp$x) %in% samples, 23, 19)
+    pt_cex <- ifelse(rownames(data.prcomp$x) %in% samples, 4, 2.5)
   } else {
-    pt.pch <- 19
+    pt_pch <- 19
   }
 
   plot_pca_dims(data.prcomp, dims = dims, value = "x",
                 classes = classes, scores = scores, col = col,
-                pt.cex = pt.cex, pt.pch = pt.pch, ...)
+                pt_cex = pt_cex, pt_pch = pt_pch, ...)
 }

@@ -11,35 +11,40 @@ plot_projection(
   scores = NULL,
   col = NULL,
   samples = NULL,
-  pt.cex = 2.5,
+  pt_cex = 2.5,
   ...
 )
 }
 \arguments{
-\item{data.prcomp}{A prcomp class object. Typically the object returned by
-\code{\link[=prcomp2]{prcomp2()}}.}
+\item{data.prcomp}{A prcomp class object. Typically the object
+returned by \code{\link[=prcomp2]{prcomp2()}}.}
 
 \item{dims}{\code{integer(2)}. Which dimensions to plot.}
 
-\item{classes}{Optional. A vector indicating the classes of samples used for
-coloring the points. Must be the same length as the number of samples.}
+\item{classes}{Optional. A vector indicating the classes of
+samples used for coloring the points. Must be the same length
+as the number of samples.}
 
-\item{scores}{Optional. KS scores to pass through for the coloring
-of the points during plotting. If a training data set is passed and
-\code{scores = NULL}, then KS-distances (scores) will be calculated under the
-hood and used to determine point color. Can be either a single value
-(e.g. "red") or a vector of color values the same length as the number of
-observations. This overrides the point color assigned by \code{classes} above.}
+\item{scores}{Optional statistical scores to pass through for the
+coloring of the points during plotting. If a training data
+set is passed and \code{scores = NULL},
+then KS-distances (scores) will be calculated under the
+hood and used to determine point color. Can be either a
+single value (e.g. "red") or a vector of color values the
+same length as the number of observations.
+This overrides the point color assigned by \code{classes} above.}
 
-\item{col}{Character. The color of the points. Can be either a single value
-(e.g. "red") or a vector of color values the same length as the number of
-observations. This parameter overrides the point colors determined by
+\item{col}{\code{character(1)}. The color of the points. Can be either
+a single value (e.g. "red") or a vector of color values the
+same length as the number of observations.
+This parameter overrides the point colors determined by
 both the \code{classes} and \code{scores} parameters above.}
 
-\item{samples}{Optional. A vector of sample IDs to mark on the projection plot.
-Specified samples are marked with a hollow diamond (see \code{\link[=pch]{pch()}}).}
+\item{samples}{Optional. A vector of sample IDs to mark
+on the projection plot. Specified samples are marked
+with a hollow diamond (see \code{\link[=pch]{pch()}}).}
 
-\item{pt.cex}{Numeric. Character expansion for the points.}
+\item{pt_cex}{\code{numeric(1)}. Character expansion for the points.}
 
 \item{...}{Additional arguments passed to \code{\link[=plot_pca_dims]{plot_pca_dims()}}.}
 }

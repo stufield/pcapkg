@@ -14,18 +14,18 @@ plot_pca_dims(
   col = NULL,
   xlab = NULL,
   ylab = NULL,
-  legend.pos = "right",
+  legend_pos = "right",
   xlim = NULL,
   ylim = NULL,
-  pt.cex = 2.5,
-  pt.pch = 19,
-  add.ellipse = FALSE,
+  pt_cex = 2.5,
+  pt_pch = 19,
+  add_ellipse = FALSE,
   ...
 )
 }
 \arguments{
-\item{data.prcomp}{A prcomp class object. Typically the object returned by
-\code{\link[=prcomp2]{prcomp2()}}.}
+\item{data.prcomp}{A prcomp class object. Typically the object
+returned by \code{\link[=prcomp2]{prcomp2()}}.}
 
 \item{value}{Character. The type of plot to be generated. For projection
 enter "x", for rotation enter "rotation".}
@@ -38,44 +38,49 @@ points, depending on whether a rotation or a projection is to be
 plotted. Must be the same length as the plot type, i.e. number
 of samples for projection and features for rotation.}
 
-\item{main}{Character. A string containing the title for the plot.}
+\item{main}{\code{character(1)}. A string containing the title for the plot.}
 
-\item{scores}{Optional. KS scores to pass through for the coloring
-of the points during plotting. If a training data set is passed and
-\code{scores = NULL}, then KS-distances (scores) will be calculated under the
-hood and used to determine point color. Can be either a single value
-(e.g. "red") or a vector of color values the same length as the number of
-observations. This overrides the point color assigned by \code{classes} above.}
+\item{scores}{Optional statistical scores to pass through for the
+coloring of the points during plotting. If a training data
+set is passed and \code{scores = NULL},
+then KS-distances (scores) will be calculated under the
+hood and used to determine point color. Can be either a
+single value (e.g. "red") or a vector of color values the
+same length as the number of observations.
+This overrides the point color assigned by \code{classes} above.}
 
-\item{col}{Character. The color of the points. Can be either a single value
-(e.g. "red") or a vector of color values the same length as the number of
-observations. This parameter overrides the point colors determined by
+\item{col}{\code{character(1)}. The color of the points. Can be either
+a single value (e.g. "red") or a vector of color values the
+same length as the number of observations.
+This parameter overrides the point colors determined by
 both the \code{classes} and \code{scores} parameters above.}
 
-\item{xlab}{Character. A string indicating the label of the x axis.}
+\item{xlab}{\code{character(1)}. A string indicating the label of the x axis.}
 
-\item{ylab}{Character. A string indicating the label of the y axis.}
+\item{ylab}{\code{character(1)}. A string indicating the label of the y axis.}
 
-\item{legend.pos}{Character. Position of the legend, if plotted.
+\item{legend_pos}{\code{character(1)}. Position of the legend, if plotted.
 Options include "left", "right", "bottom", or "top", or "none"
 if no legend is desired. Ignored if \code{value = "r"} (rotation) and
 classes are not specified.}
 
-\item{xlim}{Numeric. Optional limits for the x-axis in the format \code{c(0, 0)}.}
+\item{xlim}{Numeric. Optional limits for the x-axis in the
+format \code{c(0, 0)}.}
 
-\item{ylim}{Numeric. Optional limits for the y-axis in the format \code{c(0, 0)}.}
+\item{ylim}{Numeric. Optional limits for the y-axis in the
+format \code{c(0, 0)}.}
 
-\item{pt.cex}{Numeric. Character expansion for the points.}
+\item{pt_cex}{\code{numeric(1)}. Character expansion for the points.}
 
-\item{pt.pch}{Numeric. Shape of the points. Accepted values are 0-25.}
+\item{pt_pch}{\code{numeric(1)}. Shape of the points. Accepted values are 0-25.}
 
-\item{add.ellipse}{Logical. Should an ellipse be added to the
-rotation? Ignored if \code{value = "x"} (projection).}
+\item{add_ellipse}{Logical. Should an ellipse be added to the
+rotation? Ignored if projection (\code{value = "x"}).}
 
 \item{...}{Additional arguments passed to \code{\link[=geom_point]{geom_point()}}.}
 }
 \value{
-A points plot of either rotation or projection space.
+A points plot of either the rotation or projection space.
 }
 \description{
 Plots either the projection or the loadings (rotation) of
