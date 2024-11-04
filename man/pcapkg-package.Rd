@@ -6,7 +6,7 @@
 \alias{pcapkg-package}
 \title{pcapkg: Perform PCA Analysis of Data}
 \description{
-This package contains the general functions necessary for the unsupervised exploratory analysis of SOMAmer data using Principal Component Analysis (PCA). Primary tools related to calculation of principal components and the visualization of loadings and projections of these components.
+This package contains the general functions necessary for the unsupervised exploratory analysis of proteomic data using Principal Component Analysis (PCA). Primary tools related to calculation of principal components and the visualization of loadings and projections of these components.
 }
 \author{
 \strong{Maintainer}: Stu Field \email{stu.g.field@gmail.com} (\href{https://orcid.org/0000-0002-1024-5859}{ORCID}) [copyright holder]

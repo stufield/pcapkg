@@ -1,6 +1,6 @@
 #' PCA Supervised Peel
 #'
-#' Perform principal component analysis (PCA) on a SomaLogic RFU data matrix,
+#' Perform principal component analysis (PCA) on a proteomic data matrix,
 #' i.e. an ADAT, via the decomposition of the variance-covariance matrix.
 #' [supervised_peel()] returns a list of class `supervised_peel`,
 #' each element of which is of class `prcomp` (see [stats::prcomp()]).
@@ -21,16 +21,16 @@
 #'   \item{single.vals:}{Singular values from the SVD.}
 #' }
 #'
-#' @inheritParams plotRotation
+#' @inheritParams plot_rotation
 #' @param center Logical. Should the features/variables be zero centered prior to
 #'   decomposition? This is generally recommended so that variables are in the same
 #'   space prior to analysis.
 #' @param scale Logical. Should the features be scaled to have unit variance prior
 #'   to decomposition? If `TRUE`, this corresponds to PCA in correlation space
 #'   as opposed to covariance space.
-#' @param num.pcs Integer. The number of principal components for the peeled
+#' @param num.pcs `integer(1)`. The number of principal components for the peeled
 #'   decomposition.
-#' @param ... Additional arguments passed to [plotPeelWrapper()].
+#' @param ... Additional arguments passed to [plot_peel_wrapper()].
 #' @return An object of class `supervised_peel`, a list containing
 #'   multiple flavors of PCA:
 #'     \item{orig}{The original PCA. This will be the same as `pca(data)`}
@@ -169,7 +169,7 @@ supervised_peel <- function(data, aptamers,
 #'
 #' @inheritParams pca
 #' @param x A `supervised_peel` object created via `supervised_peel()`.
-#' @param ... Additional arguments passed to [plotPeelWrapper()], such as
+#' @param ... Additional arguments passed to [plot_peel_wrapper()], such as
 #'   `sample.col` (to control projection plot color) or `apt.xlim/apt.ylim` (to
 #'   control x/y-axis limits in the rotation plot). These arguments are, in turn,
 #'   passed to [plot_rotation()] or [plot_projection()], as appropriate.
@@ -206,7 +206,7 @@ plot.supervised_peel <- function(x, dims = 1:2, aptamers = NULL,
   mains <- c("Original Data", "Weighted Data", "Unweighted Data", "Peeled Data")
 
   plots <- liter(head(x, 4L), mains, function(.i, .main) {
-    plotPeelWrapper(.i, tr.data = x$orig_data, apt.pch = apt_pch,
+    plot_peel_wrapper(.i, tr.data = x$orig_data, apt.pch = apt_pch,
                     main = .main, dims = dims,
                     aptamers = aptamers, aptamers2 = aptamers2,
                     aptamers3 = aptamers3, aptamers4 = aptamers4,
