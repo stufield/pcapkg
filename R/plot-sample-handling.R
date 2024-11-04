@@ -161,14 +161,13 @@ plot_sample_handling <- function(data.prcomp, extra_feat = NULL, samples,
                                                 linewidth = 0.1)) +
     guides(color = "none")
 
-  f <- grid.arrange(p, r, ncol = 2L)
+  gg <- withr::with_namespace("patchwork", p + r)
 
   if ( !is.null(file) ) {
     ht <- 4.5
     wd <- ht * 2
-    ggsave(file, plot = out, scale = scale, height = ht,
-           width = wd, units = "in")
+    ggsave(file, plot = gg, scale = 1, height = ht, width = wd, units = "in")
   }
 
-  invisible(f)
+  gg
 }

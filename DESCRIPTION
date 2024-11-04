@@ -22,7 +22,6 @@ Depends:
 Imports:
     dplyr,
     ggplot2,
-    gridExtra,
     rlang,
     tibble
 Suggests:
@@ -32,6 +31,7 @@ Suggests:
     MASS,
     rmarkdown,
     spelling,
+    patchwork,
     testthat,
     tidyr,
     viridisLite,

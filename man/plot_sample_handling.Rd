@@ -69,13 +69,13 @@ pca <- center_scale(data, center = TRUE, scale = FALSE) |>
   strip_meta() |>
   prcomp2()
 
-plot_sample_handling(pca, samples = data$class_response, matrix.type = "p")
-plot_sample_handling(pca, samples = data$class_response, matrix.type = "p",
+plot_sample_handling(pca, samples = data$class_response, matrix_type = "p")
+plot_sample_handling(pca, samples = data$class_response, matrix_type = "p",
                      extra_feat = "seq.2802.68")
 
 # Save to file
 f_out <- tempfile("plot-", fileext = ".pdf")
-plot_sample_handling(pca, samples = data$class_response, matrix.type = "p",
+plot_sample_handling(pca, samples = data$class_response, matrix_type = "p",
                    legend.pos = c(0, 0), file = f_out)
 }
 \seealso{

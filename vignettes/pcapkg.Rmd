@@ -10,6 +10,7 @@ vignette: >
 ```{r setup, include = FALSE}
 library(pcapkg)
 library(ggplot2)
+library(patchwork)
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>"
 )
@@ -87,7 +88,7 @@ plot(pr, "p", color = SiteId, id.labels = id)   # with labels
 rot  <- plot(pr, "r", identify = TRUE)
 proj <- plot(pr, "p", color = SiteId, id.labels = id) +
   theme(legend.position = "top")
-gridExtra::grid.arrange(rot, proj, ncol = 2L)
+rot + proj
 ```
 
 ### Corresponding `Scree` plots
