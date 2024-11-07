@@ -96,6 +96,6 @@ rot + proj
 ```{r scree, fig.width = 8, fig.height = 5}
 a <- plot_scree(pr, n = 10L)
 b <- plot_scree(pr, n = 10L, type = "l")
-gridExtra::grid.arrange(a, b, ncol = 2L)
+a + b
 ```
 
