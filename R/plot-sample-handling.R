@@ -160,7 +160,7 @@ plot_sample_handling <- function(data.prcomp, extra_feat = NULL, samples,
                                                 linewidth = 0.1)) +
     guides(color = "none")
 
-  gg <- withr::with_namespace("patchwork", p + r)
+  gg <- withr::with_package("patchwork", p + r)
 
   if ( !is.null(file) ) {
     ht <- 4.5
