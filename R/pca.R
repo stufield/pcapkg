@@ -77,15 +77,17 @@ pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
 
 #' @describeIn pca
 #'   The S3 print method for objects of class `pca`.
+#'
 #' @param x A `pca` class object.
 #' @param ... Arguments required by and passed to S3 [print()].
+#'
 #' @examples
 #' # print method
 #' pca
 #'
 #' @export
 print.pca <- function(x, ...) {
-  writeLines(signal_rule("PCA Object", line_col = "blue"))
+  signal_rule("PCA Object", line_col = "blue")
   key   <- c("Rotation", "Projection", "Projection variables") |> pad(25)
   value <- c(paste0(dim(x$rotation), collapse = " x "),
              paste0(dim(x$projection), collapse = " x "),
@@ -96,13 +98,14 @@ print.pca <- function(x, ...) {
   value[1L] <- paste0(value[1L], " (", rpc[1L], ":", rpc[length(rpc)], ")")
   value[2L] <- paste0(value[2L], " (", ppc[1L], ":", ppc[length(ppc)], ")")
   writeLines(paste0(key, value))
-  writeLines(signal_rule(lty = "double", line_col = "green"))
+  signal_rule(lty = "double", line_col = "green")
   invisible(x)
 }
 
 
 #' @describeIn pca
 #'   The S3 plot method for objects of class `pca`.
+#'
 #' @param type Either `projection` (default) or `rotation`. If called from
 #'   [plot_scree()], either `barplot` (default) or `lines`.
 #' @param dims `integer(2)`. Which dimensions to plot.
@@ -113,6 +116,7 @@ print.pca <- function(x, ...) {
 #' @param id.labels An unquoted string indicating the variable in
 #'   `x$projection` containing point labels. Ignored for `rotation` plots.
 #' @param ... Additional arguments passed to [geom_point()].
+#'
 #' @examples
 #' # S3 plot methods
 #' plot(pca, "r")                         # default rotation
@@ -197,6 +201,7 @@ plot.pca <- function(x, type = c("projection", "rotation"), dims = 1:2L,
 #'
 #' @rdname pca
 #' @param n `integer(1)`. The number of components to plot.
+#'
 #' @examples
 #' # Scree plots
 #' plot_scree(pca)               # barplot

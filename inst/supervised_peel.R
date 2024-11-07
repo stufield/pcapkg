@@ -215,9 +215,7 @@ plot.supervised_peel <- function(x, dims = 1:2, set1 = NULL,
 #' sp1
 #' @export
 print.supervised_peel <- function(x, ...) {
-  writeLines(
-    signal_rule("Supervised Peel Object", lty = "double", line_col = "blue")
-  )
+  signal_rule("Supervised Peel Object", lty = "double", line_col = "blue")
   key <- c(
     "Original PCA",
     "Weighted PCA",
@@ -239,6 +237,6 @@ print.supervised_peel <- function(x, ...) {
     x$logged
   )
   writeLines(paste0("  ", key, value))
-  writeLines(signal_rule(lty = "double", line_col = "green"))
+  signal_rule(lty = "double", line_col = "green")
   invisible(x)
 }
