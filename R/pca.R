@@ -157,9 +157,12 @@ plot.pca <- function(x, type = c("projection", "rotation"), dims = 1:2L,
                              color = Group)) +
     geom_point(size = 2.5, alpha = 0.6, ...) +
     labs(x = labels[1L], y = labels[2L]) +
-    discrete_scale("color", palette = function(n) 
-                   rep_len(unlist(col_palette, use.names = FALSE), length.out = n)) +
-    ggplot2::theme(legend.position = ifelse(type == "rotation", "none", "right"))
+    discrete_scale("color",
+                   palette = function(n) {
+                     rep_len(unlist(col_palette, use.names = FALSE),
+                             length.out = n)
+                   }) +
+    theme(legend.position = ifelse(type == "rotation", "none", "right"))
 
   if ( identify ) {
     if ( type == "rotation" ) {

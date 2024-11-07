@@ -178,9 +178,11 @@ plot_pca_dims <- function(data.prcomp, value = c(NA, "rotation", "x"),
   if ( !is.null(col) || !is.null(scores) ) {
     p <- p + scale_color_manual(values = unname(col))
   } else if ( is.null(col) ) {
-    p <- p + discrete_scale("color", palette = function(n)
+    p <- p + discrete_scale("color",
+                            palette = function(n) {
                             rep_len(unlist(col_palette, use.names = FALSE),
-                                    length.out = n))
+                                    length.out = n)
+                            })
   }
 
   if ( value == "rotation" ) {
