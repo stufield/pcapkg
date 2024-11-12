@@ -180,8 +180,8 @@ plot_pca_dims <- function(data.prcomp, value = c(NA, "rotation", "x"),
   } else if ( is.null(col) ) {
     p <- p + discrete_scale("color",
                             palette = function(n) {
-                            rep_len(unlist(col_palette, use.names = FALSE),
-                                    length.out = n)
+                              rep_len(unlist(col_palette, use.names = FALSE),
+                                      length.out = n)
                             })
   }
 

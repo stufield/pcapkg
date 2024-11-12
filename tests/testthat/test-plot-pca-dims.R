@@ -33,7 +33,7 @@ test_that("`plot_pca_dims()` controls point appearance via 'pt_cex' and 'pt.bg'"
 test_that("`plot_pca_dims(add_ellipse = TRUE)` adds an ellipse to the plot", {
   expect_snapshot_plot(
     plot_pca_dims(pca, value = "r", dims = 1:2L, col = "red",
-                classes = NULL, add_ellipse = TRUE),
+                  classes = NULL, add_ellipse = TRUE),
     "plot_pca_dims_ellipse"
   )
 })
@@ -101,8 +101,8 @@ test_that("plot_pca_dims() produces a legend for 'rotation' plots w/ classes", {
 test_that("plot_pca_dims() axes have customizable labels", {
   expect_snapshot_plot(
     plot_pca_dims(pca, value = "rotation", dims = 1:2L, classes = NULL,
-                main = "Title Test",
-                xlab = "x-axis test", ylab = "y-axis test"),
+                  main = "Title Test",
+                  xlab = "x-axis test", ylab = "y-axis test"),
     "plot_pca_dims_axisLabels"
   )
 })

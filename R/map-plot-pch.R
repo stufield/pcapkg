@@ -61,8 +61,8 @@ map_plot_pch <- function(features,
   dplyr::left_join(
     tibble(features,  seq = get_seq(features)),
     tibble(all = all, seq = get_seq(all)),
-    by= "seq"
-    ) |>
+    by = "seq"
+  ) |>
     dplyr::mutate(
       mask = !is.na(all),
       cex  = ifelse(mask, 4, default_cex),
@@ -74,5 +74,5 @@ map_plot_pch <- function(features,
         seq %in% get_seq(set5) ~ 25,
         .default = 19
       )
-  )
+    )
 }
