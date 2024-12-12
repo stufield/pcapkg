@@ -15,7 +15,7 @@
 #' @author Michael Mehan, Amanda Hiser
 #' @examples
 #' pca <- center_scale(pcapkg:::log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
-#'   strip_meta() |>
+#'   feature_matrix() |>
 #'   prcomp2()
 #'
 #' # Define color of points

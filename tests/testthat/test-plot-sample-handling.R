@@ -9,7 +9,7 @@ new_seqs <- c(
 )
 names(data)[31:33L] <- new_seqs   # assign into 'noise' features
 pca <- center_scale(data, center = TRUE, scale = FALSE) |>
-  strip_meta() |>
+  feature_matrix() |>
   prcomp2()
 
 

@@ -1,5 +1,5 @@
 pca <- center_scale(log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
-  strip_meta() |>
+  feature_matrix() |>
   prcomp2()
 
 test_that("`plot_projection()` produces the expected plot when default args are used", {

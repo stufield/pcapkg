@@ -21,7 +21,7 @@ prcomp2 <- function(x, tol = NULL) {
 
   if ( !all(apply(x, 2, is.numeric)) ) {
     stop(
-      "Non-numerics detected in data matrix! Please run `strip_meta(x)` upstream.",
+      "Non-numerics detected in data matrix! Please run `feature_matrix(x)` upstream.",
       call. = FALSE
     )
   }

@@ -1,6 +1,6 @@
 # Setup ----------
 pca <- center_scale(log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
-  strip_meta() |>
+  feature_matrix() |>
   prcomp2()
 scores <- withr::with_seed(101, rnorm(length(get_analytes(sim_adat))))
 p_classes <- sim_adat$class_response

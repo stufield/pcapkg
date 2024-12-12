@@ -60,7 +60,7 @@ test_that("`supervised_peel()` generates correct values", {
   expect_equal(sum(x$peeled$basis[, -40]), 0.0000000030)      # rm 40th PC
   expect_equal(sum(x$peeled$single.vals), 33.0194292655)
 
-  expect_equal(sum(strip_meta(x$peeled_data)), 13571.7299406929)
+  expect_equal(sum(feature_matrix(x$peeled_data)), 13571.7299406929)
   expect_equal(x$peeled_data$Response, x$orig_data$Response)
 })
 

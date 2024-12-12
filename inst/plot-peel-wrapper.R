@@ -67,7 +67,7 @@
 #' @seealso [pca()], [supervised_peel()]
 #' @examples
 #' pca <- center_scale(log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
-#'   strip_meta() |>
+#'   feature_matrix() |>
 #'   prcomp2()
 #' tr <- libml::create_train(sim_adat, group.var = class_response)
 #' apts <- withr::with_seed(1, sample(get_analytes(sim_adat), 10L))

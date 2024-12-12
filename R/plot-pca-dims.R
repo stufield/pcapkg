@@ -50,7 +50,7 @@
 #' @examples
 #' # Prepare data
 #' pca <- center_scale(pcapkg:::log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
-#'   strip_meta() |>
+#'   feature_matrix() |>
 #'   prcomp2()
 #' scores <- withr::with_seed(101, rnorm(40))
 #'

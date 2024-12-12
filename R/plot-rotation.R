@@ -34,7 +34,7 @@
 #' @author Michael Mehan
 #' @examples
 #' pca <- center_scale(pcapkg:::log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
-#'   strip_meta() |>
+#'   feature_matrix() |>
 #'   prcomp2()
 #' plot_rotation(pca, col = "green")
 #'

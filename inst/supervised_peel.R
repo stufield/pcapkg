@@ -78,7 +78,7 @@ supervised_peel <- function(data, set1, center = TRUE, scale = FALSE, num.pcs = 
 
   # Perform centering and scaling outside of `prcomp2()`
   scaled_data <- center_scale(data, center = center, scale = scale) |>
-    strip_meta()
+    feature_matrix()
 
   # careful here, we need to keep the rownames
   # but there is a as_tibble() call in center_scale()
@@ -121,7 +121,7 @@ supervised_peel <- function(data, set1, center = TRUE, scale = FALSE, num.pcs = 
   # Undo the center/scaling
   # Hack the object here as if it were the old applyCenterScale() -> undoCenterScale()
   # I'm not sure here we actually want to log() the reference; double-log danger
-  ref <- log(strip_meta(data))
+  ref <- log(feature_matrix(data))
   tbl <- tibble(AptName = get_analytes(data),
                 means   = colMeans(ref),
                 sds     = apply(ref, 2, stats::sd))

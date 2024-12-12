@@ -4,7 +4,7 @@ tr <- libml::create_train(sim_adat, group.var = class_response) |>
   log_rfu() |>
   center_scale(center = TRUE, scale = FALSE)
 pca <- ungroup(tr) |>
-  strip_meta() |>
+  feature_matrix() |>
   prcomp2()
 set1 <- withr::with_seed(123, sample(get_analytes(sim_adat), 5L))
 set2 <- withr::with_seed(678, sample(get_analytes(sim_adat), 5L))

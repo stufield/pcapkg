@@ -17,7 +17,7 @@
 #' @importFrom ggplot2 theme element_text rel
 #' @examples
 #' pca <- center_scale(pcapkg:::log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
-#'   strip_meta() |>
+#'   feature_matrix() |>
 #'   prcomp2()
 #' screeplot_auc(pca, sim_adat$class_response, main = "My ScreePlot by AUC")
 #' @export
