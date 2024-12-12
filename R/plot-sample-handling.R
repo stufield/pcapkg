@@ -30,7 +30,7 @@
 #' @return A `ggplot2` plot.
 #' @author Stu Field
 #' @examples
-#' data <- pcapkg:::log_rfu(sim_adat[c(1:10L, 91:100L), ])
+#' data <- pcapkg:::log_rfu(simdata[c(1:10L, 91:100L), ])
 #' # Create fake matching SH features
 #' new_seqs <- c(
 #'   "seq.4124.24",   # cell lysis

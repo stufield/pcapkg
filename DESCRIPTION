@@ -18,7 +18,7 @@ License: MIT + file LICENSE
 Depends:
     R (>= 4.4.0),
     helpr,
-    splyr
+    wranglr
 Imports:
     dplyr,
     ggplot2,

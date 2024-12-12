@@ -1,10 +1,10 @@
 # Setup ----------
-pca <- center_scale(log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
+pca <- center_scale(log_rfu(simdata), center = TRUE, scale = FALSE) |>
   feature_matrix() |>
   prcomp2()
-scores <- withr::with_seed(101, rnorm(length(get_analytes(sim_adat))))
-p_classes <- sim_adat$class_response
-r_classes <- withr::with_seed(123, sample(sim_adat$class_response,
+scores <- withr::with_seed(101, rnorm(length(get_analytes(simdata))))
+p_classes <- simdata$class_response
+r_classes <- withr::with_seed(123, sample(simdata$class_response,
                                           nrow(pca$rotation),
                                           replace = TRUE))
 

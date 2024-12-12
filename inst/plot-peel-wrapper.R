@@ -66,11 +66,11 @@
 #' @author Michael Mehan, Amanda Hiser
 #' @seealso [pca()], [supervised_peel()]
 #' @examples
-#' pca <- center_scale(log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
+#' pca <- center_scale(log_rfu(simdata), center = TRUE, scale = FALSE) |>
 #'   feature_matrix() |>
 #'   prcomp2()
-#' tr <- libml::create_train(sim_adat, group.var = class_response)
-#' apts <- withr::with_seed(1, sample(get_analytes(sim_adat), 10L))
+#' tr <- libml::create_train(simdata, group.var = class_response)
+#' apts <- withr::with_seed(1, sample(get_analytes(simdata), 10L))
 #' plot_peel_wrapper(pca, tr.data = tr, aptamers = apts)
 #'
 #' # Using a "supervised_peel" object (apts included)

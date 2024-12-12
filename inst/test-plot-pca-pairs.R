@@ -1,13 +1,13 @@
 # Setup ----------
-tr <- libml::create_train(sim_adat, group.var = class_response) |>
+tr <- libml::create_train(simdata, group.var = class_response) |>
   ungroup() |>
   log_rfu() |>
   center_scale(center = TRUE, scale = FALSE)
 pca <- ungroup(tr) |>
   feature_matrix() |>
   prcomp2()
-set1 <- withr::with_seed(123, sample(get_analytes(sim_adat), 5L))
-set2 <- withr::with_seed(678, sample(get_analytes(sim_adat), 5L))
+set1 <- withr::with_seed(123, sample(get_analytes(simdata), 5L))
+set2 <- withr::with_seed(678, sample(get_analytes(simdata), 5L))
 
 # Testing ----------
 test_that("`plotPCApairs()` works as expected when colors are specified", {

@@ -25,7 +25,7 @@ components in that dimension. Each dimension is
 represented by a column of the resulting data frame.
 }
 \examples{
-pca <- pca(pcapkg:::log_rfu(sim_adat))
+pca <- pca(pcapkg:::log_rfu(simdata))
 get_top_pca_rotation(pca, n = 10)
 }
 \author{

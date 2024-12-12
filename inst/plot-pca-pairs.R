@@ -23,10 +23,10 @@
 #' @param ... Arguments passed to either [plot_rotation()] or [plot_projection()].
 #' @author Michael Mehan, Amanda Hiser
 #' @examples
-#' tr <- libml::create_train(sim_adat, group.var = class_response) |>
+#' tr <- libml::create_train(simdata, group.var = class_response) |>
 #'   ungroup() |> log_rfu() |> center_scale(center = TRUE, scale = FALSE)
 #' pca <- ungroup(tr) |> feature_matrix() |> prcomp2()
-#' apts <- withr::with_seed(123, sample(get_analytes(sim_adat), 10L))
+#' apts <- withr::with_seed(123, sample(get_analytes(simdata), 10L))
 #'
 #' # Default colors w/ marked aptamers
 #' plot_pca_pairs(pca, aptamers = apts)

@@ -84,15 +84,15 @@ Plot the features from a PCA rotation in a 2-dimensional scatter plot.
 }
 }
 \examples{
-pca <- center_scale(pcapkg:::log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
-  strip_meta() |>
+pca <- center_scale(pcapkg:::log_rfu(simdata), center = TRUE, scale = FALSE) |>
+  feature_matrix() |>
   prcomp2()
 plot_rotation(pca, col = "green")
 
-class <- withr::with_seed(123, sample(sim_adat$class_response, 40L))
+class <- withr::with_seed(123, sample(simdata$class_response, 40L))
 plot_rotation(pca, classes = class)
 
-y <- withr::with_seed(123, sample(pcapkg:::get_analytes(sim_adat), 10L))
+y <- withr::with_seed(123, sample(pcapkg:::get_analytes(simdata), 10L))
 plot_rotation(pca, set1 = y)
 }
 \seealso{

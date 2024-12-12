@@ -1,11 +1,11 @@
 
 test_that("`pca` S3 print method returns known output", {
-  expect_snapshot_output(pca(sim_adat))
+  expect_snapshot_output(pca(simdata))
 })
 
 test_that("`supervised_peel` S3 print method returns known output", {
   skip("Return test once `supervised_peel()` is back in")
-  sim <- log_rfu(sim_adat)
+  sim <- log_rfu(simdata)
   sim$Response <- factor(sim$class_response)
   set1 <- attributes(sim)$sig_feats$class
   set2 <- attributes(sim)$sig_feats$reg

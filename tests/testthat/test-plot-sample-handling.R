@@ -1,5 +1,5 @@
 # Setup ----------
-data <- log_rfu(sim_adat[c(1:10L, 91:100L), ])
+data <- log_rfu(simdata[c(1:10L, 91:100L), ])
 samps <- data$class_response
 # Create fake matching SH analytes
 new_seqs <- c(
@@ -36,7 +36,7 @@ test_that("`plot_sample_handling(dims=)` can be modified to change PCA dims", {
 })
 
 test_that("`plot_sample_handling(extra.feat=)` can annotate additional features", {
-  y <- withr::with_seed(765, sample(get_analytes(sim_adat), 5))
+  y <- withr::with_seed(765, sample(get_analytes(simdata), 5))
   expect_snapshot_plot(
     plot_sample_handling(pca, samples = samps, matrix_type = "p", extra_feat = y),
     "plot_sample_handling_addApts"

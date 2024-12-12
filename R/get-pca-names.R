@@ -14,7 +14,7 @@
 #' @author Stu Field
 #' @seealso [pca()]
 #' @examples
-#' pca <- pca(pcapkg:::log_rfu(sim_adat))
+#' pca <- pca(pcapkg:::log_rfu(simdata))
 #' get_pca_names(pca, "r", 1, 0.1)      # feature names
 #'
 #' get_pca_names(pca, "p", value = 0.1) # sample names

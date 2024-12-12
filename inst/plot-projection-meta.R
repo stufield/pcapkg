@@ -14,8 +14,8 @@
 #' @author Stu Field
 #' @seealso [supervised_peel()]
 #' @examples
-#' ft <- attr(sim_adat, "sig_feat")$class_response
-#' plot_projection_meta(pcapkg:::log_rfu(sim_adat), set1 = ft)
+#' ft <- attr(simdata, "sig_feat")$class_response
+#' plot_projection_meta(pcapkg:::log_rfu(simdata), set1 = ft)
 #' @importFrom dplyr select select_if left_join
 #' @importFrom tibble as_tibble
 #' @importFrom ggplot2 ggplot aes geom_point facet_wrap

@@ -1,9 +1,9 @@
 # Setup ----------
 withr::with_seed(123, {
-  pca <- center_scale(log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
+  pca <- center_scale(log_rfu(simdata), center = TRUE, scale = FALSE) |>
     feature_matrix() |> prcomp2()
-  class <- sample(sim_adat$class_response, 40L)
-  all  <- get_analytes(sim_adat)
+  class <- sample(simdata$class_response, 40L)
+  all  <- get_analytes(simdata)
   set1 <- all[1:3L]
   set2 <- sample(all[10:20L], 3L)
   set3 <- sample(all[25:30L], 3L)

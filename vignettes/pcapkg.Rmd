@@ -60,7 +60,7 @@ Data transformations (e.g. centering and/or scaling) can be performed
 via its arguments.
 
 ```{r pca}
-pr <- pca(pcapkg:::log_rfu(sim_adat))
+pr <- pca(pcapkg:::log_rfu(simdata))
 pr
 ```
 

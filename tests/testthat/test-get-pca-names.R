@@ -1,10 +1,10 @@
 
-pca <- pca(log_rfu(sim_adat))
+pca <- pca(log_rfu(simdata))
 
 test_that("`get_pca_names()` returns correct 'rotation' object when value = positive", {
   rot1 <- get_pca_names(pca, "r", 1, 0.2)      # feature names
   expect_type(rot1, "character")
-  expect_true(all(rot1 %in% names(sim_adat)))
+  expect_true(all(rot1 %in% names(simdata)))
   expect_length(rot1, 7L)
   expect_equal(
     rot1,
@@ -16,7 +16,7 @@ test_that("`get_pca_names()` returns correct 'rotation' object when value = posi
 test_that("`get_pca_names()` returns correct 'rotation' object when value = negative", {
   rot2 <- get_pca_names(pca, "r", 1, -0.04)      # feature names
   expect_type(rot2, "character")
-  expect_true(all(rot2 %in% names(sim_adat)))
+  expect_true(all(rot2 %in% names(simdata)))
   expect_length(rot2, 11L)
   expect_equal(
     rot2,
@@ -36,7 +36,7 @@ test_that("`get_pca_names()` returns correct 'rotation' object with defaults", {
 test_that("`get_pca_names` returns correct 'projection' object when value = positive", {
   pro1 <- get_pca_names(pca, "p", 1, 0.2)
   expect_type(pro1, "character")
-  expect_true(all(pro1 %in% rownames(sim_adat)))
+  expect_true(all(pro1 %in% rownames(simdata)))
   expect_length(pro1, 9L)
   expect_equal(
     pro1,
@@ -48,7 +48,7 @@ test_that("`get_pca_names` returns correct 'projection' object when value = posi
 test_that("`get_pca_names()` returns correct 'projection' object when value = negative", {
   pro2 <- get_pca_names(pca, "p", 1, -0.2)
   expect_type(pro2, "character")
-  expect_true(all(pro2 %in% rownames(sim_adat)))
+  expect_true(all(pro2 %in% rownames(simdata)))
   expect_length(pro2, 8L)
   expect_equal(
     pro2,

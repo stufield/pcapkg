@@ -1,7 +1,7 @@
 withr::local_options(list(digits = 6L))
 
 # Setup ----
-sim <- log_rfu(sim_adat)
+sim <- log_rfu(simdata)
 sim$Response <- factor(sim$class_response)
 feats <- attributes(sim)$sig_feats$class
 x     <- supervised_peel(sim, set1 = feats)
@@ -78,7 +78,7 @@ test_that("`supervised_peel()` generates the expected plot when feature sets pro
 })
 
 test_that("`supervised_peel()` generates the expected plot when samples are provided", {
-  samples <- withr::with_seed(345, sample(rownames(sim_adat), 5))
+  samples <- withr::with_seed(345, sample(rownames(simdata), 5))
   expect_snapshot_plot(
     plot(x, samples = samples),
     "supervised_peel_plotSamples", gg = FALSE

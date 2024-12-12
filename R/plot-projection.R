@@ -14,7 +14,7 @@
 #' @param ... Additional arguments passed to [plot_pca_dims()].
 #' @author Michael Mehan, Amanda Hiser
 #' @examples
-#' pca <- center_scale(pcapkg:::log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
+#' pca <- center_scale(pcapkg:::log_rfu(simdata), center = TRUE, scale = FALSE) |>
 #'   feature_matrix() |>
 #'   prcomp2()
 #'
@@ -22,10 +22,10 @@
 #' plot_projection(pca, col = "green")
 #'
 #' # Use classes to define point colors
-#' plot_projection(pca, classes = sim_adat$class_response)
+#' plot_projection(pca, classes = simdata$class_response)
 #'
 #' # Mark specific samples
-#' plot_projection(pca, samples = rownames(sim_adat)[1:5])
+#' plot_projection(pca, samples = rownames(simdata)[1:5])
 #' @export
 plot_projection <- function(data.prcomp, dims = 1:2L,
                             classes = NULL, scores = NULL, col = NULL,

@@ -34,10 +34,10 @@ to the AUC of the corresponding classes in a specified
 training response vector.
 }
 \examples{
-pca <- center_scale(pcapkg:::log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
-  strip_meta() |>
+pca <- center_scale(pcapkg:::log_rfu(simdata), center = TRUE, scale = FALSE) |>
+  feature_matrix() |>
   prcomp2()
-screeplot_auc(pca, sim_adat$class_response, main = "My ScreePlot by AUC")
+screeplot_auc(pca, simdata$class_response, main = "My ScreePlot by AUC")
 }
 \seealso{
 \code{\link[=screeplot]{screeplot()}}, \code{\link[=plot_scree]{plot_scree()}}

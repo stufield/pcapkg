@@ -12,7 +12,7 @@
 #'   of the training data.
 #' @author Mike Mehan
 #' @examples
-#' data <- libml::create_train(sim_adat, group.var = class_response)
+#' data <- libml::create_train(simdata, group.var = class_response)
 #' x <- pca(log_rfu(data))
 #' pca_auc(x, 1L)
 #' @importFrom libml calc_pepe_auc

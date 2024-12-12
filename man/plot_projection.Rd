@@ -53,18 +53,18 @@ Plot the samples from a PCA projection in a 2-dimensional
 scatter plot.
 }
 \examples{
-pca <- center_scale(pcapkg:::log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
-  strip_meta() |>
+pca <- center_scale(pcapkg:::log_rfu(simdata), center = TRUE, scale = FALSE) |>
+  feature_matrix() |>
   prcomp2()
 
 # Define color of points
 plot_projection(pca, col = "green")
 
 # Use classes to define point colors
-plot_projection(pca, classes = sim_adat$class_response)
+plot_projection(pca, classes = simdata$class_response)
 
 # Mark specific samples
-plot_projection(pca, samples = rownames(sim_adat)[1:5])
+plot_projection(pca, samples = rownames(simdata)[1:5])
 }
 \seealso{
 Other PCA plots: 

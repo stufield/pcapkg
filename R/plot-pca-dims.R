@@ -49,7 +49,7 @@
 #' @author Michael Mehan, Amanda Hiser
 #' @examples
 #' # Prepare data
-#' pca <- center_scale(pcapkg:::log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
+#' pca <- center_scale(pcapkg:::log_rfu(simdata), center = TRUE, scale = FALSE) |>
 #'   feature_matrix() |>
 #'   prcomp2()
 #' scores <- withr::with_seed(101, rnorm(40))
@@ -60,7 +60,7 @@
 #'
 #' # Projection space, with classes to define point colors
 #' plot_pca_dims(pca, value = "x", dims = 1:2L,
-#'               classes = sim_adat$class_response)
+#'               classes = simdata$class_response)
 #' @importFrom graphics plot points identify abline
 #' @importFrom utils head
 #' @importFrom ggplot2 ggplot aes theme rel labs element_text discrete_scale

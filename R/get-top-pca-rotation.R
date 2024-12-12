@@ -13,7 +13,7 @@
 #'   components given in the selected dimension.
 #' @author Michael R. Mehan
 #' @examples
-#' pca <- pca(pcapkg:::log_rfu(sim_adat))
+#' pca <- pca(pcapkg:::log_rfu(simdata))
 #' get_top_pca_rotation(pca, n = 10)
 #' @export
 get_top_pca_rotation <- function(x, dims = 1:5, n = 30L) {

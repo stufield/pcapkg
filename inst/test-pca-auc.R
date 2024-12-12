@@ -1,5 +1,5 @@
 
-data <- sim_adat |>
+data <- simdata |>
   libml::create_train(group.var = class_response)
 
 x <- pca(log_rfu(log10(data)))

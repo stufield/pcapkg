@@ -91,8 +91,8 @@ and \code{\link[=plot_projection]{plot_projection()}}.
 }
 \examples{
 # Prepare data
-pca <- center_scale(pcapkg:::log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
-  strip_meta() |>
+pca <- center_scale(pcapkg:::log_rfu(simdata), center = TRUE, scale = FALSE) |>
+  feature_matrix() |>
   prcomp2()
 scores <- withr::with_seed(101, rnorm(40))
 
@@ -102,7 +102,7 @@ plot_pca_dims(pca, value = "r", dims = 1:2L, classes = NULL,
 
 # Projection space, with classes to define point colors
 plot_pca_dims(pca, value = "x", dims = 1:2L,
-              classes = sim_adat$class_response)
+              classes = simdata$class_response)
 }
 \seealso{
 Other PCA plots: 

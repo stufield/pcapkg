@@ -33,15 +33,15 @@
 #' @param ... Additional arguments passed to [plot_pca_dims()].
 #' @author Michael Mehan
 #' @examples
-#' pca <- center_scale(pcapkg:::log_rfu(sim_adat), center = TRUE, scale = FALSE) |>
+#' pca <- center_scale(pcapkg:::log_rfu(simdata), center = TRUE, scale = FALSE) |>
 #'   feature_matrix() |>
 #'   prcomp2()
 #' plot_rotation(pca, col = "green")
 #'
-#' class <- withr::with_seed(123, sample(sim_adat$class_response, 40L))
+#' class <- withr::with_seed(123, sample(simdata$class_response, 40L))
 #' plot_rotation(pca, classes = class)
 #'
-#' y <- withr::with_seed(123, sample(pcapkg:::get_analytes(sim_adat), 10L))
+#' y <- withr::with_seed(123, sample(pcapkg:::get_analytes(simdata), 10L))
 #' plot_rotation(pca, set1 = y)
 #' @importFrom ggplot2 geom_text aes
 #' @importFrom utils head tail

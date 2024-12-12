@@ -81,7 +81,7 @@ of a \code{pca} class object.
 
 }}
 \examples{
-pca <- pca(pcapkg:::log_rfu(sim_adat))
+pca <- pca(pcapkg:::log_rfu(simdata))
 
 # print method
 pca

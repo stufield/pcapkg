@@ -1,8 +1,8 @@
 
-ad   <- get_col_meta(sim_adat)
+ad   <- get_col_meta(simdata)
 set1 <- ad$SeqId[c(1, 3, 5)]
 set2 <- ad$SeqId[c(17, 19, 21)]
-map  <- map_plot_pch(get_analytes(sim_adat), set1, set2)
+map  <- map_plot_pch(get_analytes(simdata), set1, set2)
 
 test_that("mapping works as expected", {
   true <- tibble::tibble(

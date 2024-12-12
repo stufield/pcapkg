@@ -17,7 +17,7 @@
 #' @return An object of class `pca`, similar to [prcomp()].
 #' @author Stu Field
 #' @examples
-#' pca <- pca(pcapkg:::log_rfu(sim_adat))
+#' pca <- pca(pcapkg:::log_rfu(simdata))
 #'
 #' @seealso [prcomp2()]
 #' @importFrom dplyr ungroup left_join select all_of rename
