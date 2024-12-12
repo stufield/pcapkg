@@ -1,31 +1,37 @@
-url: https://confluence.sladmin.com/display/BITOOLS/somaverse
+url: https://stufield.github.io/pcapkg/
+
+development:
+  mode: auto
+
+authors:
+  Stu Field:
+    href: https://github.com/stufield
 
 home:
-  strip_header: true
   links:
-  - text: Bitbucket
-    href: http://bitbucket.sladmin.com/projects/SV/repos/somapca/browse
-  - text: Report a bug
-    href: bitools@somalogic.com
-  - text: Learn more about SomaScan
-    href: http://www.somalogic.com
+  - text: Learn more about me
+    href: https://github.com/stufield
 
 template:
   bootstrap: 5
+  package: tidytemplate
   bslib:
-    #bg: "#202123"      # dark theme
-    #fg: "#B8BCC2"      # dark theme
+    bg: "#202123"      # dark theme
+    fg: "#B8BCC2"      # dark theme
     primary: "#0054AD"
     border-radius: 0.5rem
     btn-border-radius: 0.25rem
     base_font: {google: "Roboto"}
 
-authors:
-  Amanda Hiser:
-    href: https://github.com/amanda-hi
+navbar:
+  structure:
+    left: [intro, reference, articles, workflows, news]
+    right: [search, github]
+  components:
+    intro:
+      text: Get Started
+      href: articles/pcapkg.html
 
-development:
-  mode: auto
 
 articles:
   - title: Getting Started
@@ -43,7 +49,8 @@ reference:
     - prcomp2
 
   - title: Plotting
-    desc: Numerous plotting facilities for various components.
+    desc: >
+      Numerous plotting facilities for various components.
     contents:
     - plotPCAdims
     - starts_with("plotPCA")
@@ -58,16 +65,11 @@ reference:
     - starts_with("get")
 
   - title: Experimetnal
-    desc: Experimental features for future development.
+    desc: >
+      Experimental features for future development.
     contents:
-    - pcaPurify
-    - pcaAUC
-
-  - title: Data
-    desc: Package data objects.
-    contents:
-    - smvs
-    - sh_list
+    - pca_purify
+    - pca_auc
 
 news:
   - one_page: true
