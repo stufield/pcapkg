@@ -6,50 +6,42 @@ output: github_document
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 
-```{r setup, echo = FALSE, message = FALSE}
+```{r setup, include = FALSE}
+Sys.setlocale("LC_COLLATE", "en_US.UTF-8") # ensure common sorting envir
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-"
+  fig.path = "man/figures/README-",
+  out.width = "100%"
 )
-cvr <- covr::percent_coverage(covr::package_coverage())
-coverage <- sprintf(
-  "https://img.shields.io/badge/coverage-%0.1f%%25-%s.svg?style=flat&logo=codecov",
-  cvr, ifelse(cvr > 75, "success", ifelse(cvr > 50, "yellow", "critical"))
-)
-#lints <- length(lintr::lint_dir("R"))
-lints <- 0
-lintage <- sprintf(
-  "https://img.shields.io/badge/lints-%s-%s.svg?style=flat&logo=gitlab",
-  lints, ifelse(lints < 25, "success", ifelse(lints < 50, "yellow", "critical"))
-)
+ver <- desc::desc_get_version(".")
+ver <- paste0("https://img.shields.io/badge/Version-", ver,
+              "-success.svg?style=flat&logo=github")
 ```
 
 
 # The `pckpkg` package
 
 <!-- badges: start -->
-[![build](https://img.shields.io/badge/build-passing-success.svg?logo=travis)](http://bitbucket.sladmin.com/projects/SV/repos/somapca/commits)
-![coverage](`r coverage`)
-![lint](`r lintage`)
-[![pkgdown](https://img.shields.io/badge/pkgdown-_-critical.svg?logo=semantic-web&logoColor=red)](https://bitbucket.sladmin.com/pages/SV/somapca/bb-pkgdown/browse/index.html)
-[![License: GPL-3](https://img.shields.io/badge/License-GPL3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+![GitHub version](`r ver`)
+[![CRAN status](http://www.r-pkg.org/badges/version/pcapkg)](https://cran.r-project.org/package=pcapkg)
+[![R-CMD-check](https://github.com/stufield/pcapkg/workflows/R-CMD-check/badge.svg)](https://github.com/stufield/pcapkg/actions)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/pcapkg)](https://cran.r-project.org/package=pcapkg)
+[![test coverage](https://codecov.io/gh/stufield/pcapkg/branch/main/graph/badge.svg)](https://app.codecov.io/gh/stufield/pcapkg?branch=main)
+[![lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://choosealicense.com/licenses/mit/)
 <!-- badges: end -->
-
 
 
 
 ## Overview
 
-The `pcapkg` package contains the general functions 
-necessary for the unsupervised exploratory analysis of SOMAmer reagent data 
-using Principal Component Analysis (PCA). The primary tools in this package are
-dedicated to either the calculation of principal components, or the visualization 
-of loadings and projections of those components.
+The `pcapkg` package contains the general functions necessary for the
+unsupervised exploratory analysis of high-dimensional proteimic data using
+Principal Component Analysis (PCA). The primary tools in this package are
+dedicated to either the calculation of principal components, or the
+visualization of loadings and projections of those components.
 
-For cross-referenced help, running examples, and vignettes, please visit the 
-[pkgdown](https://bitbucket.sladmin.com/pages/SV/somapca/bb-pkgdown/browse/index.html)
-website.
 
 -----------------
 
@@ -59,7 +51,11 @@ website.
 It is possible to install a specific version of `pcapkg` 
 
 ```{r install-git, eval = FALSE}
-remotes::install_github("pcapkg")
+# current dev version
+remotes::install_github("stufield/pcapkg")
+
+# or a specific version
+remotes::install_github("stufield/pcapkg@v0.0.1")
 ```
 
 
@@ -81,9 +77,4 @@ library(pcapkg)
 library(help = pcapkg)
 ```
 
-
--------------
-
-
-#### LICENSE
 

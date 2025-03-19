@@ -1,67 +1,58 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# The `pcapkg` package
+# The `pckpkg` package
 
 <!-- badges: start -->
 
-[![build](https://img.shields.io/badge/build-passing-success.svg?logo=travis)](http://bitbucket.sladmin.com/projects/SV/repos/somapca/commits)
-![coverage](https://img.shields.io/badge/coverage-79.2%25-success.svg?style=flat&logo=codecov)
-![lint](https://img.shields.io/badge/lints-0-success.svg?style=flat&logo=gitlab)
-[![pkgdown](https://img.shields.io/badge/pkgdown-_-critical.svg?logo=semantic-web&logoColor=red)](https://bitbucket.sladmin.com/pages/SV/somapca/bb-pkgdown/browse/index.html)
+![GitHub
+version](https://img.shields.io/badge/Version-0.0.1-success.svg?style=flat&logo=github)
+[![CRAN
+status](http://www.r-pkg.org/badges/version/pcapkg)](https://cran.r-project.org/package=pcapkg)
+[![R-CMD-check](https://github.com/stufield/pcapkg/workflows/R-CMD-check/badge.svg)](https://github.com/stufield/pcapkg/actions)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/pcapkg)](https://cran.r-project.org/package=pcapkg)
+[![test
+coverage](https://codecov.io/gh/stufield/pcapkg/branch/main/graph/badge.svg)](https://app.codecov.io/gh/stufield/pcapkg?branch=main)
+[![lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![License:
-GPL-3](https://img.shields.io/badge/License-GPL3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://choosealicense.com/licenses/mit/)
 <!-- badges: end -->
 
 ## Overview
 
 The `pcapkg` package contains the general functions necessary for the
-unsupervised exploratory analysis 2-dim data matrix using
-Principal Component Analysis (PCA). The primary tools in this package
-are dedicated to either the calculation of principal components, or the
-visualization of loadings and projections of those components.
-
-For cross-referenced help, running examples, and vignettes, please visit
-the
-[pkgdown](https://bitbucket.sladmin.com/pages/SV/somapca/bb-pkgdown/browse/index.html)
-website.
+unsupervised exploratory analysis of high-dimensional proteimic data
+using Principal Component Analysis (PCA). The primary tools in this
+package are dedicated to either the calculation of principal components,
+or the visualization of loadings and projections of those components.
 
 ------------------------------------------------------------------------
 
-## Custom Installation
+## Installation
 
-It is possible to install a specific version of `SomaPCA` (i.e. one
-differing from your current installation of
-[SLIDE](http://bitbucket.sladmin.com/projects/BFX/repos/slide/browse)),
-but it comes with a possible trade-off in the reproducibility of your
-work! So be *careful* and considerate of those who may follow you. The
-method below ensures your installation is both traceable and
-reproducible:
+It is possible to install a specific version of `pcapkg`
 
 ``` r
-somaverse::install_sl_bitbucket("SomaPCA", "commit-SHA", "USERNAME")
+# current dev version
+remotes::install_github("stufield/pcapkg")
+
+# or a specific version
+remotes::install_github("stufield/pcapkg@v0.0.1")
 ```
 
 ------------------------------------------------------------------------
 
 ## Usage
 
-To load `SomaPCA` simply make a call to `library()` as usual:
+To load `pcapkg` simply make a call to `library()` as usual:
 
 ``` r
-library(SomaPCA)
+library(pcapkg)
 ```
 
 ## Help summary of the package
 
 ``` r
-library(help = SomaPCA)
+library(help = pcapkg)
 ```
-
-------------------------------------------------------------------------
-
-#### LICENSE
-
-Please note that this SomaLogic, Inc. internal package is released with
-a [LICENSE](LICENSE). By using in this package you agree to abide by its
-terms.
