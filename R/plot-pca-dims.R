@@ -64,7 +64,7 @@
 #' @importFrom graphics plot points identify abline
 #' @importFrom utils head
 #' @importFrom ggplot2 ggplot aes theme rel labs element_text discrete_scale
-#' @importFrom ggplot2 geom_hline geom_vline geom_point stat_ellipse
+#' @importFrom ggplot2 geom_hline geom_vline geom_point stat_ellipse element_blank
 #' @importFrom ggplot2 scale_color_manual scale_size_identity ylim xlim
 #' @export
 plot_pca_dims <- function(data.prcomp, value = c(NA, "rotation", "x"),

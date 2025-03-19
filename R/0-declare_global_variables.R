@@ -22,9 +22,6 @@ if ( getRversion() >= "2.15.1" ) {
       "PC1",
       "PC2",
       "PC3",
-      "SampleGroup",
-      "SeqId",
-      "TargetFullName",
       "cum_perc",
       "Variances"
     )

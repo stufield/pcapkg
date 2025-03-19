@@ -108,7 +108,6 @@ plot_pca_dims(pca, value = "x", dims = 1:2L,
 Other PCA plots: 
 \code{\link{plot_projection}()},
 \code{\link{plot_rotation}()},
-\code{\link{plot_sample_handling}()},
 \code{\link{screeplot_auc}()}
 }
 \author{

@@ -45,8 +45,7 @@ screeplot_auc(pca, simdata$class_response, main = "My ScreePlot by AUC")
 Other PCA plots: 
 \code{\link{plot_pca_dims}()},
 \code{\link{plot_projection}()},
-\code{\link{plot_rotation}()},
-\code{\link{plot_sample_handling}()}
+\code{\link{plot_rotation}()}
 }
 \author{
 Michael Mehan, Amanda Hiser

@@ -45,23 +45,23 @@ same length as the number of observations.
 This parameter overrides the point colors determined by
 both the \code{classes} and \code{scores} parameters above.}
 
-\item{set1}{Optional. A vector of \code{SeqIds} to mark on the plot. Typically
-a vector of analytes related to sample handling, or of other clinical
-relevance. Marked with a hollow diamond (see \code{\link[=pch]{pch()}}).}
+\item{set1}{Optional. A vector of feature ids to mark on the plot. Typically
+a vector of analytes of clinical relevance, e.g. sample handling.
+Marked with a hollow diamond (see \code{\link[=pch]{pch()}}).}
 
-\item{set2}{Optional. An additional vector of \code{SeqIds} to mark
+\item{set2}{Optional. An additional vector of feature ids to mark
 on the plot, separately from those in \code{set1}. Marked with a hollow
 triangle (see \code{\link[=pch]{pch()}}).}
 
-\item{set3}{Optional. An additional vector of \code{SeqIds} to mark
+\item{set3}{Optional. An additional vector of feature ids to mark
 on the plot, separately from those in \code{set1}. Marked with a hollow
 square (see \code{\link[=pch]{pch()}}).}
 
-\item{set4}{Optional. An additional vector of \code{SeqIds} to mark
+\item{set4}{Optional. An additional vector of feature ids to mark
 on the plot, separately from those in \code{set1}. Marked with a hollow
 circle (see \code{\link[=pch]{pch()}}).}
 
-\item{set5}{Optional. An additional vector of \code{SeqIds} to mark
+\item{set5}{Optional. An additional vector of feature ids to mark
 on the plot, separately from those in \code{set1}. Marked with a hollow
 upside-down triangle (see \code{\link[=pch]{pch()}}).}
 
@@ -99,7 +99,6 @@ plot_rotation(pca, set1 = y)
 Other PCA plots: 
 \code{\link{plot_pca_dims}()},
 \code{\link{plot_projection}()},
-\code{\link{plot_sample_handling}()},
 \code{\link{screeplot_auc}()}
 }
 \author{

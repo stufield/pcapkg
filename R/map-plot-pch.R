@@ -9,20 +9,14 @@
 #'
 #' @param features `character(n)`. A vector containing the _superset_ of ALL
 #'   analyte/feature names to be mapped.
-#' @param set1 Character. Required. A _subset_ of `features`.
-#'   Sequence ID matched ... hollow triangle.
-#' @param set2 Character. Optional. A *different * subset.
-#'   Sequence ID matched ... hollow diamond.
-#' @param set3 Character. Optional. A *different* subset.
-#'   Marked with a hollow square (see [pch()]).
-#'   Sequence ID matched ... hollow square.
-#' @param set4 Character. Optional. A *different* subset.
-#'   Sequence ID matched ... hollow circle.
-#' @param set5 Character. Optional. A *different* subset.
-#'   Sequence ID matched ... upside-down triangle.
+#' @param set1 Character. Required. A *subset* of `features` ... hollow triangle.
+#' @param set2 Character. Optional. A *different* subset ... hollow diamond.
+#' @param set3 Character. Optional. A *different* subset ... hollow square.
+#' @param set4 Character. Optional. A *different* subset ... hollow circle.
+#' @param set5 Character. Optional. A *different* subset ... upside-down triangle.
 #' @return A tibble containing:
-#'   \item{mask}{Logical. A binary depending on whether the entry in
-#'     `features` is present in any of the optionally added set(s).}
+#'   \item{mask}{Boolean. Whether the entry in `features` is present
+#'     in any of the optionally added set(s).}
 #'   \item{pch}{The point character symbol for each entry.}
 #'   \item{cex}{The character expansion for the symbol for each entry.}
 #'

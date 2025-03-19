@@ -70,7 +70,6 @@ plot_projection(pca, samples = rownames(simdata)[1:5])
 Other PCA plots: 
 \code{\link{plot_pca_dims}()},
 \code{\link{plot_rotation}()},
-\code{\link{plot_sample_handling}()},
 \code{\link{screeplot_auc}()}
 }
 \author{
