@@ -9,10 +9,11 @@
 #' @param dims `integer(n)`. Vector of which dimensions to interrogate.
 #' @param n `integer(1)`. The limit on how many features
 #'   to report (i.e. the rows of the resulting data frame).
+#'
 #' @return A data frame of the top features ordered by the principal
 #'   components given in the selected dimension.
 #'
-#' @author Michael R. Mehan
+#' @author Stu Field, Michael R. Mehan
 #'
 #' @examples
 #' pca <- pca(pcapkg:::log10_ft(simdata))

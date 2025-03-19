@@ -13,7 +13,7 @@
 #' @param nPCs `integer(1)`. Number of PCs to plot.
 #' @param ... Additional arguments passed to [geom_col()].
 #'
-#' @author Michael Mehan, Amanda Hiser
+#' @author Stu Field, Michael R. Mehan
 #' @seealso [screeplot()], [plot_scree()]
 #'
 #' @importFrom ggplot2 ggplot aes geom_col labs scale_fill_manual

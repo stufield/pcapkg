@@ -29,5 +29,5 @@ pca <- pca(pcapkg:::log10_ft(simdata))
 get_top_pca_rotation(pca, n = 10L)
 }
 \author{
-Michael R. Mehan
+Stu Field, Michael R. Mehan
 }

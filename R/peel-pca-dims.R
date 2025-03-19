@@ -1,11 +1,12 @@
 #' PCA Peel by Dimension (internals)
 #'
-#' @param data A data set (a RFU data matrix) to peel.
+#' @param data A data set (data matrix) to peel.
 #' @param data.prcomp A `prcomp` class object, ideally the return object
 #'   from [prcomp2()].
-#' @param dims Numeric. Which dimensions to peel.
+#' @param dims `numeric(2)`. Which dimensions to peel.
+#'
 #' @return New peeled data frame based on the `prcomp` object.
-#' @author Mike Mehan
+#'
 #' @noRd
 peel_pca_dims <- function(data, data.prcomp, dims) {
   for ( peel.dim in dims ) {
@@ -21,7 +22,7 @@ peel_pca_dims <- function(data, data.prcomp, dims) {
 #' @param data.row A row of RFU data from an ADAT, usually pre-scaled.
 #' @param eigen.vec A vector of eigen vectors from a column
 #'   of a PCA rotation.
-#' @author Mike Mehan
+#'
 #' @noRd
 peel_pca <- function(data.row, eigen.vec) {
   dot_p     <- sum(data.row * eigen.vec)

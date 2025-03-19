@@ -33,7 +33,7 @@
 #'   `auto_ident` must be TRUE.
 #' @param ... Additional arguments passed to [plot_pca_dims()].
 #'
-#' @author Michael Mehan
+#' @author Stu Field, Michael R. Mehan
 #'
 #' @examples
 #' pca <- center_scale(pcapkg:::log10_ft(simdata), center = TRUE, scale = FALSE) |>

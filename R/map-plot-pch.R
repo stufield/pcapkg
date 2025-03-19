@@ -20,7 +20,7 @@
 #'   \item{pch}{The point character symbol for each entry.}
 #'   \item{cex}{The character expansion for the symbol for each entry.}
 #'
-#' @author Michael Mehan
+#' @author Stu Field, Michael R. Mehan
 #'
 #' @examples
 #' # get the mmps & sps

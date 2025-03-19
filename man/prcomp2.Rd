@@ -37,5 +37,5 @@ We've simply hijacked \code{\link[=prcomp]{prcomp()}} and added elements to the 
 \code{\link[=prcomp]{prcomp()}}, \code{\link[=svd]{svd()}}
 }
 \author{
-Stu Field, Mike Mehan
+Stu Field, Mike R. Mehan
 }

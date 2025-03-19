@@ -12,7 +12,7 @@
 #' @return A `prcomp` class object.
 #'
 #' @note We've simply hijacked [prcomp()] and added elements to the return value.
-#' @author Stu Field, Mike Mehan
+#' @author Stu Field, Mike R. Mehan
 #'
 #' @seealso [prcomp()], [svd()]
 #' @export

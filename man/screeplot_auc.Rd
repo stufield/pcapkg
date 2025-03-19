@@ -48,6 +48,6 @@ Other PCA plots:
 \code{\link{plot_rotation}()}
 }
 \author{
-Michael Mehan, Amanda Hiser
+Stu Field, Michael R. Mehan
 }
 \concept{PCA plots}

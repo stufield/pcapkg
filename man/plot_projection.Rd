@@ -72,6 +72,6 @@ Other PCA plots:
 \code{\link{screeplot_auc}()}
 }
 \author{
-Michael Mehan
+Stu Field, Michael R. Mehan
 }
 \concept{PCA plots}
