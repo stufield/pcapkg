@@ -9,24 +9,24 @@
 #'
 #' @noRd
 peel_pca_dims <- function(data, data.prcomp, dims) {
-  for ( peel.dim in dims ) {
-    new_peel <- apply(data, 1, peel_pca, data.prcomp$rotation[, peel.dim])
+  for ( peel_dim in dims ) {
+    new_peel <- apply(data, 1, peel_pca, data.prcomp$rotation[, peel_dim])
   }
   data.frame(t(new_peel))
 }
 
-#' Peel away a PCA dimension given a row of RFU data
+#' Peel away a PCA dimension given a row of proteomic data
 #'   and a vector of eigen vectors from a PCA rotation. Used
 #'   as internal for other PCA utilities.
 #'
-#' @param data.row A row of RFU data from an ADAT, usually pre-scaled.
-#' @param eigen.vec A vector of eigen vectors from a column
+#' @param data_row A row of proteomic data, typically pre-scaled.
+#' @param eigen_vec A vector of eigen vectors from a column
 #'   of a PCA rotation.
 #'
 #' @noRd
-peel_pca <- function(data.row, eigen.vec) {
-  dot_p     <- sum(data.row * eigen.vec)
-  norm_f    <- sum(eigen.vec * eigen.vec)
-  proj_term <- (dot_p / norm_f) * eigen.vec
-  data.row - proj_term
+peel_pca <- function(data_row, eigen_vec) {
+  dot_p     <- sum(data_row * eigen_vec)
+  norm_f    <- sum(eigen_vec * eigen_vec)
+  proj_term <- (dot_p / norm_f) * eigen_vec
+  data_row - proj_term
 }
