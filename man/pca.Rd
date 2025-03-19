@@ -28,15 +28,15 @@ plot_scree(
 )
 }
 \arguments{
-\item{data}{A \code{data.frame} or \code{tibble} class object.}
+\item{data}{A \code{data.frame} (or \code{tbl_df}) class object.}
 
-\item{features}{Which colunns are the features.}
+\item{features}{\code{character(n)}. Which columns to consider the features.}
 
-\item{center}{Logical. Should the features/variables be zero centered
+\item{center}{\code{logical(1)}. Should the features/variables be zero centered
 prior to decomposition? In general this should be performed so that
 variables are in the same space, thus defaults to \code{TRUE}.}
 
-\item{scale}{Logical. Should the features be scaled to have
+\item{scale}{\code{logical(1)}. Should the features be scaled to have
 unit variance prior to decomposition? If \code{TRUE}, this corresponds
 to PCA in correlation space as opposed to covariance space.}
 
@@ -61,7 +61,7 @@ to PCA in correlation space as opposed to covariance space.}
 \item{n}{\code{integer(1)}. The number of components to plot.}
 }
 \value{
-An object of class \code{pca}, similar to \code{\link[=prcomp]{prcomp()}}.
+A \code{pca}class object, similar to \code{\link[=prcomp]{prcomp()}}.
 }
 \description{
 Perform principal component analysis (PCA) on a proteomic data matrix,

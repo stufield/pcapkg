@@ -1,11 +1,11 @@
 #' Map Point Characters
 #'
 #' Map a series of vectors containing feature lists such that each
-#' list is mapped to a specific point character (`pch`) value for
-#' downstream plotting (e.g. [plot_rotation()].
-#' Additionally, character expansion (`cex`) is also mapped if `> 2`
-#' lists are passed. A masking of `TRUE/FALSE` is also returned that
-#' is used in the weighted PCA.
+#'   list is mapped to a specific point character (`pch`) value for
+#'   downstream plotting (e.g. [plot_rotation()].
+#'   Additionally, character expansion (`cex`) is also mapped if `> 2`
+#'   lists are passed. A masking of `TRUE/FALSE` is also returned that
+#'   is used in the weighted PCA.
 #'
 #' @param features `character(n)`. A vector containing the _superset_ of ALL
 #'   analyte/feature names to be mapped.
@@ -25,7 +25,9 @@
 #'     `features` is present in any of the optionally added set(s).}
 #'   \item{pch}{The point character symbol for each entry.}
 #'   \item{cex}{The character expansion for the symbol for each entry.}
+#'
 #' @author Michael Mehan
+#'
 #' @examples
 #' # get the mmps
 #' ad <- pcapkg:::get_col_meta(sample.adat)

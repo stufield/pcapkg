@@ -37,7 +37,7 @@ test_that("`supervised_peel` generates correct output", {
                     scale       = "logical",
                     logged      = "logical",
                     feats       = "list",
-                    orig_data   = c("soma_adat", "data.frame"),
+                    orig_data   = "data.frame",
                     call        = "call"))
 })
 

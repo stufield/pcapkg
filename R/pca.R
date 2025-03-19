@@ -6,20 +6,23 @@
 #'   Data transformations (e.g. centering and/or scaling) can be performed
 #'   via its arguments.
 #'
-#' @param data A `data.frame` or `tibble` class object.
-#' @param features Which colunns are the features.
-#' @param center Logical. Should the features/variables be zero centered
+#' @param data A `data.frame` (or `tbl_df`) class object.
+#' @param features `character(n)`. Which columns to consider the features.
+#' @param center `logical(1)`. Should the features/variables be zero centered
 #'   prior to decomposition? In general this should be performed so that
 #'   variables are in the same space, thus defaults to `TRUE`.
-#' @param scale Logical. Should the features be scaled to have
+#' @param scale `logical(1)`. Should the features be scaled to have
 #'   unit variance prior to decomposition? If `TRUE`, this corresponds
 #'   to PCA in correlation space as opposed to covariance space.
-#' @return An object of class `pca`, similar to [prcomp()].
+#'
+#' @return A `pca`class object, similar to [prcomp()].
+#'
+#' @seealso [prcomp2()]
 #' @author Stu Field
+#'
 #' @examples
 #' pca <- pca(pcapkg:::log_rfu(simdata))
 #'
-#' @seealso [prcomp2()]
 #' @importFrom dplyr ungroup left_join select all_of rename
 #' @importFrom tibble as_tibble tibble
 #' @export
@@ -30,7 +33,7 @@ pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
       features <- get_analytes(data)
     }
     tbl <- get_col_meta(data)
-    tbl$Feature <- add_seq(tbl$SeqId)
+    tbl$Feature <- features
   } else {
     if ( is.null(features) ) {
       stop("`features` must be passed", call. = FALSE)
@@ -39,8 +42,8 @@ pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
   }
   not_feat <- setdiff(names(data), features)
   meta     <- dplyr::select(data, all_of(not_feat)) |>
-    structure(class = "data.frame") |>  # strip `soma_adat` class
-    as_tibble(rownames = ".id")         #   (important for method dispatch below)
+    structure(class = "data.frame") |>  # strip class
+    as_tibble(rownames = ".id")         # (important for method dispatch below)
 
   # check for ".id" column; essential for join below
   stopifnot(".id" %in% names(meta))
@@ -50,16 +53,12 @@ pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
   }
 
   # Perform centering and scaling outside of `prcomp2()`
-  if ( inherits(data, "soma_adat") ) {
-    scaled_data <- center_scale(data, center = center, scale = scale) |>
-      feature_matrix()
-  } else {
-    scaled_data <- as.matrix(data[, features])
-  }
+  scaled_data <- center_scale(data, center = center, scale = scale) |>
+    feature_matrix(features)
 
   # Perform initial PCA
   orig_pca <- prcomp2(scaled_data)
-  rotation <- cbind(data.frame(tbl),        # features ordered as in ADAT
+  rotation <- cbind(data.frame(tbl),
                     data.frame(orig_pca$rotation)) |>
     as_tibble()
 

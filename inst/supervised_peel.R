@@ -72,7 +72,6 @@ supervised_peel <- function(data, set1, center = TRUE, scale = FALSE, num.pcs = 
 
   if ( inherits(data, "grouped_df") ) {
     # if `tr_data` object; use `ungroup::tr_data()` method
-    # makes c("soma_adat", "data.frame")
     data <- dplyr::ungroup(data)
   }
 
