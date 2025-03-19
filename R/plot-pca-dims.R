@@ -8,6 +8,7 @@
 #'
 #' @family PCA plots
 #' @inheritParams pca
+#'
 #' @param data.prcomp A prcomp class object. Typically the object
 #'   returned by [prcomp2()].
 #' @param value Character. The type of plot to be generated. For projection
@@ -17,7 +18,7 @@
 #'   points, depending on whether a rotation or a projection is to be
 #'   plotted. Must be the same length as the plot type, i.e. number
 #'   of samples for projection and features for rotation.
-#' @param scores Optional statistical scores to pass through for the
+#' @param scores Optional. Statistical scores to pass through for the
 #'   coloring of the points during plotting. If a training data
 #'   set is passed and `scores = NULL`,
 #'   then KS-distances (scores) will be calculated under the
@@ -31,7 +32,7 @@
 #'   same length as the number of observations.
 #'   This parameter overrides the point colors determined by
 #'   both the `classes` and `scores` parameters above.
-#' @param xlim Numeric. Optional limits for the x-axis in the
+#' @param xlim `numeric(2)`. Optional limits for the x-axis in the
 #'   format `c(0, 0)`.
 #' @param ylim Numeric. Optional limits for the y-axis in the
 #'   format `c(0, 0)`.
@@ -45,11 +46,14 @@
 #' @param pt_pch `numeric(1)`. Shape of the points. Accepted values are 0-25.
 #' @param add_ellipse Logical. Should an ellipse be added to the
 #'   rotation? Ignored if projection (`value = "x"`).
+#'
 #' @return A points plot of either the rotation or projection space.
-#' @author Michael Mehan, Amanda Hiser
+#'
+#' @author Stu Field, Michael R. Mehan
+#'
 #' @examples
 #' # Prepare data
-#' pca <- center_scale(pcapkg:::log_rfu(simdata), center = TRUE, scale = FALSE) |>
+#' pca <- center_scale(pcapkg:::log10_ft(simdata), center = TRUE, scale = FALSE) |>
 #'   feature_matrix() |>
 #'   prcomp2()
 #' scores <- withr::with_seed(101, rnorm(40))

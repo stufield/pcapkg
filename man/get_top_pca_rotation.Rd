@@ -4,12 +4,12 @@
 \alias{get_top_pca_rotation}
 \title{Get Top Features by PCA Dimension}
 \usage{
-get_top_pca_rotation(x, dims = 1:5, n = 30L)
+get_top_pca_rotation(x, dims = 1:5L, n = 30L)
 }
 \arguments{
 \item{x}{A \code{pca} class object.}
 
-\item{dims}{\code{integer(2)}. Vector of dimensions to interrogate.}
+\item{dims}{\code{integer(n)}. Vector of which dimensions to interrogate.}
 
 \item{n}{\code{integer(1)}. The limit on how many features
 to report (i.e. the rows of the resulting data frame).}
@@ -25,8 +25,8 @@ components in that dimension. Each dimension is
 represented by a column of the resulting data frame.
 }
 \examples{
-pca <- pca(pcapkg:::log_rfu(simdata))
-get_top_pca_rotation(pca, n = 10)
+pca <- pca(pcapkg:::log10_ft(simdata))
+get_top_pca_rotation(pca, n = 10L)
 }
 \author{
 Michael R. Mehan

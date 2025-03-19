@@ -1,5 +1,5 @@
 
-pca <- pca(log_rfu(simdata))
+pca <- pca(log10_ft(simdata))
 
 test_that("`get_pca_names()` returns correct 'rotation' object when value = positive", {
   rot1 <- get_pca_names(pca, "r", 1, 0.2)      # feature names

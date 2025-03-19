@@ -1,5 +1,6 @@
+
 # Setup ----------
-pca <- center_scale(log_rfu(simdata), center = TRUE, scale = FALSE) |>
+pca <- center_scale(log10_ft(simdata), center = TRUE, scale = FALSE) |>
   feature_matrix() |>
   prcomp2()
 scores <- withr::with_seed(101, rnorm(length(get_analytes(simdata))))

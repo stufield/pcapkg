@@ -1,6 +1,6 @@
 # Setup ----------
 withr::with_seed(123, {
-  pca <- center_scale(log_rfu(simdata), center = TRUE, scale = FALSE) |>
+  pca <- center_scale(log10_ft(simdata), center = TRUE, scale = FALSE) |>
     feature_matrix() |> prcomp2()
   class <- sample(simdata$class_response, 40L)
   all  <- get_analytes(simdata)

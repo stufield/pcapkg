@@ -25,7 +25,7 @@ returned by \code{\link[=prcomp2]{prcomp2()}}.}
 samples used for coloring the points. Must be the same length
 as the number of samples.}
 
-\item{scores}{Optional statistical scores to pass through for the
+\item{scores}{Optional. Statistical scores to pass through for the
 coloring of the points during plotting. If a training data
 set is passed and \code{scores = NULL},
 then KS-distances (scores) will be calculated under the
@@ -49,11 +49,10 @@ with a hollow diamond (see \code{\link[=pch]{pch()}}).}
 \item{...}{Additional arguments passed to \code{\link[=plot_pca_dims]{plot_pca_dims()}}.}
 }
 \description{
-Plot the samples from a PCA projection in a 2-dimensional
-scatter plot.
+Plot the samples from a PCA projection in a 2-dimensional scatter plot.
 }
 \examples{
-pca <- center_scale(pcapkg:::log_rfu(simdata), center = TRUE, scale = FALSE) |>
+pca <- center_scale(pcapkg:::log10_ft(simdata), center = TRUE, scale = FALSE) |>
   feature_matrix() |>
   prcomp2()
 
@@ -64,7 +63,7 @@ plot_projection(pca, col = "green")
 plot_projection(pca, classes = simdata$class_response)
 
 # Mark specific samples
-plot_projection(pca, samples = rownames(simdata)[1:5])
+plot_projection(pca, samples = rownames(simdata)[1:5L])
 }
 \seealso{
 Other PCA plots: 
@@ -73,6 +72,6 @@ Other PCA plots:
 \code{\link{screeplot_auc}()}
 }
 \author{
-Michael Mehan, Amanda Hiser
+Michael Mehan
 }
 \concept{PCA plots}

@@ -9,7 +9,7 @@ get_pca_names(x, type = c("rotation", "projection"), dim = 1L, value)
 \arguments{
 \item{x}{A \code{pca} class object. See \code{\link[=pca]{pca()}}.}
 
-\item{type}{Matched character. Either \code{"rotation"} or \code{"projection"}.}
+\item{type}{\code{character(1)}. Matched. Either \code{"rotation"} or \code{"projection"}.}
 
 \item{dim}{\code{integer(2)}. Which PCA dimension to select.}
 
@@ -26,7 +26,7 @@ Determine the names of the features (rotation) or samples
 principal component dimension specified by \code{dim}.
 }
 \examples{
-pca <- pca(pcapkg:::log_rfu(simdata))
+pca <- pca(pcapkg:::log10_ft(simdata))
 get_pca_names(pca, "r", 1, 0.1)      # feature names
 
 get_pca_names(pca, "p", value = 0.1) # sample names

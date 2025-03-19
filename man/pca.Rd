@@ -44,8 +44,8 @@ to PCA in correlation space as opposed to covariance space.}
 
 \item{...}{Additional arguments passed to \code{\link[=geom_point]{geom_point()}}.}
 
-\item{type}{Either \code{projection} (default) or \code{rotation}. If called from
-\code{\link[=plot_scree]{plot_scree()}}, either \code{barplot} (default) or \code{lines}.}
+\item{type}{Either "projection" (default) or "rotation". If called from
+\code{\link[=plot_scree]{plot_scree()}}, either "barplot" (default) or "lines". Will be matched.}
 
 \item{dims}{\code{integer(2)}. Which dimensions to plot.}
 
@@ -61,7 +61,7 @@ to PCA in correlation space as opposed to covariance space.}
 \item{n}{\code{integer(1)}. The number of components to plot.}
 }
 \value{
-A \code{pca}class object, similar to \code{\link[=prcomp]{prcomp()}}.
+A \code{pca} class object, similar to \code{\link[=prcomp]{prcomp()}}.
 }
 \description{
 Perform principal component analysis (PCA) on a proteomic data matrix,
@@ -75,13 +75,13 @@ of a \code{pca} class object.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{print(pca)}: The S3 print method for objects of class \code{pca}.
+\item \code{print(pca)}: The S3 print method for \code{pca} class objects.
 
-\item \code{plot(pca)}: The S3 plot method for objects of class \code{pca}.
+\item \code{plot(pca)}: The S3 plot method for \code{pca} class objects.
 
 }}
 \examples{
-pca <- pca(pcapkg:::log_rfu(simdata))
+pca <- pca(pcapkg:::log10_ft(simdata))
 
 # print method
 pca

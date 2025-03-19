@@ -15,13 +15,13 @@
 #'   unit variance prior to decomposition? If `TRUE`, this corresponds
 #'   to PCA in correlation space as opposed to covariance space.
 #'
-#' @return A `pca`class object, similar to [prcomp()].
+#' @return A `pca` class object, similar to [prcomp()].
 #'
 #' @seealso [prcomp2()]
 #' @author Stu Field
 #'
 #' @examples
-#' pca <- pca(pcapkg:::log_rfu(simdata))
+#' pca <- pca(pcapkg:::log10_ft(simdata))
 #'
 #' @importFrom dplyr ungroup left_join select all_of rename
 #' @importFrom tibble as_tibble tibble
@@ -38,7 +38,7 @@ pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
     if ( is.null(features) ) {
       stop("`features` must be passed", call. = FALSE)
     }
-    tbl <- tibble::tibble(Feature = features)
+    tbl <- tibble(Feature = features)
   }
   not_feat <- setdiff(names(data), features)
   meta     <- dplyr::select(data, all_of(not_feat)) |>
@@ -75,7 +75,7 @@ pca <- function(data, features = NULL, center = TRUE, scale = FALSE) {
 
 
 #' @describeIn pca
-#'   The S3 print method for objects of class `pca`.
+#'   The S3 print method for `pca` class objects.
 #'
 #' @param x A `pca` class object.
 #' @param ... Arguments required by and passed to S3 [print()].
@@ -103,10 +103,10 @@ print.pca <- function(x, ...) {
 
 
 #' @describeIn pca
-#'   The S3 plot method for objects of class `pca`.
+#'   The S3 plot method for `pca` class objects.
 #'
-#' @param type Either `projection` (default) or `rotation`. If called from
-#'   [plot_scree()], either `barplot` (default) or `lines`.
+#' @param type Either "projection" (default) or "rotation". If called from
+#'   [plot_scree()], either "barplot" (default) or "lines". Will be matched.
 #' @param dims `integer(2)`. Which dimensions to plot.
 #' @param color An unquoted string indicating the variable in
 #'   `x$projection` to color points by. Required for `projection` plots.
@@ -199,6 +199,7 @@ plot.pca <- function(x, type = c("projection", "rotation"), dims = 1:2L,
 #'   of a `pca` class object.
 #'
 #' @rdname pca
+#'
 #' @param n `integer(1)`. The number of components to plot.
 #'
 #' @examples

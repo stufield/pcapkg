@@ -30,7 +30,7 @@ returned by \code{\link[=prcomp2]{prcomp2()}}.}
 \item{classes}{Optional. A vector indicating the classes of features used for
 coloring the points. Must be the same length as the number of features.}
 
-\item{scores}{Optional statistical scores to pass through for the
+\item{scores}{Optional. Statistical scores to pass through for the
 coloring of the points during plotting. If a training data
 set is passed and \code{scores = NULL},
 then KS-distances (scores) will be calculated under the
@@ -84,7 +84,7 @@ Plot the features from a PCA rotation in a 2-dimensional scatter plot.
 }
 }
 \examples{
-pca <- center_scale(pcapkg:::log_rfu(simdata), center = TRUE, scale = FALSE) |>
+pca <- center_scale(pcapkg:::log10_ft(simdata), center = TRUE, scale = FALSE) |>
   feature_matrix() |>
   prcomp2()
 plot_rotation(pca, col = "green")

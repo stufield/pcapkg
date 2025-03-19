@@ -1,7 +1,11 @@
-pca <- center_scale(log_rfu(simdata), center = TRUE, scale = FALSE) |>
+
+# Setup ----
+pca <- center_scale(log10_ft(simdata), center = TRUE, scale = FALSE) |>
   feature_matrix() |>
   prcomp2()
 
+
+# Testing ----
 test_that("`plot_projection()` produces the expected plot when default args are used", {
   expect_snapshot_plot(plot_projection(pca),
                        "plot_projection_defaults")

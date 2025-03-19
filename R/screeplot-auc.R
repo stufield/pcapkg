@@ -19,7 +19,7 @@
 #' @importFrom ggplot2 ggplot aes geom_col labs scale_fill_manual
 #' @importFrom ggplot2 theme element_text rel
 #' @examples
-#' pca <- center_scale(pcapkg:::log_rfu(simdata), center = TRUE, scale = FALSE) |>
+#' pca <- center_scale(pcapkg:::log10_ft(simdata), center = TRUE, scale = FALSE) |>
 #'   feature_matrix() |>
 #'   prcomp2()
 #' screeplot_auc(pca, simdata$class_response, main = "My ScreePlot by AUC")
@@ -39,8 +39,7 @@ screeplot_auc <- function(data.prcomp, auc.classes, auc.proj = NULL, main = NULL
   aucs <- rep(0.5, nPCs)
 
   if ( length(levels(auc.classes)) > 1L ) {
-    aucs <- vapply(1:nPCs, function(.x) auc(auc.classes, auc.proj[, .x]), 0.1) |>
-      as.numeric()
+    aucs <- vapply(1:nPCs, function(.x) auc(auc.classes, auc.proj[, .x]), 0.1)
   }
 
   col_indices <- vapply(aucs, function(.x) max(1, floor((.x - 0.5) * 200)), 0.1)

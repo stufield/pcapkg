@@ -40,7 +40,7 @@ of samples for projection and features for rotation.}
 
 \item{main}{\code{character(1)}. A string containing the title for the plot.}
 
-\item{scores}{Optional statistical scores to pass through for the
+\item{scores}{Optional. Statistical scores to pass through for the
 coloring of the points during plotting. If a training data
 set is passed and \code{scores = NULL},
 then KS-distances (scores) will be calculated under the
@@ -64,7 +64,7 @@ Options include "left", "right", "bottom", or "top", or "none"
 if no legend is desired. Ignored if \code{value = "r"} (rotation) and
 classes are not specified.}
 
-\item{xlim}{Numeric. Optional limits for the x-axis in the
+\item{xlim}{\code{numeric(2)}. Optional limits for the x-axis in the
 format \code{c(0, 0)}.}
 
 \item{ylim}{Numeric. Optional limits for the y-axis in the
@@ -91,7 +91,7 @@ and \code{\link[=plot_projection]{plot_projection()}}.
 }
 \examples{
 # Prepare data
-pca <- center_scale(pcapkg:::log_rfu(simdata), center = TRUE, scale = FALSE) |>
+pca <- center_scale(pcapkg:::log10_ft(simdata), center = TRUE, scale = FALSE) |>
   feature_matrix() |>
   prcomp2()
 scores <- withr::with_seed(101, rnorm(40))
@@ -111,6 +111,6 @@ Other PCA plots:
 \code{\link{screeplot_auc}()}
 }
 \author{
-Michael Mehan, Amanda Hiser
+Stu Field, Michael R. Mehan
 }
 \concept{PCA plots}

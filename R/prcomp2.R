@@ -1,16 +1,19 @@
 #' Principal Component Analysis
 #'
 #' Performs a principal components analysis on the given data matrix
-#' and returns the results as an object of class `prcomp`. This
-#' function is stolen from [stats::prcomp()], except
-#' with some extra returned components of the `SVD` that are not
-#' returned by the standard function as well as hard coding
-#' the projection to be returned and some simple data checks.
+#'   and returns the results as a `prcomp` class object. This
+#'   function is "borrowed" from [stats::prcomp()], except
+#'   with some extra returned components of the `SVD` that are not
+#'   returned by the standard function as well as hard coding
+#'   the projection to be returned and some simple data checks.
 #'
 #' @inheritParams stats::prcomp
-#' @return An object of class `prcomp`.
+#'
+#' @return A `prcomp` class object.
+#'
 #' @note We've simply hijacked [prcomp()] and added elements to the return value.
-#' @author Stu Field & Mike Mehan
+#' @author Stu Field, Mike Mehan
+#'
 #' @seealso [prcomp()], [svd()]
 #' @export
 prcomp2 <- function(x, tol = NULL) {

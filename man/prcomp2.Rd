@@ -20,12 +20,12 @@ prcomp2(x, tol = NULL)
     would omit essentially constant components.}
 }
 \value{
-An object of class \code{prcomp}.
+A \code{prcomp} class object.
 }
 \description{
 Performs a principal components analysis on the given data matrix
-and returns the results as an object of class \code{prcomp}. This
-function is stolen from \code{\link[stats:prcomp]{stats::prcomp()}}, except
+and returns the results as a \code{prcomp} class object. This
+function is "borrowed" from \code{\link[stats:prcomp]{stats::prcomp()}}, except
 with some extra returned components of the \code{SVD} that are not
 returned by the standard function as well as hard coding
 the projection to be returned and some simple data checks.
@@ -37,5 +37,5 @@ We've simply hijacked \code{\link[=prcomp]{prcomp()}} and added elements to the 
 \code{\link[=prcomp]{prcomp()}}, \code{\link[=svd]{svd()}}
 }
 \author{
-Stu Field & Mike Mehan
+Stu Field, Mike Mehan
 }
