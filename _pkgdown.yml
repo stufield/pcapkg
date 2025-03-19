@@ -25,7 +25,7 @@ template:
 
 navbar:
   structure:
-    left: [intro, reference, articles, workflows, news]
+    left: [intro, reference, articles, news]
     right: [search, github]
   components:
     intro:
@@ -45,31 +45,21 @@ reference:
       Two principle ways to implement principal component analysis (PCA).
     contents:
     - pca
-    - supervised_peel
     - prcomp2
 
-  - title: Plotting
+  - title: Plotting Routines
     desc: >
       Numerous plotting facilities for various components.
     contents:
-    - plotPCAdims
-    - starts_with("plotPCA")
-    - starts_with("plot[PRS]")
-    - screeplotAUC
+    - starts_with("plot_[pr]")
+    - screeplot_auc
     - -pca
 
-  - title: Get *
+  - title: Getters
     desc: >
       Utilities for getting varous features of the decomposition.
     contents:
     - starts_with("get")
-
-  - title: Experimetnal
-    desc: >
-      Experimental features for future development.
-    contents:
-    - pca_purify
-    - pca_auc
 
 news:
   - one_page: true
