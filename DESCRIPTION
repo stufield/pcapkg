@@ -10,11 +10,12 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-1024-5859"))
     )
 Description: This package contains the general functions
-    necessary for the unsupervised exploratory analysis of proteomic data
-    using Principal Component Analysis (PCA). Primary tools related to
-    calculation of principal components and the visualization of loadings
-    and projections of these components.
+    necessary for the unsupervised exploratory analysis of high-dimensional
+    proteomic data using Principal Component Analysis (PCA).
+    Primary tools related to calculation of principal components and
+    the visualization of loadings and projections of these components.
 License: MIT + file LICENSE
+URL: https://stufield.github.io/pcapkg
 Depends:
     R (>= 4.4.0),
     helpr,
@@ -25,7 +26,6 @@ Imports:
     rlang,
     tibble
 Suggests:
-    caTools,
     knitr,
     lintr,
     MASS,
