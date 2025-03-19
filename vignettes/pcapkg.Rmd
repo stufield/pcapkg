@@ -14,16 +14,16 @@ library(patchwork)
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>"
 )
-set.seed(101)
 ```
 
 
 
-The `pcapkg` package contains the general functions 
-necessary for the unsupervised exploratory analysis of proteomic data 
-using Principal Component Analysis (PCA). Primary tools related to
-calculation of principal components and the visualization of
-rotation (loadings) and projection spaces of these components.
+The `pcapkg` package contains the general functions necessary for the
+unsupervised exploratory analysis of high-dimensional proteomic data using
+Principal Component Analysis (PCA). Primary tools related to calculation of
+principal components and the visualization of rotation (loadings) and
+projection spaces of these components.
+
 
 
 ---------------
@@ -32,19 +32,17 @@ rotation (loadings) and projection spaces of these components.
 ## Useful functions in `pcapkg`
 
 * `pca()`
-  + perform principal component analysis (PCA) on a data matrix
-  set of RFU values.
-* `supervised_peel()`
-  + peel away various components conditionally on specific
-  features (rotation space) of the data, resulting in `weighted` and `peeled`
-  components.
+  - perform principal component analysis (PCA) on a matrix
+    of high-dimensional proteomic data.
+
 * `plot_scree()`
-  + generate a "scree"-plot of the top variances for a `pca` class object.
+  - generate a "scree"-plot of the top variances for a `pca` class object.
+
 * `plot_rotation()`, `plot_projection()`
-  + plot specific rotation and projection space objects
-* `plot_sample_handling()`
-  + plot rotation and projection with known sample 
-  handling analytes highlighted.
+  - plot specific rotation and projection space objects
+
+* `get_*()`
+  - various "getter" functions to retreive features from the PCA.
 
 
 
@@ -84,7 +82,7 @@ plot(pr, "p", color = SiteId, id.labels = id)   # with labels
 
 ### Combine rotation and projection
 
-```{r combo, fig.width = 8, fig.height = 4}
+```{r combo, fig.width = 10, fig.height = 5}
 rot  <- plot(pr, "r", identify = TRUE)
 proj <- plot(pr, "p", color = SiteId, id.labels = id) +
   theme(legend.position = "top")
@@ -93,7 +91,7 @@ rot + proj
 
 ### Corresponding `Scree` plots
 
-```{r scree, fig.width = 8, fig.height = 5}
+```{r scree, fig.width = 10, fig.height = 5}
 a <- plot_scree(pr, n = 10L)
 b <- plot_scree(pr, n = 10L, type = "l")
 a + b
