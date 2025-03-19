@@ -7,13 +7,13 @@
 #'   lists are passed. A masking of `TRUE/FALSE` is also returned that
 #'   is used in the weighted PCA.
 #'
-#' @param features `character(n)`. A vector containing the _superset_ of ALL
+#' @param features `character(n)`. A vector containing the _superset_ of **ALL**
 #'   analyte/feature names to be mapped.
-#' @param set1 Character. Required. A *subset* of `features` ... hollow triangle.
-#' @param set2 Character. Optional. A *different* subset ... hollow diamond.
-#' @param set3 Character. Optional. A *different* subset ... hollow square.
-#' @param set4 Character. Optional. A *different* subset ... hollow circle.
-#' @param set5 Character. Optional. A *different* subset ... upside-down triangle.
+#' @param set1 `character(n)`. Required. A *subset* of `features` ... hollow triangle.
+#' @param set2 `character(n)`. Optional. A *different* subset ... hollow diamond.
+#' @param set3 `character(n)`. Optional. A *different* subset ... hollow square.
+#' @param set4 `character(n)`. Optional. A *different* subset ... hollow circle.
+#' @param set5 `character(n)`. Optional. A *different* subset ... upside-down triangle.
 #' @return A tibble containing:
 #'   \item{mask}{Boolean. Whether the entry in `features` is present
 #'     in any of the optionally added set(s).}
@@ -23,7 +23,7 @@
 #' @author Michael Mehan
 #'
 #' @examples
-#' # get the mmps
+#' # get the mmps & sps
 #' ad <- pcapkg:::get_col_meta(sample.adat)
 #' mmps <- filter(ad, grepl("^MMP", EntrezGeneSymbol))$SeqId
 #' sps  <- filter(ad, grepl("^SP", EntrezGeneSymbol))$SeqId
@@ -55,19 +55,19 @@ map_plot_pch <- function(features,
 
   all <- c(set1, set2, set3, set4, set5) |> unique()
   dplyr::left_join(
-    tibble(features,  seq = get_seq(features)),
-    tibble(all = all, seq = get_seq(all)),
-    by = "seq"
+    tibble(features,  ft_id = get_seq(features)),
+    tibble(all = all, ft_id = get_seq(all)),
+    by = "ft_id"
   ) |>
     dplyr::mutate(
       mask = !is.na(all),
       cex  = ifelse(mask, 4, default_cex),
       pch  = dplyr::case_when(
-        seq %in% get_seq(set1) ~ 23,
-        seq %in% get_seq(set2) ~ 24,
-        seq %in% get_seq(set3) ~ 22,
-        seq %in% get_seq(set4) ~ 21,
-        seq %in% get_seq(set5) ~ 25,
+        ft_id %in% get_seq(set1) ~ 23,
+        ft_id %in% get_seq(set2) ~ 24,
+        ft_id %in% get_seq(set3) ~ 22,
+        ft_id %in% get_seq(set4) ~ 21,
+        ft_id %in% get_seq(set5) ~ 25,
         .default = 19
       )
     )

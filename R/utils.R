@@ -45,3 +45,22 @@ topo_colors <- function(n, alpha) {
   grDevices::topo.colors(n = n, alpha = alpha, rev = TRUE)
 }
 
+# calculate AUC
+# specifically (only!) for binary 2 class problems
+auc <- function(truth, probs) {
+  truth <- as.factor(truth)
+  levs  <- levels(truth)
+  tab   <- table(truth)
+  stopifnot(length(tab) == 2L)  # binary only
+  idx <- lapply(as.factor(levs), function(.x) which(truth == .x))
+  auc <- 0.5
+  c1 <- 1L
+  c2 <- 2L
+  n1 <- as.numeric(tab[levs[c1]])
+  n2 <- as.numeric(tab[levs[c2]])
+  if ( n1 > 0 && n2 > 0 ) {
+    r <- rank(c(probs[idx[[c1]]], probs[idx[[c2]]]))
+    auc <- (sum(r[1:n1]) - n1 * (n1 + 1) / 2) / (n1 * n2)
+  }
+  as.numeric(max(auc, 1 - auc))
+}

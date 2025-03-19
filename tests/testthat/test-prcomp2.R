@@ -4,7 +4,7 @@ withr::local_options(list(digits = 6L))
 # create fake names
 fake_name <- function(n = 1) {
   replicate(n, {
-    paste0(sample(1000:9999, 1), "-", sample(1:99, 1)) |> add_seq()
+    paste0("ft_", paste0(sample(1000:9999, 1), "_", sample(1:99, 1)))
   })
 }
 

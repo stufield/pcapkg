@@ -1,18 +1,21 @@
 #' Plot AUC Dependent Screeplot
 #'
 #' Plot a screeplot with the variance bars colored according
-#' to the AUC of the corresponding classes in a specified
-#' training response vector.
+#'   to the AUC of the corresponding classes in a specified
+#'   training response vector.
 #'
 #' @family PCA plots
 #' @inheritParams plot_pca_dims
+#'
 #' @param auc.classes A vector of the training classes used in calculating the AUC.
 #' @param auc.proj An alternative projection matrix from another decomposition.
 #'   By default, the projection from `data.prcomp` is used.
 #' @param nPCs `integer(1)`. Number of PCs to plot.
 #' @param ... Additional arguments passed to [geom_col()].
+#'
 #' @author Michael Mehan, Amanda Hiser
 #' @seealso [screeplot()], [plot_scree()]
+#'
 #' @importFrom ggplot2 ggplot aes geom_col labs scale_fill_manual
 #' @importFrom ggplot2 theme element_text rel
 #' @examples
@@ -36,18 +39,17 @@ screeplot_auc <- function(data.prcomp, auc.classes, auc.proj = NULL, main = NULL
   aucs <- rep(0.5, nPCs)
 
   if ( length(levels(auc.classes)) > 1L ) {
-    aucs <- vapply(1:nPCs, function(.x) {
-      caTools::colAUC(auc.proj[, .x], auc.classes)}, 0.1) |> # nolint
+    aucs <- vapply(1:nPCs, function(.x) auc(auc.classes, auc.proj[, .x]), 0.1) |>
       as.numeric()
   }
 
   col_indices <- vapply(aucs, function(.x) max(1, floor((.x - 0.5) * 200)), 0.1)
   cols        <- rev(viridisLite::viridis(100))[col_indices]
 
-  plot.data <- data.frame(PCs = seq_along(data.prcomp$sdev),
+  plot_data <- data.frame(PCs       = seq_along(data.prcomp$sdev),
                           Variances = data.prcomp$sdev^2)
 
-  ggplot(plot.data[1:nPCs, ], aes(x = PCs, y = Variances)) +
+  ggplot(plot_data[1:nPCs, ], aes(x = PCs, y = Variances)) +
     geom_col(aes(fill = factor(PCs)),
              color = "black", linewidth = 0.3, ...) +
     labs(x = NULL, title = main) +
