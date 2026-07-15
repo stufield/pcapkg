@@ -49,18 +49,15 @@ test_that("the `pca` function returns the correct attributes", {
 })
 
 test_that("the data from the `plot_scree()` call has the correct values", {
-  expect_s3_class(scree$data, "tbl_df")
-  expect_equal(dim(scree$data), c(15L, 4L))
-  expect_named(scree,
-               c("data", "layers", "scales", "guides",
-                 "mapping", "theme", "coordinates",
-                 "facet", "plot_env", "layout", "labels"))
-  expect_named(scree$data, c("Component", "value", "y", "cum_perc"))
-  scree_data <- dplyr::select_if(scree$data, is.numeric) |> colSums()
+  expect_s3_class(scree, "ggplot")
+  expect_s3_class(scree@data, "tbl_df")
+  expect_equal(dim(scree@data), c(15L, 4L))
+  expect_named(scree@data, c("Component", "value", "y", "cum_perc"))
+  scree_data <- dplyr::select_if(scree@data, is.numeric) |> colSums()
   expect_equal(scree_data, c(Component = 120,
                              value     = 6.65450784823549e+06,
                              y         = 6.50392626461307e-01))
-  expect_equal(scree$data$cum_perc,
+  expect_equal(scree@data$cum_perc,
                c("7%", "14%", "20%", "25%", "30%", "34%", "38%", "42%",
                  "46%", "50%", "53%", "57%", "59%", "62%", "65%"))
 })
